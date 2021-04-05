@@ -1,0 +1,92 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "PortToVeth": [
+    {
+      "device_port": 0,
+      "veth1": 0,
+      "veth2": 1
+    },
+    {
+      "device_port": 1,
+      "veth1": 2,
+      "veth2": 3
+    },
+    {
+      "device_port": 2,
+      "veth1": 4,
+      "veth2": 5
+    },
+    {
+      "device_port": 3,
+      "veth1": 6,
+      "veth2": 7
+    },
+    {
+      "device_port": 4,
+      "veth1": 8,
+      "veth2": 9
+    },
+    {
+      "device_port": 5,
+      "veth1": 10,
+      "veth2": 11
+    },
+    {
+      "device_port": 6,
+      "veth1": 12,
+      "veth2": 13
+    },
+    {
+      "device_port": 7,
+      "veth1": 14,
+      "veth2": 15
+    },
+    {
+      "device_port": 8,
+      "veth1": 16,
+      "veth2": 17
+    },
+    {
+      "device_port": 9,
+      "veth1": 18,
+      "veth2": 19
+    },
+    {
+      "device_port": 128,
+      "veth1": 20,
+      "veth2": 21
+    },
+    {
+      "device_port": 129,
+      "veth1": 22,
+      "veth2": 23
+    },
+    {
+      "device_port": 256,
+      "veth1": 24,
+      "veth2": 25
+    },
+    {
+      "device_port": 257,
+      "veth1": 26,
+      "veth2": 27
+    },
+    {
+      "device_port": 384,
+      "veth1": 28,
+      "veth2": 29
+    },
+    {
+      "device_port": 385,
+      "veth1": 30,
+      "veth2": 31
+    },
+    {
+      "_comment": "Map ethernet CPU port 64 to veth250",
+      "device_port": 64,
+      "veth1": 250,
+      "veth2": 251
+    }
+  ]
+}

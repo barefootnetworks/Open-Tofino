@@ -1,0 +1,34 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "chip_list": [
+    {
+      "id": "asic-0",
+      "chip_family": "Tofino",
+      "instance": 0,
+      "pcie_sysfs_prefix": "/sys/devices/pci0000:00/0000:00:03.0/0000:05:00.0",
+      "pcie_domain": 0,
+      "pcie_bus": 5,
+      "pcie_fn": 0,
+      "pcie_dev": 0,
+      "pcie_int_mode": 1,
+      "sds_fw_path": "share/tofino_sds_fw/avago/firmware"
+    }
+  ],
+  "id": "@TOFINO_SINGLE_DEVICE@.csv",
+  "instance": 0,
+  "p4_program_list": [
+    {
+      "id": "pgm-0",
+      "instance": 0,
+      "path": "@TOFINO_SINGLE_DEVICE@",
+      "program-name": "@TOFINO_SINGLE_DEVICE@",
+      "pd": "",
+      "pd-thrift": "",
+      "table-config": "share/tofinopd/@TOFINO_SINGLE_DEVICE@/pipe/context.json",
+      "tofino-bin": "share/tofinopd/@TOFINO_SINGLE_DEVICE@/pipe/tofino.bin",
+      "bfrt-config": "share/tofinopd/@TOFINO_SINGLE_DEVICE@/bf-rt.json",
+      "agent0": "lib/libpltfm_mgr.so"
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "$mirror.cfg",
+      "id": 4278452225,
+      "table_type": "MirrorCfg",
+      "size": 1024,
+      "key": [
+        {
+          "id": 1,
+          "name": "$sid",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint16"
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "$coalescing",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 1,
+                "name": "$internal_header",
+                "repeated": false,
+                "annotations": [],
+                "type": {
+                  "type": "bytes",
+                  "width": 128
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "$internal_header_length",
+                "repeated": false,
+                "annotations": [],
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 3,
+                "name": "$timeout_usec",
+                "repeated": false,
+                "annotations": [],
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 4,
+                "name": "$extract_len",
+                "repeated": false,
+                "annotations": [],
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "$normal",
+          "data": []
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "$session_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "$direction",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "INGRESS",
+                "EGRESS",
+                "BOTH"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "$ucast_egress_port",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "$ucast_egress_port_valid",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
+            "name": "$egress_port_queue",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "$ingress_cos",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "$packet_color",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "GREEN",
+                "YELLOW",
+                "RED"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "$level1_mcast_hash",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "$level2_mcast_hash",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "$mcast_grp_a",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "$mcast_grp_a_valid",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 16,
+            "name": "$mcast_grp_b",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 17,
+            "name": "$mcast_grp_b_valid",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 18,
+            "name": "$mcast_l1_xid",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 19,
+            "name": "$mcast_l2_xid",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 20,
+            "name": "$mcast_rid",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 21,
+            "name": "$icos_for_copy_to_cpu",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 22,
+            "name": "$copy_to_cpu",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 23,
+            "name": "$max_pkt_len",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    }
+  ]
+}
