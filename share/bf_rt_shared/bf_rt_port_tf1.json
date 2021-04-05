@@ -1,0 +1,1941 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "$PORT",
+      "id": 4278255617,
+      "table_type": "PortConfigure",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "$DEV_PORT",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$SPEED",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_SPEED_NONE",
+                "BF_SPEED_1G",
+                "BF_SPEED_10G",
+                "BF_SPEED_25G",
+                "BF_SPEED_40G",
+                "BF_SPEED_40G_NB",
+                "BF_SPEED_40G_NON_BREAKABLE",
+                "BF_SPEED_50G",
+                "BF_SPEED_100G",
+                "BF_SPEED_200G",
+                "BF_SPEED_400G"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$FEC",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_FEC_TYP_NONE",
+                "BF_FEC_TYP_FIRECODE",
+                "BF_FEC_TYP_REED_SOLOMON",
+                "BF_FEC_TYP_FC",
+                "BF_FEC_TYP_RS"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$N_LANES",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 1
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "$PORT_ENABLE",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "$AUTO_NEGOTIATION",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "string",
+              "choices": [
+                "PM_AN_DEFAULT",
+                "PM_AN_FORCE_ENABLE",
+                "PM_AN_FORCE_DISABLE"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "$LOOPBACK_MODE",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_LPBK_NONE",
+                "BF_LPBK_MAC_NEAR",
+                "BF_LPBK_MAC_FAR",
+                "BF_LPBK_PCS_NEAR",
+                "BF_LPBK_SERDES_NEAR",
+                "BF_LPBK_SERDES_FAR"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "$TX_MTU",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 10240
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "$RX_MTU",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 10240
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
+            "name": "$TX_PFC_EN_MAP",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "$RX_PFC_EN_MAP",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "$TX_PAUSE_FRAME_EN",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "$RX_PAUSE_FRAME_EN",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "$CUT_THROUGH_EN",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "$PORT_DIR",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "PM_PORT_DIR_DEFAULT",
+                "PM_PORT_DIR_TX_ONLY",
+                "PM_PORT_DIR_RX_ONLY"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 15,
+            "name": "$MEDIA_TYPE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_MEDIA_TYPE_COPPER",
+                "BF_MEDIA_TYPE_OPTICAL",
+                "BF_MEDIA_TYPE_UNKNOWN"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 16,
+            "name": "$SDS_TX_ATTN",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 17,
+            "name": "$SDS_TX_PRE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 18,
+            "name": "$SDS_TX_PRE2",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 19,
+            "name": "$SDS_TX_POST",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 20,
+            "name": "$SDS_TX_POST2",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 21,
+            "name": "$IS_VALID",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 22,
+            "name": "$IS_INTERNAL",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 23,
+            "name": "$CONN_ID",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "port_hdl_conn_id"
+              },
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 24,
+            "name": "$CHNL_ID",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "port_hdl_chnl_id"
+              },
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 25,
+            "name": "$PORT_UP",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 26,
+            "name": "$PORT_NAME",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "port_name"
+              },
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [
+        "port_status_notif_cb"
+      ]
+    },
+    {
+      "name": "$PORT_STAT",
+      "id": 4278255618,
+      "table_type": "PortStat",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "$DEV_PORT",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$FramesReceivedOK",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$FramesReceivedAll",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$FramesReceivedwithFCSError",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "$FrameswithanyError",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "$OctetsReceivedinGoodFrames",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "$OctetsReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "$FramesReceivedwithUnicastAddresses",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "$FramesReceivedwithMulticastAddresses",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
+            "name": "$FramesReceivedwithBroadcastAddresses",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "$FramesReceivedoftypePAUSE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "$FramesReceivedwithLengthError",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "$FramesReceivedUndersized",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "$FramesReceivedOversized",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "$FragmentsReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "$JabberReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 16,
+            "name": "$PriorityPauseFrames",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 17,
+            "name": "$CRCErrorStomped",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 18,
+            "name": "$FrameTooLong",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 19,
+            "name": "$RxVLANFramesGood",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 20,
+            "name": "$FramesDroppedBufferFull",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 21,
+            "name": "$FramesReceivedLength_lt_64",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 22,
+            "name": "$FramesReceivedLength_eq_64",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 23,
+            "name": "$FramesReceivedLength_65_127",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 24,
+            "name": "$FramesReceivedLength_128_255",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 25,
+            "name": "$FramesReceivedLength_256_511",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 26,
+            "name": "$FramesReceivedLength_512_1023",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 27,
+            "name": "$FramesReceivedLength_1024_1518",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 28,
+            "name": "$FramesReceivedLength_1519_2047",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 29,
+            "name": "$FramesReceivedLength_2048_4095",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 30,
+            "name": "$FramesReceivedLength_4096_8191",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 31,
+            "name": "$FramesReceivedLength_8192_9215",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 32,
+            "name": "$FramesReceivedLength_9216",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 33,
+            "name": "$FramesTransmittedOK",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 34,
+            "name": "$FramesTransmittedAll",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 35,
+            "name": "$FramesTransmittedwithError",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_field_imp_level",
+                "value": "2"
+              }
+            ],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 36,
+            "name": "$OctetsTransmittedwithouterror",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 37,
+            "name": "$OctetsTransmittedTotal",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 38,
+            "name": "$FramesTransmittedUnicast",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 39,
+            "name": "$FramesTransmittedMulticast",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 40,
+            "name": "$FramesTransmittedBroadcast",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 41,
+            "name": "$FramesTransmittedPause",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 42,
+            "name": "$FramesTransmittedPriPause",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 43,
+            "name": "$FramesTransmittedVLAN",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 44,
+            "name": "$FramesTransmittedLength_lt_64",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 45,
+            "name": "$FramesTransmittedLength_eq_64",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 46,
+            "name": "$FramesTransmittedLength_65_127",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 47,
+            "name": "$FramesTransmittedLength_128_255",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 48,
+            "name": "$FramesTransmittedLength_256_511",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 49,
+            "name": "$FramesTransmittedLength_512_1023",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 50,
+            "name": "$FramesTransmittedLength_1024_1518",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 51,
+            "name": "$FramesTransmittedLength_1519_2047",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 52,
+            "name": "$FramesTransmittedLength_2048_4095",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 53,
+            "name": "$FramesTransmittedLength_4096_8191",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 54,
+            "name": "$FramesTransmittedLength_8192_9215",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 55,
+            "name": "$FramesTransmittedLength_9216",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 56,
+            "name": "$Pri0FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 57,
+            "name": "$Pri1FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 58,
+            "name": "$Pri2FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 59,
+            "name": "$Pri3FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 60,
+            "name": "$Pri4FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 61,
+            "name": "$Pri5FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 62,
+            "name": "$Pri6FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 63,
+            "name": "$Pri7FramesTransmitted",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 64,
+            "name": "$Pri0FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 65,
+            "name": "$Pri1FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 66,
+            "name": "$Pri2FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 67,
+            "name": "$Pri3FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 68,
+            "name": "$Pri4FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 69,
+            "name": "$Pri5FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 70,
+            "name": "$Pri6FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 71,
+            "name": "$Pri7FramesReceived",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 72,
+            "name": "$TransmitPri0Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 73,
+            "name": "$TransmitPri1Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 74,
+            "name": "$TransmitPri2Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 75,
+            "name": "$TransmitPri3Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 76,
+            "name": "$TransmitPri4Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 77,
+            "name": "$TransmitPri5Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 78,
+            "name": "$TransmitPri6Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 79,
+            "name": "$TransmitPri7Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 80,
+            "name": "$ReceivePri0Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 81,
+            "name": "$ReceivePri1Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 82,
+            "name": "$ReceivePri2Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 83,
+            "name": "$ReceivePri3Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 84,
+            "name": "$ReceivePri4Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 85,
+            "name": "$ReceivePri5Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 86,
+            "name": "$ReceivePri6Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 87,
+            "name": "$ReceivePri7Pause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 88,
+            "name": "$ReceiveStandardPause1USCount",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 89,
+            "name": "$FramesTruncated",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [
+        "poll_intvl_ms"
+      ]
+    },
+    {
+      "name": "$PORT_HDL_INFO",
+      "id": 4278255619,
+      "table_type": "PortHdlInfo",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "$CONN_ID",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "port_hdl_conn_id"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32",
+            "default_value": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "$CHNL_ID",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "port_hdl_chnl_id"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32",
+            "default_value": 0
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "$DEV_PORT",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$PORT_FP_IDX_INFO",
+      "id": 4278255620,
+      "table_type": "PortFpIdxInfo",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "$FP_IDX",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "fp_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32",
+            "default_value": 0
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "$DEV_PORT",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$PORT_STR_INFO",
+      "id": 4278255621,
+      "table_type": "PortStrInfo",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "$PORT_NAME",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "port_name"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "$DEV_PORT",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    }
+  ]
+}

@@ -1,0 +1,1538 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "tf1.tm.ppg",
+      "description": "This table is used to configure various settings for a PFC Priority Group attached to a port",
+      "id": 4278517761,
+      "table_type": "TmPpg",
+      "size": 804,
+      "key": [
+        {
+          "id": 1,
+          "name": "$dev_port",
+          "description": "The device port ID (a 9-bit value, for example 189) used to refer to a traffic port on a Tofino based system. The dev-port is the port designation used in the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        },
+        {
+          "id": 2,
+          "name": "$ppg_id",
+          "description": "PFC Priority Group ID. Each ingressing packet can be mapped to a PFC Priority Group (PPG). The PPG will fall into one of two types: Default PPG or PPG in Tofino. An application maps traffic ingressing via a specified port to a PPG to provide the desired quality-of-service (QoS) characteristics to that traffic, such as lossless or real-time handling. ",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$icos_bitmap",
+            "description": "A bitmap of ingress class of service, the packet priority class designation used to support PFC.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$lossless_enable",
+            "description": "Enable/Disable lossless treatment for a PPG. The Default property of PPG is to treat traffic as lossy. Lossless traffic should not be dropped in TM except in worst-case scenarios when the upstream device is not honoring port pause or priority flow control, or when skid buffer space has been configured incorrectly.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$gmin_limit_cells",
+            "description": "Guaranteed minimum limit for a PPG in terms of number of cells. For example, An allocation of 200 cells provides 200 x 80 bytes of buffering. This ensures at least 200 cells of buffer is available, regardless of buffer usage by other PPGs in the system. By default, the TM buffer is equally assigned to all the default PPGs and set to 0 for non-default PPGs.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "$skid_limit_cells",
+            "description": "PPG skid limit in terms of number of cells. The default value is 0. This buffer space is used when the PPGs configured ingress buffer limit has been used up. When traffic flow is directed to the skid buffer space, a PFC or Pause message is sent immediately to the upstream device.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "$app_pool_limit_cells",
+            "description": "Application pool limit cells for a PPG. By default, a PPG is not assigned to any application pool.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "$ppg_hysteresis_cells",
+            "description": "Hysteresis limit in terms of number of cells for a PPG. The default value is 0.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "$app_pool_id",
+            "description": "Application pool identifier. Used to assign an application pool to a PPG.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_TM_IG_APP_POOL_0",
+                "BF_TM_IG_APP_POOL_1",
+                "BF_TM_IG_APP_POOL_2",
+                "BF_TM_IG_APP_POOL_3"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "$app_pool_usage_enable",
+            "description": "Enable/Disable application pool usage for a PPG.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
+            "name": "$dynamic_baf",
+            "description": "Dynamic Burst Absorption Factor value for a PPG. Used to decide how much of the available memory can be used for a PPG.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_TM_PPG_BAF_1_POINT_5_PERCENT",
+                "BF_TM_PPG_BAF_3_PERCENT",
+                "BF_TM_PPG_BAF_6_PERCENT",
+                "BF_TM_PPG_BAF_11_PERCENT",
+                "BF_TM_PPG_BAF_20_PERCENT",
+                "BF_TM_PPG_BAF_33_PERCENT",
+                "BF_TM_PPG_BAF_50_PERCENT",
+                "BF_TM_PPG_BAF_66_PERCENT",
+                "BF_TM_PPG_BAF_80_PERCENT",
+                "BF_TM_PPG_BAF_DISABLE"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryAdd",
+          "description": "This API programs a PPG for a port specified in the key field with the corresponding values specified in the data fields."
+        },
+        {
+          "name": "tableEntryMod",
+          "description": "This API modifies an exisiting entry identified by a PPG for a port specified in the key field with the corresponding values specified in the data fields."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "This API retrieves an entry identified by a PPG for a port specified in the key field and populates all the corresponding data fields."
+        },
+        {
+          "name": "tableEntryDel",
+          "description": "This API resets all the data fields for the entry identified by the PPG and port specified in the key field."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryGetFirst",
+        "tableEntryGetNext_n",
+        "tableUsageGet",
+        "tableClear",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.pool.cfg",
+      "description": "This table is used to configure various properties for pools.",
+      "id": 4278517762,
+      "table_type": "TmPoolCfg",
+      "size": 14,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3",
+              "IG_SKID_POOL",
+              "IG_EG_NEGATIVE_MIRROR_POOL",
+              "EG_PRE_FIFO",
+              "IG_EG_GUARANTEED_MIN",
+              "EG_UNICAST_CUT_THROUGH",
+              "EG_MULTICAST_CUT_THROUGH"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "size_cells",
+            "description": "Used to specify the number of cells that need to be allocated for a particular pool.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryMod",
+          "description": "This API is used to modify the size of the pool identified by the key field in terms of number of cells."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "This API is used to fetch the current size of the pool identified by the key field in terms of number of cells."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "This API is used to fetch the name and the current size (in terms of number of cells) of the very first pool from the list of pools specified in the key field."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "This API is used to fetch the names and the current sizes (in terms of number of cells) of the next n pools starting from the pool provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field above can have."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableClear",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.pool.skid",
+      "description": "This table is used to configure various properties for the skid pool.",
+      "id": 4278517763,
+      "table_type": "TmPoolSkid",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "resume_limit_cells",
+            "description": "Used to specify the number of cells that will need to be freed up in order to resume the link pause or PFC.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableDefaultEntrySet",
+          "description": "This API is used to modify the current resume limit of the skid pool."
+        },
+        {
+          "name": "tableDefaultEntryReset",
+          "description": "This API is used to reset the current resume limit of the skid pool to the initial value (0)."
+        },
+        {
+          "name": "tableDefaultEntryGet",
+          "description": "This API is used to fetch the current resume limit of the skid pool."
+        },
+        {
+          "name": "tableClear",
+          "description": "This API is used to reset the current resume limit of the skid pool to the initial value (0)."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryMod",
+        "tableEntryGet",
+        "tableEntryGetFirst",
+        "tableEntryGetNext_n",
+        "tableUsageGet",
+        "tableEntryDel",
+        "tableEntryModInc"
+      ]
+    },
+    {
+      "name": "tf1.tm.pool.app",
+      "description": "This table is used to configure various properties for application pools.",
+      "id": 4278517764,
+      "table_type": "TmPoolApp",
+      "size": 8,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The application pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3"
+            ]
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "color_drop_disable",
+          "data": []
+        },
+        {
+          "id": 2,
+          "name": "color_drop_enable",
+          "data": [
+            {
+              "id": 1,
+              "name": "green_limit_cells",
+              "repeated": false,
+              "mandatory": true,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            },
+            {
+              "id": 2,
+              "name": "yellow_limit_cells",
+              "repeated": false,
+              "mandatory": true,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            },
+            {
+              "id": 3,
+              "name": "red_limit_cells",
+              "repeated": false,
+              "mandatory": true,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        }
+      ],
+      "data": [],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryMod",
+          "description": "This API is used to modify the various properties (described by the data fields above) of the application pool identified by the key field."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "This API is used to fetch the current values of the properties (described by the data fields above) of the application pool identified by the key field."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "This API is used to fetch the name and the current values of the properties (described by the data fields above) of the very first application pool from the list of application pools specified in the key field."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "This API is used to fetch the names and the current values of the properties (described by the data fields above) of the next n application pools starting from the application pool provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field above can have."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableClear",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.pool.color",
+      "description": "This table is used to configure various properties for colors for all the application pools.",
+      "id": 4278517765,
+      "table_type": "TmPoolColor",
+      "size": 3,
+      "key": [
+        {
+          "id": 1,
+          "name": "color",
+          "description": "The color identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "GREEN",
+              "YELLOW",
+              "RED"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "color_drop_resume_limit_cells",
+            "description": "Used to specify the number of cells for the resume limit. The resume condition is triggered when the pool usage for all the application pools drops by this value from the limit value which was originally set for the color drop.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryMod",
+          "description": "This API is used to modify the table entry identified by the key field in terms of number of cells."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "This API is used to fetch the table entry identified by the key field in terms of number of cells."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "This API is used to fetch the table entry for the very first color from the list of colors specified in the key field."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "This API is used to fetch the table entries for next n colors starting from the color provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field (number of colors) above can have."
+        },
+        {
+          "name": "tableClear",
+          "description": "This API is used to reset the data fields for the table entries for all the colors to their default values."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.pool.app_pfc",
+      "description": "This table is used to configure various properties for the given application pool for the given COS (Class of Service) which used to implement PFC (Priority Flow Control).",
+      "id": 4278517766,
+      "table_type": "TmPoolAppPfc",
+      "size": 32,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The application pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3"
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "cos",
+          "description": "Class of Service value (ranges between 0-7).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "bytes",
+            "width": 3
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "pfc_limit_cells",
+            "description": "Used to specify the PFC limit in terms of number of cells for an application pool. When the PPG usage hits this limit, PFC is triggered.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryMod",
+          "description": "This API is used to modify the data fields for the table entry identified by the key field."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "This API is used to fetch the first table entry identified by the first pool value from the key above and cos value 0."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        {
+          "name": "tableClear",
+          "description": "This API is used to reset the data fields for all the table entries to their default values."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.port.group_cfg",
+      "description": "TM Port Group general config parameters.",
+      "id": 4278517777,
+      "table_type": "TmPortGroupCfg",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "ingress_qid_max",
+            "description": "Maximum ingress Logical Queue IDs allowed for mapping to physical queues on the ports of a port group; The same R/O value is at tm.queue.ingress_qid_max",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "pg_queues",
+            "description": "Maximum physical queues available for a port group.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableDefaultEntryGet",
+          "description": "Returns HW default settings for the data fields."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "Retrieves the only entry available without a key populating the corresponding data fields."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "Fetches data fields of the very first and the only entry in the table."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "Returns the table size constant value."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryGetNext_n",
+        "tableEntryMod",
+        "tableClear",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset"
+      ]
+    },
+    {
+      "name": "tf1.tm.port.group",
+      "description": "TM Port Group parameters.",
+      "id": 4278517778,
+      "table_type": "TmPortGroup",
+      "size": 72,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino is 0..17 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "pg_dev_ports",
+            "description": "The device Ports in this Port Group. The device port ID (a 9-bit value) refers to a physical port on a Tofino based system; it is used in the Tofino fixed-function API calls and in P4 programming.",
+            "repeated": true,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "map",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items are in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 3,
+                "name": "ingress_qid_map_0",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 0 which port ID is in pg_dev_ports[0]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[0].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 4,
+                "name": "egress_qid_queues_0",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 0. The appropriate port ID is in the pg_dev_ports[0]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 5,
+                "name": "ingress_qid_map_1",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 1 which port ID is in pg_dev_ports[1]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[1].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 6,
+                "name": "egress_qid_queues_1",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 1. The appropriate port ID is in the pg_dev_ports[1]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 7,
+                "name": "ingress_qid_map_2",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 2 which port ID is in pg_dev_ports[2]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[2].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 8,
+                "name": "egress_qid_queues_2",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 2. The appropriate port ID is in the pg_dev_ports[2]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 9,
+                "name": "ingress_qid_map_3",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 3 which port ID is in pg_dev_ports[3]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[3].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 10,
+                "name": "egress_qid_queues_3",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 3. The appropriate port ID is in the pg_dev_ports[3]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 2,
+          "name": "seq",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items will be in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 3,
+          "name": "even",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items will be in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 4,
+          "name": "crop",
+          "data": [
+            {
+              "mandatory": true,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items will be in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableDefaultEntryGet",
+          "description": "Returns HW default settings for the data fields as 'map' action."
+        },
+        {
+          "name": "tableEntryGet",
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "Fetches data fields of the very first entry in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields. With PIPE_ALL it fetches n entries with the same key from all pipes."
+        },
+        {
+          "name": "tableEntryMod",
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        {
+          "name": "tableClear",
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "Returns the table size constant value."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset"
+      ]
+    },
+    {
+      "name": "tf1.tm.queue.cfg",
+      "description": "Egress Port Queue general config parameters.",
+      "id": 4278517793,
+      "table_type": "TmQueueCfg",
+      "size": 2304,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino is 0..17 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino is 0..31).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "mirror_drop_destination",
+            "description": "Indicates if the Queue is assigned for egressing out negative mirror traffic on its port pipe (one such queue per pipe).",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "pfc_cos",
+            "description": "Non-zero CoS value set when the egress queue needs to honor received PFC from downstream. The queue will not participate in scheduling until PFC gets cleared. By default, all queues use mapping CoS zero.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryGet",
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "Fetches data fields of the very first entry in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields. With PIPE_ALL it fetches n entries with the same key from all pipes."
+        },
+        {
+          "name": "tableEntryMod",
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        {
+          "name": "tableClear",
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "Returns the table size constant value."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.queue.map",
+      "description": "Egress Port Queue mappings.",
+      "id": 4278517794,
+      "table_type": "TmQueueMap",
+      "size": 2304,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino is 0..17 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino is 0..31).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "dev_port",
+            "description": "The device port ID (a 9-bit value) which currently uses this physical queue.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "queue_nr",
+            "description": "The device port queue number which is currently mapped to this physical queue.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "ingress_qid_max",
+            "description": "Maximum ingress Logical Queue IDs mappings allowed to this physical queue.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "ingress_qid_count",
+            "description": "How many ingress Logical Queue IDs are mapped to this queue. Equals to number of items in the ingress_qid_list. Indirectly changed by tm.port_group.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "ingress_qid_list",
+            "description": "Ingress Logical Queue IDs mapped to this queue. Represents inverse map to what tm.port_group provides. Indirectly changed by tm.port_group.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryGet",
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "Fetches data fields of the very first entry in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields. With PIPE_ALL it fetches n entries with the same key from all pipes."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "Returns the table size constant value."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryMod",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet",
+        "tableClear"
+      ]
+    },
+    {
+      "name": "tf1.tm.queue.color",
+      "description": "Egress Port Queue color limits.",
+      "id": 4278517795,
+      "table_type": "TmQueueColor",
+      "size": 2304,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino is 0..17 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino is 0..31).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_enable",
+            "description": "The Queue color drop mode. Based on packet color, when a queue color threshold limit is reached, packets are dropped. By default it is False and color tail drop is disabled.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "drop_limit_yellow",
+            "description": "Yellow color drop limit. Should be larger than the red color drop limit.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "12.5%",
+                "25%",
+                "37.5%",
+                "50%",
+                "62.5%",
+                "75%",
+                "87.5%",
+                "100%"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "drop_limit_red",
+            "description": "Red color drop limit. Should be smaller than the yellow color drop limit.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "12.5%",
+                "25%",
+                "37.5%",
+                "50%",
+                "62.5%",
+                "75%",
+                "87.5%",
+                "100%"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "hysteresis_yellow",
+            "description": "Yellow color drop hysteresis the queue usage should reduce before drop condition is cleared.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "12.5%",
+                "25%",
+                "37.5%",
+                "50%",
+                "62.5%",
+                "75%",
+                "87.5%",
+                "100%"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "hysteresis_red",
+            "description": "Red color drop hysteresis the queue usage should reduce before drop condition is cleared.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "12.5%",
+                "25%",
+                "37.5%",
+                "50%",
+                "62.5%",
+                "75%",
+                "87.5%",
+                "100%"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryGet",
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "Fetches data fields of the very first entry in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields. With PIPE_ALL it fetches n entries with the same key from all pipes."
+        },
+        {
+          "name": "tableEntryMod",
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        {
+          "name": "tableClear",
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "Returns the table size constant value."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    },
+    {
+      "name": "tf1.tm.queue.buffer",
+      "description": "Egress Port Queue buffer and shared pool assignments.",
+      "id": 4278517796,
+      "table_type": "TmQueueBuffer",
+      "size": 2304,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino is 0..17 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino is 0..31).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "guaranteed_cells",
+            "description": "The guaranteed minimum buffer size allocated to the queue in terms of number of cells not included into a shared pool. By default, the TM buffer capacity is equally distributed among all the queues that are active. If zero, then the pool_max_cells from the shared pool should be assigned.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "hysteresis_cells",
+            "description": "Hysteresis limit in number of cells the queue usage should reduce before drop condition is cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "tail_drop_enable",
+            "description": "The queue tail drop mode. By default, the packet drops are enabled when queue threshold limits are reached. Setting this to False will not drop packets on the egress side even if the threshold limits are reached, which will lead to ingress drops eventually.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "shared_pool",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 4,
+                "name": "pool_id",
+                "description": "Egress Application pool to be used for the port queue.",
+                "repeated": false,
+                "type": {
+                  "type": "string",
+                  "choices": [
+                    "EG_APP_POOL_0",
+                    "EG_APP_POOL_1",
+                    "EG_APP_POOL_2",
+                    "EG_APP_POOL_3"
+                  ]
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 5,
+                "name": "pool_max_cells",
+                "description": "Limit, in terms of cells, to which the queue buffer can grow inside the application pool. Once this limit is crossed, and if the queue burst absorption factor (BAF) is non zero, then depending on availability of buffers the queue is allowed to use up to BAF limit of the buffer memory currently available. The queue does not use shared pool if the pool_max_cells is set to zero, the same way as the action 'buffer_only' does, and in this case the guaranteed_cells should be non-zero.",
+                "repeated": false,
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 6,
+                "name": "dynamic_baf",
+                "description": "Dynamic Burst Absorption Factor value ID assigned for the queue. Used to decide how much of the available buffer memory can be used for the queue. If BAF limit is NONE, the queue is treated as static and no dynamic buffering is possible over the pool_max_cells.",
+                "repeated": false,
+                "type": {
+                  "type": "string",
+                  "choices": [
+                    "1.5%",
+                    "3%",
+                    "6%",
+                    "11%",
+                    "20%",
+                    "33%",
+                    "50%",
+                    "66%",
+                    "80%",
+                    "DISABLE"
+                  ]
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 2,
+          "name": "buffer_only",
+          "data": [],
+          "annotations": []
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": [
+        {
+          "name": "tableEntryGet",
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields."
+        },
+        {
+          "name": "tableEntryGetFirst",
+          "description": "Fetches data fields of the very first entry in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableEntryGetNext_n",
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields. With PIPE_ALL it fetches n entries with the same key from all pipes."
+        },
+        {
+          "name": "tableEntryMod",
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        {
+          "name": "tableClear",
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL."
+        },
+        {
+          "name": "tableUsageGet",
+          "description": "Returns the table size constant value."
+        }
+      ],
+      "unsupported_apis": [
+        "tableEntryAdd",
+        "tableEntryDel",
+        "tableEntryModInc",
+        "tableDefaultEntrySet",
+        "tableDefaultEntryReset",
+        "tableDefaultEntryGet"
+      ]
+    }
+  ]
+}

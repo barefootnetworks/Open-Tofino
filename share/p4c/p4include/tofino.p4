@@ -1,10 +1,23 @@
-/*
+/* -*- P4_16 -*- */
+
+/**
  * Copyright (c) Intel Corporation
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef TOFINO_P4_
 #define TOFINO_P4_
+
+/**
+ Version Notes:
+
+ 1.0.1:
+ - Initial release
+ 1.0.2:
+ - Rename PARSER_ERROR_NO_TCAM to PARSER_ERROR_NO_MATCH
+
+*/
 
 #include<core.p4>
 
@@ -16,6 +29,8 @@ typedef bit<16> MulticastGroupId_t;     // Multicast group id
 typedef bit<5>  QueueId_t;              // Queue id
 typedef bit<3>  MirrorType_t;           // Mirror type
 typedef bit<10> MirrorId_t;             // Mirror id
+typedef bit<3>  ResubmitType_t;         // Resubmit type
+typedef bit<3>  DigestType_t;           // Digest type
 typedef bit<16> ReplicationId_t;        // Replication id
 
 typedef error ParserError_t;
@@ -23,7 +38,7 @@ typedef error ParserError_t;
 const bit<32> PORT_METADATA_SIZE = 32w64;
 
 const bit<16> PARSER_ERROR_OK           = 16w0x0000;
-const bit<16> PARSER_ERROR_NO_TCAM      = 16w0x0001;
+const bit<16> PARSER_ERROR_NO_MATCH     = 16w0x0001;
 const bit<16> PARSER_ERROR_PARTIAL_HDR  = 16w0x0002;
 const bit<16> PARSER_ERROR_CTR_RANGE    = 16w0x0004;
 const bit<16> PARSER_ERROR_TIMEOUT_USER = 16w0x0008;
@@ -97,7 +112,7 @@ header ingress_intrinsic_metadata_t {
 
     @padding bit<3> _pad2;
 
-    PortId_t ingress_port;              // Ingress physical port id.
+    PortId_t ingress_port;                // Ingress physical port id.
 
     bit<48> ingress_mac_tstamp;         // Ingress IEEE 1588 timestamp (in nsec)
                                         // taken at the ingress MAC.
@@ -105,7 +120,7 @@ header ingress_intrinsic_metadata_t {
 
 @__intrinsic_metadata
 struct ingress_intrinsic_metadata_for_tm_t {
-    PortId_t ucast_egress_port;         // Egress port for unicast packets. must
+    PortId_t ucast_egress_port;           // Egress port for unicast packets. must
                                         // be presented to TM for unicast.
 
     bit<1> bypass_egress;               // Request flag for the warp mode
@@ -188,9 +203,9 @@ struct ingress_intrinsic_metadata_for_deparser_t {
                                         //      multicast, and resubmit
                                         //    - bit 1 disables copy-to-cpu
                                         //    - bit 2 disables mirroring
-    bit<3> digest_type;
+    DigestType_t digest_type;
 
-    bit<3> resubmit_type;
+    ResubmitType_t resubmit_type;
 
     MirrorType_t mirror_type;           // The user-selected mirror field list
                                         // index.
@@ -203,7 +218,7 @@ struct ingress_intrinsic_metadata_for_deparser_t {
 header egress_intrinsic_metadata_t {
     @padding bit<7> _pad0;
 
-    PortId_t egress_port;               // Egress port id.
+    PortId_t egress_port;                 // Egress port id.
                                         // this field is passed to the deparser
 
     @padding bit<5> _pad1;
@@ -342,7 +357,7 @@ header pktgen_port_down_header_t {
     bit<2> pipe_id;                     // Pipe id
     bit<3> app_id;                      // Application id
     @padding bit<15> _pad2;
-    PortId_t port_num;                  // Port number
+    PortId_t port_num;                    // Port number
 
     bit<16> packet_id;                  // Start at 0 and increment to a
                                         // programmed number
@@ -745,7 +760,11 @@ extern SelectorAction {
 // mirror header.
 extern Mirror {
     /// Constructor
+    @deprecated("Mirror must be specified with the value of the mirror_type instrinsic metadata")
     Mirror();
+
+    /// Constructor
+    Mirror(MirrorType_t mirror_type);
 
     /// Mirror the packet.
     void emit(in MirrorId_t session_id);
@@ -761,7 +780,11 @@ extern Mirror {
 // ingress buffer, where the packet is enqueued again.
 extern Resubmit {
     /// Constructor
+    @deprecated("Resubmit must be specified with the value of the resubmit_type instrinsic metadata")
     Resubmit();
+
+    /// Constructor
+    Resubmit(ResubmitType_t resubmit_type);
 
     /// Resubmit the packet.
     void emit();
@@ -773,7 +796,11 @@ extern Resubmit {
 
 extern Digest<T> {
     /// define a digest stream to the control plane
+    @deprecated("Digest must be specified with the value of the digest_type instrinsic metadata")
     Digest();
+
+    /// constructor.
+    Digest(DigestType_t digest_type);
 
     /// Emit data into the stream.  The p4 program can instantiate multiple
     /// Digest instances in the same deparser control block, and call the pack
@@ -796,7 +823,8 @@ extern Atcam {
 // instance of the extern to the 'implementation' attribute of the table.
 extern Alpm {
     /// define the parameters for ALPM table.
-    Alpm(@optional bit<32> number_partitions, @optional bit<32> subtrees_per_partition);
+    Alpm(@optional bit<32> number_partitions, @optional bit<32> subtrees_per_partition,
+         @optional bit<32> atcam_subset_width, @optional bit<32> shift_granularity);
 }
 
 #endif  /* _TOFINO_P4_ */

@@ -1,0 +1,47 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "chip_list": [
+    {
+      "id": "asic-0",
+      "chip_family": "Tofino",
+      "instance": 0,
+      "pcie_sysfs_prefix": "/sys/devices/pci0000:00/0000:00:03.0/0000:05:00.0",
+      "pcie_domain": 0,
+      "pcie_bus": 9,
+      "pcie_fn": 0,
+      "pcie_dev": 0,
+      "pcie_int_mode": 1,
+      "sds_fw_path": "share/tofino_sds_fw/avago/firmware"
+    },
+    {
+      "id": "asic-1",
+      "chip_family": "Tofino",
+      "instance": 1,
+      "virtual": 1
+    }
+  ],
+  "instance": 0,
+  "p4_program_list": [
+    {
+      "id": "pgm-0",
+      "instance": 0,
+      "path": "iterator",
+      "program-name": "iterator",
+      "pd": "lib/tofinopd/iterator/libpd.so",
+      "pd-thrift": "lib/tofinopd/iterator/libpdthrift.so",
+      "table-config": "share/tofinopd/iterator/context.json",
+      "tofino-bin": "share/tofinopd/iterator/tofino.bin",
+      "agent0": "lib/libpltfm_mgr.so"
+    },
+    {
+      "id": "pgm-0",
+      "instance": 1,
+      "path": "iterator",
+      "program-name": "iterator",
+      "pd": "lib/tofinopd/iterator/libpd.so",
+      "pd-thrift": "lib/tofinopd/iterator/libpdthrift.so",
+      "table-config": "share/tofinopd/iterator/context.json"
+    }
+  ]
+}

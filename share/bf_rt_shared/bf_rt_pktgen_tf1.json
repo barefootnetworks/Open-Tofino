@@ -1,0 +1,409 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "$PKTGEN_PORT_CFG",
+      "id": 4278386689,
+      "table_type": "PktgenPortCfg",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "recirculation_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "pktgen_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "pattern_matching_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "clear_port_down_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$PKTGEN_APPLICATION_CFG",
+      "id": 4278386690,
+      "table_type": "PktgenAppCfg",
+      "size": 8,
+      "key": [
+        {
+          "id": 1,
+          "name": "app_id",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "$PKTGEN_TRIGGER_TIMER_ONE_SHOT",
+          "data": [
+            {
+              "id": 1,
+              "name": "timer_nanosec",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "$PKTGEN_TRIGGER_TIMER_PERIODIC",
+          "data": [
+            {
+              "id": 1,
+              "name": "timer_nanosec",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "$PKTGEN_TRIGGER_PORT_DOWN",
+          "data": []
+        },
+        {
+          "id": 4,
+          "name": "$PKTGEN_TRIGGER_RECIRC_PATTERN",
+          "data": [
+            {
+              "id": 4,
+              "name": "pattern_value",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            },
+            {
+              "id": 5,
+              "name": "pattern_mask",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "app_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "pkt_len",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "pkt_buffer_offset",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "pipe_local_source_port",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 16,
+            "name": "increment_source_port",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 17,
+            "name": "batch_count_cfg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 18,
+            "name": "packets_per_batch_cfg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 19,
+            "name": "ibg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 20,
+            "name": "ibg_jitter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 21,
+            "name": "ipg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 22,
+            "name": "ipg_jitter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 23,
+            "name": "batch_counter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 24,
+            "name": "pkt_counter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 25,
+            "name": "trigger_counter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$PKTGEN_PKT_BUFFER",
+      "id": 4278386691,
+      "table_type": "PktgenPktBufferCfg",
+      "size": 1024,
+      "key": [
+        {
+          "id": 1,
+          "name": "pkt_buffer_offset",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pkt_buffer_size",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "buffer",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 8
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    }
+  ]
+}

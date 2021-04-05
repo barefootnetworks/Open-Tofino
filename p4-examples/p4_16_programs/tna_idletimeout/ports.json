@@ -1,0 +1,46 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "PortToVeth": [
+    {
+      "device_port": 8,
+      "veth1": 0,
+      "veth2": 1
+    },
+    {
+      "device_port": 9,
+      "veth1": 2,
+      "veth2": 3
+    },
+    {
+      "device_port": 136,
+      "veth1": 4,
+      "veth2": 5
+    },
+    {
+      "device_port": 137,
+      "veth1": 6,
+      "veth2": 7
+    },
+    {
+      "device_port": 264,
+      "veth1": 8,
+      "veth2": 9
+    },
+    {
+      "device_port": 265,
+      "veth1": 10,
+      "veth2": 11
+    },
+    {
+      "device_port": 392,
+      "veth1": 12,
+      "veth2": 13
+    },
+    {
+      "device_port": 393,
+      "veth1": 14,
+      "veth2": 15
+    }
+  ]
+}

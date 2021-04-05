@@ -1,0 +1,401 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "$pre.mgid",
+      "id": 4278321153,
+      "table_type": "PreMgid",
+      "size": 65536,
+      "key": [
+        {
+          "id": 1,
+          "name": "$MGID",
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint16"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$MULTICAST_NODE_ID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$MULTICAST_NODE_L1_XID_VALID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$MULTICAST_NODE_L1_XID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "$MULTICAST_ECMP_ID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "$MULTICAST_ECMP_L1_XID_VALID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "$MULTICAST_ECMP_L1_XID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [
+        "pre_device_config"
+      ]
+    },
+    {
+      "name": "$pre.node",
+      "id": 4278321154,
+      "table_type": "PreNode",
+      "size": 16777216,
+      "key": [
+        {
+          "id": 1,
+          "name": "$MULTICAST_NODE_ID",
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$MULTICAST_RID",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$MULTICAST_LAG_ID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$DEV_PORT",
+            "repeated": true,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$pre.ecmp",
+      "id": 4278321155,
+      "table_type": "PreEcmp",
+      "size": 16777216,
+      "key": [
+        {
+          "id": 1,
+          "name": "$MULTICAST_ECMP_ID",
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$MULTICAST_NODE_ID",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$pre.lag",
+      "id": 4278321156,
+      "table_type": "PreLag",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "$MULTICAST_LAG_ID",
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$DEV_PORT",
+            "repeated": true,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$MULTICAST_LAG_REMOTE_MSB_COUNT",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$MULTICAST_LAG_REMOTE_LSB_COUNT",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$pre.prune",
+      "id": 4278321157,
+      "table_type": "PrePrune",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "$MULTICAST_L2_XID",
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint16"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$DEV_PORT",
+            "repeated": true,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    },
+    {
+      "name": "$pre.port",
+      "id": 4278321158,
+      "table_type": "PrePort",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "$DEV_PORT",
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "$MULTICAST_BACKUP_PORT",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "$MULTICAST_FORWARD_STATE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "$MULTICAST_CLEAR_FAST_FAILOVER",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "$COPY_TO_CPU_PORT_ENABLE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": []
+    }
+  ]
+}
