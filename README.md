@@ -45,6 +45,8 @@ FAQs
   <li><a href=https://github.com/cornell-netlab/MicroP4>MicroP4</a>: Modularized data-plane programming</li>
   <li><a href=https://github.com/netx-repo/NetLock>NetLock</a>: Using P4 switch for lock management</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/ONTAS>ONTAS</a>: Traffic anonymization on BMV2 / Tofino</li>
+   <li><a href=https://github.com/ralfkundel/p4-codel>P4-CoDel</a>: Implementation of CoDel AQM for BMV2 and Tofino</li>
+  <li><a href=https://github.com/ralfkundel/p4sta>P4STA</a>: Load generation and timestamping framework for Tofino/Netronome/BMV2</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/PRECISION-tofino>PRECISION-tofino</a>: The PRECISION heavy-hitter algorithm on Tofino switch</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/RTT-tofino>RTT-tofino</a>: TCP Round-Trip Time measurement on Tofino switch</li>
 </ul>
