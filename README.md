@@ -48,6 +48,7 @@ FAQs
    <li><a href=https://github.com/ralfkundel/p4-codel>P4-CoDel</a>: Implementation of CoDel AQM for BMV2 and Tofino</li>
   <li><a href=https://github.com/SIDN/p4-scion>P4-SCION</a>: Implementation of the SCION protocol for Tofino</li>
   <li><a href=https://github.com/ralfkundel/p4sta>P4STA</a>: Load generation and timestamping framework for Tofino/Netronome/BMV2</li>
+  <li><a href=https://github.com/ProbabilisticINT/Tofino-PINT>PINT-tofino</a>: The PINT telemetry collection algorithm implementation for Tofino switches</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/PRECISION-tofino>PRECISION-tofino</a>: The PRECISION heavy-hitter algorithm on Tofino switch</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/RTT-tofino>RTT-tofino</a>: TCP Round-Trip Time measurement on Tofino switch</li>
   <li><a href=https://github.com/p4lang/p4app-switchML>SwitchML</a>: Training acceleration for Machine Learning using Tofino</li>
