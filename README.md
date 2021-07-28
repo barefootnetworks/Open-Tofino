@@ -41,6 +41,7 @@ FAQs
   <li><a href=https://github.com/cheetahlb/cheetah-tcp-timestamp-tofino>Cheetah LB</a>: A high-speed load balancer with per-connection-consistency</li>
   <li><a href=https://github.com/chipmunk-project/chipmunk-tofino>Chipmunk</a>: Use program synthesis to generate P4 code</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/ConQuest-tofino>ConQuest-tofino</a>: ConQuest queue analysis on Tofino switch</li>
+  <li><a href=https://github.com/praveingk/DPTP>DPTP</a>: Data-Plane Time Synchronization Protocol on Tofino</li>
   <li><a href=https://github.com/eniac/Mantis>Mantis</a>: Generates reactive P4 program and C++ agent</li>
   <li><a href=https://github.com/cornell-netlab/MicroP4>MicroP4</a>: Modularized data-plane programming</li>
   <li><a href=https://github.com/netx-repo/NetLock>NetLock</a>: Using P4 switch for lock management</li>
