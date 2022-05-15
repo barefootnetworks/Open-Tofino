@@ -85,7 +85,23 @@ typedef enum {
   BF_LPBK_SERDES_NEAR,
   BF_LPBK_SERDES_FAR,
   BF_LPBK_PIPE,  // note: tof2 only mode. epb -> ipb
+
+  // tof3-specific loopback modes
+  BF_LPBK_SERDES_NEAR_PARALLEL,
+  BF_LPBK_SERDES_FAR_PARALLEL,
+  BF_LPBK_SERDES_FAR_RMT,
+
 } bf_loopback_mode_e;
+
+/** \brief   Enumeration of supported port direction configuration modes.
+ */
+typedef enum {
+  BF_PORT_DIR_DUPLEX = 0,
+  BF_PORT_DIR_TX_ONLY,
+  BF_PORT_DIR_RX_ONLY,
+  BF_PORT_DIR_DECOUPLED,
+  BF_PORT_DIR_MAX
+} bf_port_dir_e;
 
 typedef enum {
   // IEEE Tech Ability Field options
@@ -206,6 +222,26 @@ typedef struct bf_port_ber_t {
   } ber;
 } bf_port_ber_t;
 
+typedef struct bf_tof3_pcs_status_ {
+  uint32_t rx_status_reg;
+  uint32_t tx_rdy;
+  uint32_t rx_rdy;
+  uint32_t rx_status;
+  uint32_t rs_rx_fault_remote;
+  uint32_t rs_rx_fault_local;
+  uint32_t rs_rx_link_interruption;
+  uint32_t rs_tx_fault;
+  uint32_t degraded_local;
+  uint32_t degraded_remote;
+  uint32_t block_lock_all;
+  uint32_t align_status;
+  uint32_t am_map_ok;
+  uint32_t am_lock_all;
+  uint32_t hi_ser;
+  uint32_t hi_ber;
+  bool up;
+} bf_tof3_pcs_status_t;
+
 /** \brief CLK-OBS Pad Clock Source
  */
 typedef enum {
@@ -298,23 +334,23 @@ bf_status_t bf_port_map_mac_to_dev_port(bf_dev_id_t dev_id,
 #define BF_MAX_MAC_BLOCK_CHANNELS BF_TOF2_MAC_BLOCK_CHANNELS
 
 /* MAC block lane map. Used to define the lane swizzling that can occur during
-*  board layout.
-*
-*  Each MAC block is connected to 4 serdes slices. Which serdes
-*  slice is used for tx or rx is determined by the traces from the device
-*  to the connector.
-*
-*  This structure is used to configure the internal muxes to direct the
-*  inputs/outputs of the serdes slices to the appropriate MAC channel
-*  such that MAC channel n (n=0-3) corresponds to channel n (n=0-3) on
-*  the connector.
-*
-*  Separate tx and rx lane maps allow for independently mapping the tx
-*  and rx directions. The index into each array represents the
-*  logical channel within the MAC block. The value of the entry defines
-*  the serdes slice (within the MAC blocks 4 slices) is wired to the
-*  corresponding connector lane (or channel).
-*/
+ *  board layout.
+ *
+ *  Each MAC block is connected to 4 serdes slices. Which serdes
+ *  slice is used for tx or rx is determined by the traces from the device
+ *  to the connector.
+ *
+ *  This structure is used to configure the internal muxes to direct the
+ *  inputs/outputs of the serdes slices to the appropriate MAC channel
+ *  such that MAC channel n (n=0-3) corresponds to channel n (n=0-3) on
+ *  the connector.
+ *
+ *  Separate tx and rx lane maps allow for independently mapping the tx
+ *  and rx directions. The index into each array represents the
+ *  logical channel within the MAC block. The value of the entry defines
+ *  the serdes slice (within the MAC blocks 4 slices) is wired to the
+ *  corresponding connector lane (or channel).
+ */
 typedef struct bf_mac_block_lane_map_t {
   bf_dev_port_t dev_port;
   uint32_t tx_lane[BF_MAX_MAC_BLOCK_CHANNELS];
@@ -634,9 +670,18 @@ bf_status_t bf_port_autoneg_restart_set(bf_dev_id_t dev_id,
                                         bf_dev_port_t dev_port,
                                         bool disable_nonce_match,
                                         bool disable_link_inhibit_timer);
+bf_status_t bf_port_autoneg_config_set(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port);
 bf_status_t bf_port_autoneg_state_get(bf_dev_id_t dev_id,
                                       bf_dev_port_t dev_port,
                                       bf_an_state_e *an_st);
+bf_status_t bf_port_autoneg_hcd_fec_resolve(bf_dev_id_t dev_id,
+                                            bf_dev_port_t dev_port,
+                                            uint64_t tx_base_page,
+                                            uint64_t rx_base_page,
+                                            bf_port_speed_t *hcd_speed,
+                                            int *hcd_lanes,
+                                            bf_fec_type_t *fec);
 bf_status_t bf_port_autoneg_complete_get(bf_dev_id_t dev_id,
                                          bf_dev_port_t dev_port,
                                          bool *an_cmplt);
@@ -653,6 +698,11 @@ bf_status_t bf_port_autoneg_hcd_fec_get(bf_dev_id_t dev_id,
                                         bf_dev_port_t port,
                                         bf_port_speed_t *hcd,
                                         bf_fec_type_t *fec);
+bf_status_t bf_port_autoneg_hcd_fec_get_v2(bf_dev_id_t dev_id,
+                                           bf_dev_port_t dev_port,
+                                           bf_port_speed_t *hcd_speed,
+                                           int *hcd_lanes,
+                                           bf_fec_type_t *fec);
 bf_status_t bf_port_autoneg_pause_resolution_get(bf_dev_id_t dev_id,
                                                  bf_dev_port_t port,
                                                  bool *tx_pause,
@@ -698,6 +748,12 @@ bf_status_t bf_port_force_remote_fault_set(bf_dev_id_t dev_id,
 bf_status_t bf_port_force_idle_set(bf_dev_id_t dev_id,
                                    bf_dev_port_t port,
                                    bool force);
+bf_status_t bf_port_tx_drain_set(bf_dev_id_t dev_id,
+                                 bf_dev_port_t dev_port,
+                                 bool en);
+bf_status_t bf_port_is_rx_only(bf_dev_id_t dev_id, bf_dev_port_t dev_port);
+bf_status_t bf_port_is_decoupled_mode(bf_dev_id_t dev_id,
+                                      bf_dev_port_t dev_port);
 bf_status_t bf_port_mac_tx_enable_set(bf_dev_id_t dev_id,
                                       bf_dev_port_t port,
                                       bool en);
@@ -716,6 +772,9 @@ bf_status_t bf_port_xon_pause_time_set(bf_dev_id_t dev_id,
 bf_status_t bf_port_loopback_mode_set(bf_dev_id_t dev_id,
                                       bf_dev_port_t port,
                                       bf_loopback_mode_e mode);
+bf_status_t bf_port_direction_mode_set(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       bf_port_dir_e mode);
 bf_status_t bf_port_dfe_type_set(bf_dev_id_t dev_id,
                                  bf_dev_port_t port,
                                  bf_dfe_type_e type);
@@ -760,6 +819,12 @@ bf_status_t bf_port_pcs_counters_get(bf_dev_id_t dev_id,
                                      uint32_t *unknown_error_cnt,
                                      uint32_t *invalid_error_cnt,
                                      uint32_t *bip_errors_per_pcs_lane);
+bf_status_t bf_port_pcs_cumulative_counters_get(bf_dev_id_t dev_id,
+                                                bf_dev_port_t dev_port,
+                                                uint32_t *ber_cnt,
+                                                uint32_t *errored_blk_cnt);
+bf_status_t bf_port_pcs_cumulative_counters_clr(bf_dev_id_t dev_id,
+                                                bf_dev_port_t dev_port);
 bf_status_t bf_port_rs_fec_control_set(bf_dev_id_t dev_id,
                                        bf_dev_port_t port,
                                        bool byp_corr_ena,
@@ -962,6 +1027,9 @@ bf_status_t bf_port_clkobs_set(bf_dev_id_t dev_id,
 bf_status_t bf_serdes_encoding_mode_get(uint32_t speed,
                                         uint32_t n_lanes,
                                         bf_serdes_encoding_mode_t *enc_mode);
+bf_status_t bf_serdes_an_lp_base_page_get(bf_dev_id_t dev_id,
+                                          bf_dev_port_t dev_port,
+                                          uint64_t *base_page);
 bf_status_t bf_port_encoding_mode_get(bf_dev_id_t dev_id,
                                       bf_dev_port_t dev_port,
                                       bf_serdes_encoding_mode_t *enc_mode);
@@ -984,6 +1052,10 @@ bf_status_t bf_port_umac4_status_get(bf_dev_id_t dev_id,
 bf_status_t bf_port_umac4_interrupt_get(bf_dev_id_t dev_id,
                                         bf_dev_port_t dev_port,
                                         uint64_t *reg64);
+bf_status_t bf_port_umac4_interrupt_dn_up_get(bf_dev_id_t dev_id,
+                                              bf_dev_port_t dev_port,
+                                              uint64_t *dn,
+                                              uint64_t *up);
 bf_status_t bf_port_forced_sigok_get(bf_dev_id_t dev_id,
                                      bf_dev_port_t dev_port,
                                      uint32_t *force_hi_raw_val,
@@ -1013,6 +1085,10 @@ bf_status_t bf_port_link_fault_status_get(
     bf_dev_id_t dev_id,
     bf_dev_port_t dev_port,
     bf_port_link_fault_st_t *link_fault_st);
+bf_status_t bf_port_link_fault_status_set(
+    bf_dev_id_t dev_id,
+    bf_dev_port_t dev_port,
+    bf_port_link_fault_st_t link_fault_st);
 bf_status_t bf_port_oper_state_set_and_issue_callbacks(bf_dev_id_t dev_id,
                                                        bf_dev_port_t dev_port,
                                                        int st);
@@ -1025,7 +1101,17 @@ bf_status_t bf_port_tx_ignore_rx_set(bf_dev_id_t dev_id,
 bf_status_t bf_port_bring_up_time_get(bf_dev_id_t dev_id,
                                       bf_dev_port_t dev_port,
                                       uint64_t *but_us);
-
+bf_status_t bf_port_link_up_time_get(bf_dev_id_t dev_id,
+                                     bf_dev_port_t dev_port,
+                                     uint64_t *but_us);
+bf_status_t bf_port_signal_detect_time_set(bf_dev_id_t dev_id,
+                                           bf_dev_port_t dev_port);
+bf_status_t bf_port_debounce_set(bf_dev_id_t dev_id,
+                                 bf_dev_port_t dev_port,
+                                 uint32_t value);
+bf_status_t bf_port_tof3_pcs_status_get(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        bf_tof3_pcs_status_t *pcs);
 #ifdef __cplusplus
 }
 #endif /* C++ */

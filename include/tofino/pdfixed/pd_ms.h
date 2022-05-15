@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _TOFINO_PDFIXED_PD_MS_H
 #define _TOFINO_PDFIXED_PD_MS_H
 
@@ -14,7 +15,7 @@
  */
 
 #include <tofino/pdfixed/pd_common.h>
-#include <bfutils/cJSON.h>
+#include <target-utils/third-party/cJSON/cJSON.h>
 
 typedef uint32_t p4_pd_act_hdl_t;
 typedef struct p4_pd_ms_table_state_s p4_pd_ms_table_state_t;

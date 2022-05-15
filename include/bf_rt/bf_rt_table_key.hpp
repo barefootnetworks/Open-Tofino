@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table_key.hpp
  *
  *  @brief Contains BF-RT Table Key APIs
@@ -10,12 +11,12 @@
 #ifndef _BF_RT_TABLE_KEY_HPP
 #define _BF_RT_TABLE_KEY_HPP
 
-#include <string>
 #include <cstring>
-#include <vector>
 #include <map>
 #include <memory>
 #include <set>
+#include <string>
+#include <vector>
 
 #include <bf_rt/bf_rt_common.h>
 
@@ -35,7 +36,19 @@ enum class KeyFieldType {
   TERNARY = 2,
   RANGE = 3,
   LPM = 4,
+  OPTIONAL = 5,
 };
+
+/**
+ * @brief Key Field Type String. Used mainly in error messages.
+ */
+const std::map<KeyFieldType, const char *> KeyFieldTypeStr = {
+    {KeyFieldType::INVALID, "INVALID"},
+    {KeyFieldType::EXACT, "EXACT"},
+    {KeyFieldType::TERNARY, "TERNARY"},
+    {KeyFieldType::RANGE, "RANGE"},
+    {KeyFieldType::LPM, "LPM"},
+    {KeyFieldType::OPTIONAL, "OPTIONAL"}};
 
 /**
  * @brief Class to construct key for a table.<br>
@@ -190,12 +203,45 @@ class BfRtTableKey {
    * if input = 0xdedbeef, then the input expected is 0x0dedbeef,  size=4
    * and 0<=prefix_len<=28 when using this API.
    *
+   *
    * @return Status of the API call
    */
   virtual bf_status_t setValueLpm(const bf_rt_id_t &field_id,
                                   const uint8_t *value,
                                   const uint16_t &p_length,
                                   const size_t &size) = 0;
+
+  /**
+   * @brief Set Value. Only valid on fields of \ref bfrt::KeyFieldType
+   * "OPTIONAL"
+   *
+   * @param[in] field_id Field ID
+   * @param[in] value Value
+   * @param[in] is_valid Whether the field is valid for matching. This in-param
+   * is not to be confused with the P4 $is_valid construct. This param is
+   * purely to either mask out or use the entire field with optional match type.
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t setValueOptional(const bf_rt_id_t &field_id,
+                                       const uint64_t &value,
+                                       const bool &is_valid) = 0;
+
+  /**
+   * @brief Set Value. Only valid on fields of \ref bfrt::KeyFieldType
+   * "OPTIONAL"
+   *
+   * @param[in] field_id Field ID
+   * @param[in] value Byte-array for value in network order
+   * @param[in] is_valid  Whether the field is valid for matching
+   * @param[in] size Number of bytes of the byte-array for value
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t setValueOptional(const bf_rt_id_t &field_id,
+                                       const uint8_t *value,
+                                       const bool &is_valid,
+                                       const size_t &size) = 0;
 
   /** @} */  // End of group Set APIs
 
@@ -333,6 +379,38 @@ class BfRtTableKey {
                                   uint8_t *value,
                                   uint16_t *p_length) const = 0;
 
+  /**
+   * @brief Get value. Only valid on fields of \ref bfrt::KeyFieldType
+   * "OPTIONAL"
+   *
+   * @param[in] field_id  Field ID
+   * @param[out] value    Value.
+   * @param[out] is_valid Whether the field is valid for matching
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t getValueOptional(const bf_rt_id_t &field_id,
+                                       uint64_t *value,
+                                       bool *is_valid) const = 0;
+
+  /**
+   * @brief Get value. Only valid on fields of \ref bfrt::KeyFieldType
+   * "OPTIONAL"
+   *
+   * @param[in] field_id  Field ID
+   * @param[in] size      Size of the value byte-array
+   * @param[out] value    Value byte-array. The output is in network order with
+   * byte padded. If a 28-bit field with value 0xdedbeef is being queried, then
+   * input size needs to be 4 and the output array will be 0x0dedbeef
+   * @param[out] is_valid  Whether the field is valid for matching
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t getValueOptional(const bf_rt_id_t &field_id,
+                                       const size_t &size,
+                                       uint8_t *value,
+                                       bool *is_valid) const = 0;
+
   /** @} */  // End of group Get APIs
 
   /**
@@ -345,6 +423,6 @@ class BfRtTableKey {
   virtual bf_status_t tableGet(const BfRtTable **table) const = 0;
 };
 
-}  // bfrt
+}  // namespace bfrt
 
 #endif  // _BF_RT_TABLE_KEY_HPP

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_init.hpp
  *
  *  @brief Contains BF-RT Dev Manager APIs. These APIs help manage BfRtInfo
@@ -145,6 +146,6 @@ class BfRtInit {
                                     bool traffic_mgr_skip);
 };  // BfRtInit
 
-}  // bfrt
+}  // namespace bfrt
 
 #endif  // _BF_RT_INIT_HPP_

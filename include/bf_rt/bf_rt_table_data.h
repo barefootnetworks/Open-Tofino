@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table_data.h
  *
  * @brief Contains BF-RT Table Data APIs
@@ -111,6 +112,36 @@ bf_status_t bf_rt_data_field_set_value_bool_array(
     const bool *val,
     const uint32_t num_array);
 
+/**
+ * @brief Set value. Valid only on fields with string array type
+ *
+ * @param[in] data_hdl          Data object handle
+ * @param[in] field_id          Field ID
+ * @param[in] val               An array representing the values to set
+ * @param[in] num_array         Array length
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_data_field_set_value_str_array(bf_rt_table_data_hdl *data_hdl,
+                                                 const bf_rt_id_t field_id,
+                                                 const char *val);
+
+/**
+ * @brief Set value. Valid only on fields with container type
+ *
+ * @param[in] data_hdl          Data object handle
+ * @param[in] field_id          Field ID
+ * @param[in] val               Ptr array of data objects each representing
+ *                              a container
+ * @param[in] num_array         Array length
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_data_field_set_value_data_field_array(
+    bf_rt_table_data_hdl *data_hdl,
+    const bf_rt_id_t field_id,
+    bf_rt_table_data_hdl *val[],
+    const uint32_t num_array);
 /**
  * @brief Set value. Valid only on fields with bool type
  *
@@ -254,6 +285,17 @@ bf_status_t bf_rt_data_field_get_value_str_array(
     const bf_rt_id_t field_id,
     uint32_t size,
     char *val);
+
+/**
+ * @brief Get string array value size. Valid on fields of string array type.
+ *
+ * @param[in] data_hdl          Data object handle
+ * @param[in] field_id          Field ID
+ * @param[out] str_size         Number of bytes required to fit all the strings
+ *                              including the separators between them.
+ *
+ * @return Status of the API call
+ */
 bf_status_t bf_rt_data_field_get_value_str_array_size(
     const bf_rt_table_data_hdl *data_hdl,
     const bf_rt_id_t field_id,

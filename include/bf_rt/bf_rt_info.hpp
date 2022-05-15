@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_info.hpp
  *
  *  @brief Contains BF-RT Info APIs. Mostly to get Table and Learn Object

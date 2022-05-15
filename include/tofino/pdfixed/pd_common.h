@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _TOFINO_PDFIXED_PD_COMMON_H
 #define _TOFINO_PDFIXED_PD_COMMON_H
 
@@ -32,14 +33,13 @@ typedef uint32_t p4_pd_pvs_hdl_t;
 
 #define PD_DEV_PIPE_ALL 0xffff
 typedef struct p4_pd_dev_target {
-  bf_dev_id_t device_id; /*!< Device Identifier the API request is for */
-  bf_dev_pipe_t
-      dev_pipe_id; /*!< If specified localizes target to the resources
-                     * only accessible to the port. DEV_PIPE_ALL serves
-                     * as a wild-card value.
-                     * If User defined scope has been set, this should be the
-                     * lowest pipe in that scope
-                     */
+  bf_dev_id_t device_id;     /*!< Device Identifier the API request is for */
+  bf_dev_pipe_t dev_pipe_id; /*!< If specified localizes target to the resources
+                              * only accessible to the port. DEV_PIPE_ALL serves
+                              * as a wild-card value.
+                              * If User defined scope has been set, this should
+                              * be the lowest pipe in that scope
+                              */
 } p4_pd_dev_target_t;
 
 typedef struct p4_pd_counter_value {
@@ -180,7 +180,7 @@ typedef enum {
                     *   replace either hash1(1) or hash2(0) */
   PD_ICOS_CFG,     /**< ICOS cfg from session table(0,default) or MAU(1) */
   PD_DOD_CFG,  /**< Deflect_on_drop cfg from session table(0,default) or MAU(1)
-                  */
+                */
   PD_C2C_CFG,  /**< Copy to cpu cfg from session table(0,default) or MAU(1) */
   PD_MC_CFG,   /**< Multicast cfg from session table(0,default) or MAU(1) */
   PD_EPIPE_CFG /**< Epipe cfg from session table(0,default) or MAU(1) */
@@ -238,9 +238,10 @@ typedef struct p4_pd_pktgen_app_cfg_tof2 {
   uint8_t assigned_chnl_id;
   bool offset_len_from_recir_pkt;
 } p4_pd_pktgen_app_cfg_tof2;
-struct p4_pd_port_down_mask_tof2 {
+
+typedef struct p4_pd_port_down_mask_tof2 {
   uint8_t port_mask[9];
-};
+} p4_pd_port_down_mask_tof2;
 
 typedef enum p4_pd_pktgen_port_down_mode_t {
   PD_PKTGEN_PORT_DOWN_REPLAY_NONE = 0,
@@ -570,9 +571,9 @@ typedef struct p4_pd_dev_parser_target {
                                 * gress. PD_PVS_GRESS_ALL (0xff) serves
                                 * as a wild-card value */
   bf_dev_pipe_t dev_pipe_id;   /* If specified localizes target to the resources
-                           * only accessible to the pipeline. BF_DEV_PIPE_ALL
-                           * serves as a wild-card value
-                           */
+                                * only accessible to the pipeline. BF_DEV_PIPE_ALL
+                                * serves as a wild-card value
+                                */
   uint8_t parser_id;           /* If specified localizes target to the
                                 * resources only accessible to the parser.
                                 * PD_DEV_PIPE_PARSER_ALL serves as a wild-card

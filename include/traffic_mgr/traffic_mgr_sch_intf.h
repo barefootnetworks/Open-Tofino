@@ -14,8 +14,8 @@
  *        on traffic properties.
  */
 
-#include <traffic_mgr/traffic_mgr_types.h>
 #include <bf_types/bf_types.h>
+#include <traffic_mgr/traffic_mgr_types.h>
 
 /**
  * @addtogroup tm-sched
@@ -61,7 +61,9 @@ bf_status_t bf_tm_sched_q_priority_set(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] weight          Weight value. Supported range [ 1.. 1023 ]
+ * @param[in] weight          Weight value. Supported range [ 0.. 1023 ]
+ *                            Weight 0 is used to disable the DWRR especially
+ *                            when Max Rate Leakybucket is used.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -413,7 +415,7 @@ bf_status_t bf_tm_sched_l1_priority_set(bf_dev_id_t dev,
 /**
  * @brief Set l1 node DWRR weights.
  * These weights are used by l1 nodes at same priority level.
- * Across prioirty these weights serve as ratio to
+ * Across priority these weights serve as ratio to
  * share excess or remaining bandwidth.
  *
  * Default: l1 node scheduling weights set to 1023
@@ -423,7 +425,9 @@ bf_status_t bf_tm_sched_l1_priority_set(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] l1 node         L1 node
- * @param[in] weight          Weight value. Supported range [ 1.. 1023 ]
+ * @param[in] weight          Weight value. Supported range [ 0.. 1023 ]
+ *                            Weight 0  is used to disable the DWRR especially
+ *                            when Max Rate Leakybucket is used.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -818,6 +822,25 @@ bf_status_t bf_tm_sched_q_priority_get(bf_dev_id_t dev,
                                        bf_tm_sched_prio_t *priority);
 
 /**
+ * @brief Default queue DWRR weights.
+ * These weights are used when queues at same
+ * priority level are scheduled during excess bandwidth sharing.
+ *
+ * Related APIs: bf_tm_sched_q_dwrr_weight_get()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] port            Port
+ * @param[in] queue           Queue
+ * @param[out] weight         Weight value. Supported range [ 0.. 1023 ]
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_dwrr_weight_get_default(bf_dev_id_t dev,
+                                                  bf_dev_port_t port,
+                                                  bf_tm_queue_t queue,
+                                                  uint16_t *weight);
+/**
  * @brief Get queue DWRR weights.
  * These weights are used when queues at same
  * priority level are scheduled during excess bandwidth sharing.
@@ -836,6 +859,105 @@ bf_status_t bf_tm_sched_q_dwrr_weight_get(bf_dev_id_t dev,
                                           bf_dev_port_t port,
                                           bf_tm_queue_t queue,
                                           uint16_t *weight);
+
+/*
+ * Get queue shaping guaranteed rate enable status.
+ *
+ * Related APIs: bf_tm_sched_q_guaranteed_rate_enable()
+ *
+ * @param[in] dev       ASIC device identifier.
+ * @param[in] port      Port
+ * @param[in] queue     queue
+ * @param[out] enable   True if the queue guaranteed shaping rate
+ *                      is enabled.
+ * @return              Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_guaranteed_get(bf_dev_id_t dev,
+                                         bf_dev_port_t port,
+                                         bf_tm_queue_t queue,
+                                         bool *enable);
+
+/*
+ * Get queue scheduling enable status.
+ *
+ * Related APIs: bf_tm_sched_q_enable()
+ *
+ * @param[in] dev       ASIC device identifier.
+ * @param[in] port      Port
+ * @param[in] queue     queue
+ * @param[out] enable   True if the queue scheduling
+ *                      is enabled.
+ * @return              Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_enable_get(bf_dev_id_t dev,
+                                     bf_dev_port_t port,
+                                     bf_tm_queue_t queue,
+                                     bool *enable);
+
+/*
+ * Get queue scheduling default enable status.
+ *
+ * Related APIs: bf_tm_sched_q_enable()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port
+ * @param[in] queue      queue
+ * @param[out] enable    True if the queue scheduling
+ *                       is enabled by default.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_enable_get_default(bf_dev_id_t dev,
+                                             bf_dev_port_t port,
+                                             bf_tm_queue_t queue,
+                                             bool *enable);
+
+/*
+ * Get queue shaping max rate enable status.
+ *
+ * Related APIs: bf_tm_sched_q_shaping_rate_enable()
+ *
+ * @param[in] dev       ASIC device identifier.
+ * @param[in] port      Port
+ * @param[in] queue     queue
+ * @param[out] enable   True if the queue max shaping rate
+ *                      is enabled.
+ * @return              Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_shaping_enable_get(bf_dev_id_t dev,
+                                             bf_dev_port_t port,
+                                             bf_tm_queue_t queue,
+                                             bool *enable);
+
+/*
+ * Get queue shaping max rate defaults.
+ *
+ * Related APIs: bf_tm_sched_q_shaping_rate_enable()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port
+ * @param[in] queue      queue
+ * @param[out] enable    True if the queue max shaping rate
+ *                       is enabled by default.
+ * @param[out] priority  Default scheduling priority of the
+ *                       queue.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_shaping_enable_get_default(
+    bf_dev_id_t dev,
+    bf_dev_port_t port,
+    bf_tm_queue_t queue,
+    bool *enable,
+    bf_tm_sched_prio_t *priority);
 
 /**
  * @brief Get queue shaping rate. Rate is in units of kbps or pps.
@@ -889,6 +1011,33 @@ bf_status_t bf_tm_sched_q_shaping_rate_get_provisioning(
     bf_tm_sched_shaper_prov_type_t *prov_type);
 
 /**
+ * @brief Gets queue default shaping rate.
+ * Rate is in units of kbps or pps. Also get the rate provisioning type.
+ *
+ * Related APIs: bf_tm_sched_q_shaping_rate_get_provisioning()
+ *
+ * @param[in] dev           ASIC device identifier.
+ * @param[in] port          Port
+ * @param[in] queue         Queue
+ * @param[out] pps          If set to true, rates are applied in terms of pps
+ *                          else in terms of kbps.
+ * @param[out] burst_size   Burst size packets or bytes.
+ * @param[out] rate         Shaper value in pps or kbps.
+ * @param[out] prov_type    The rate provisioning type (OVER, UNDER, MIN_ERROR)
+ * @return                  Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_shaping_rate_get_default(
+    bf_dev_id_t dev,
+    bf_dev_port_t port,
+    bf_tm_queue_t queue,
+    bool *pps,
+    uint32_t *burst_size,
+    uint32_t *rate,
+    bf_tm_sched_shaper_prov_type_t *prov_type);
+
+/**
  * @brief Get queue guaranteed rate. Rate is in units of kbps or pps.
  *
  * Related APIs: bf_tm_sched_q_guaranteed_rate_set()
@@ -911,6 +1060,73 @@ bf_status_t bf_tm_sched_q_guaranteed_rate_get(bf_dev_id_t dev,
                                               uint32_t *burst_size,
                                               uint32_t *rate);
 
+/*
+ * Get queue guaranteed min rate enable status.
+ *
+ * Related APIs: bf_tm_sched_q_guaranteed_rate_enable()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port
+ * @param[in] queue      queue
+ * @param[out] enable    True if the queue guaranteed rate
+ *                       is enabled.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_guaranteed_enable_get(bf_dev_id_t dev,
+                                                bf_dev_port_t port,
+                                                bf_tm_queue_t queue,
+                                                bool *enable);
+
+/*
+ * Get queue guaranteed min rate defaults.
+ *
+ * Related APIs: bf_tm_sched_q_guaranteed_rate_enable()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port
+ * @param[in] queue      queue
+ * @param[out] enable    True if the queue guaranteed rate
+ *                       is enabled by default.
+ * @param[out] priority  Default scheduling priority of queue.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_guaranteed_enable_get_default(
+    bf_dev_id_t dev,
+    bf_dev_port_t port,
+    bf_tm_queue_t queue,
+    bool *enable,
+    bf_tm_sched_prio_t *priority);
+
+/**
+ * @brief Default queue guaranteed rate. Rate is in units of kbps or pps.
+ *
+ * Related APIs: bf_tm_sched_q_guaranteed_rate_get()
+ *
+ * @param[in] dev           ASIC device identifier.
+ * @param[in] port          Port
+ * @param[in] queue         Queue
+ * @param[out] pps          If set to true, rates are applied in terms of pps
+ *                          else in terms of kbps.
+ * @param[out] burst_size   Burst size packets or bytes.
+ * @param[out] rate         Shaper value in pps or kbps.
+ * @param[out] prov_type    The rate provisioning type (OVER, UNDER, MIN_ERROR)
+ * @return                  Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_guaranteed_rate_get_default(
+    bf_dev_id_t dev,
+    bf_dev_port_t port,
+    bf_tm_queue_t queue,
+    bool *pps,
+    uint32_t *burst_size,
+    uint32_t *rate,
+    bf_tm_sched_shaper_prov_type_t *prov_type);
+
 /**
  * @brief Get scheduling priority when serving remaining bandwidth.
  * Higher the number, higher the  priority to select the queue for scheduling.
@@ -930,6 +1146,40 @@ bf_status_t bf_tm_sched_q_remaining_bw_priority_get(
     bf_dev_port_t port,
     bf_tm_queue_t queue,
     bf_tm_sched_prio_t *priority);
+
+/*
+ * Get Port shaping max rate enable default status.
+ *
+ * Related APIs: bf_tm_sched_port_shaping_enable()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port
+ * @param[out] enable    True if the port max shaping rate
+ *                       is enabled by default.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_port_shaping_enable_get_default(bf_dev_id_t dev,
+                                                        bf_dev_port_t port,
+                                                        bool *enable);
+
+/*
+ * Get Port shaping max rate enable status.
+ *
+ * Related APIs: bf_tm_sched_port_shaping_enable()
+ *
+ * @param[in] dev       ASIC device identifier.
+ * @param[in] port      Port
+ * @param[out] enable   True if the port max shaping rate
+ *                      is enabled.
+ * @return              Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_port_shaping_enable_get(bf_dev_id_t dev,
+                                                bf_dev_port_t port,
+                                                bool *enable);
 
 /**
  * @brief Get port shaping rate. Rate is in units of kbps or pps.
@@ -951,6 +1201,34 @@ bf_status_t bf_tm_sched_port_shaping_rate_get(bf_dev_id_t dev,
                                               bool *pps,
                                               uint32_t *burst_size,
                                               uint32_t *rate);
+
+/**
+ * @brief Default port shaping rate.
+ * Also gets the rate provisioning type.
+ * The default rate depends on the current port scheduling speed,
+ * and if it is disabled, then the maximum port speed is used.
+ *
+ * Related APIs: bf_tm_sched_port_shaping_rate_set()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] port            Port
+ * @param[out] pps            If set to true, rates are applied in terms of pps
+ *                            else in terms of kbps.
+ * @param[out] burst_size     Burst size packets or bytes.
+ * @param[out] rate           Shaper value in pps or kbps.
+ * @param[out] prov_type      The rate provisioning type (OVER, UNDER,
+ *                            MIN_ERROR)
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_port_shaping_rate_get_default(
+    bf_dev_id_t dev,
+    bf_dev_port_t port,
+    bool *pps,
+    uint32_t *burst_size,
+    uint32_t *rate,
+    bf_tm_sched_shaper_prov_type_t *prov_type);
 
 /**
  * @brief Get port shaping rate. Rate is in units of kbps or pps.
@@ -978,6 +1256,38 @@ bf_status_t bf_tm_sched_port_shaping_rate_get_provisioning(
     uint32_t *rate,
     bf_tm_sched_shaper_prov_type_t *prov_type);
 
+/*
+ * Get port current scheduling speed.
+ *
+ * Related APIs: bf_tm_sched_port_enable()
+ *
+ * @param[in] dev      ASIC device identifier.
+ * @param[in] port     Port
+ * @param[out] speed   Current scheduling speed on the port.
+ * @return             Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_port_speed_get(bf_dev_id_t dev,
+                                       bf_dev_port_t port,
+                                       bf_port_speeds_t *speed);
+
+/*
+ * Get port scheduling speed reset value.
+ *
+ * Related APIs: bf_tm_sched_port_speed_get()
+ *
+ * @param[in] dev      ASIC device identifier.
+ * @param[in] port     Port
+ * @param[out] speed   Port scheduling speed when it was added.
+ * @return             Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_port_speed_get_reset(bf_dev_id_t dev,
+                                             bf_dev_port_t port,
+                                             bf_port_speeds_t *speed);
+
 /**
  * @brief Get per packet byte adjustment value
  *
@@ -993,6 +1303,22 @@ bf_status_t bf_tm_sched_port_shaping_rate_get_provisioning(
 bf_status_t bf_tm_sched_pkt_ifg_compensation_get(bf_dev_id_t dev,
                                                  bf_dev_pipe_t pipe,
                                                  uint8_t *adjustment);
+
+/**
+ * @brief Get per packet byte adjustment default value
+ *
+ * Related APIs: bf_tm_sched_pkt_ifg_compensation_set ()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] pipe            Pipe identifier.
+ * @param[out] adjustment     Default byte adjustment done on every packet.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_pkt_ifg_compensation_get_default(bf_dev_id_t dev,
+                                                         bf_dev_pipe_t pipe,
+                                                         uint8_t *adjustment);
 
 /**
  * @brief Get queue scheduler advanced flow control mode.
@@ -1016,6 +1342,28 @@ bf_status_t bf_tm_sched_q_adv_fc_mode_get(bf_dev_id_t dev,
                                           bf_tm_sched_adv_fc_mode_t *mode);
 
 /**
+ * @brief Default queue scheduler advanced flow control mode.
+ * Scheduler Advanced Flow Control Mechanism, 0 = Credit 1 = Xoff
+ * used for TM Visibility Implementation
+ *
+ * Related APIs: bf_tm_sched_q_adv_fc_mode_set()
+ *
+ * @param[in] dev                   ASIC device identifier.
+ * @param[in] port                  Port
+ * @param[in] queue                 Queue
+ * @param[out] mode                 Scheduler Advanced Flow Control Mode
+ *                                  0 = credit 1 = xoff.
+ * @return                          Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_adv_fc_mode_get_default(
+    bf_dev_id_t dev,
+    bf_dev_port_t port,
+    bf_tm_queue_t queue,
+    bf_tm_sched_adv_fc_mode_t *mode);
+
+/**
  * @brief Get scheduler advanced flow control mode enable/disable mode.
  * Used for TM Visibility Implementation
  *
@@ -1033,6 +1381,24 @@ bf_status_t bf_tm_sched_q_adv_fc_mode_get(bf_dev_id_t dev,
 bf_status_t bf_tm_sched_adv_fc_mode_enable_get(bf_dev_id_t dev,
                                                bf_dev_pipe_t pipe,
                                                bool *enable);
+
+/**
+ * @brief Get scheduler advanced flow control default mode.
+ * Used for TM Visibility Implementation
+ *
+ * Related APIs: bf_tm_sched_adv_fc_mode_enable_get()
+ *
+ * @param[in] dev                   ASIC device identifier.
+ * @param[in] pipe                  Logical PipeId index
+ * @param[out] enable               Scheduler Advanced Flow Control
+ *                                  default mode.
+ * @return                          Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_adv_fc_mode_enable_get_default(bf_dev_id_t dev,
+                                                       bf_dev_pipe_t pipe,
+                                                       bool *enable);
 
 /* @} */
 

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _BF_PAL_PM_INTF_H
 #define _BF_PAL_PM_INTF_H
 
@@ -145,6 +146,23 @@ bf_status_t bf_pm_port_front_panel_port_get_next_added(
 bf_status_t bf_pm_port_str_to_hdl_get(bf_dev_id_t dev_id,
                                       const char *port_str,
                                       bf_pal_front_port_handle_t *port_hdl);
+
+/**
+ * @brief Validate a port speed and channel
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number corresponding to the front port index
+ * @param speed Speed in which the port is to be added
+ * @param n_lanes Lane number in which the port is to be added
+ * @param fec FEC in which the port is to be added
+ *
+ * @return True if the validation successful
+ */
+bool bf_pm_port_valid_speed_and_channel(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        bf_port_speed_t speed,
+                                        uint32_t n_lanes,
+                                        bf_fec_type_t fec);
 
 /**
  * @brief Add a port with a given speed and fec
@@ -294,6 +312,21 @@ bf_status_t bf_pm_port_autoneg_get(bf_dev_id_t dev_id,
  */
 bf_status_t bf_pm_port_autoneg_set_all(bf_dev_id_t dev_id,
                                        bf_pm_port_autoneg_policy_e an_policy);
+
+/**
+ * @brief Set array of the advertised speeds for a port
+ *
+ * @param[in] dev_id Device id
+ * @param[in] port_hdl Front panel port number
+ * @param[in] adv_speed_arr Array of advertised speeds for the port
+ * @param[in] adv_speed_cnt Number of advertised speeds in array
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_adv_speed_set(const bf_dev_id_t dev_id,
+                                     bf_pal_front_port_handle_t *port_hdl,
+                                     const bf_port_speed_t *adv_speed_arr,
+                                     const uint32_t adv_speed_cnt);
 
 /**
  * @brief Enable/Disable KR Mode for a port
@@ -1005,6 +1038,27 @@ bf_status_t bf_pm_rate_timer_start(bf_dev_id_t dev_id);
 bf_status_t bf_pm_rate_timer_check_del(bf_dev_id_t dev_id);
 
 /**
+ * @brief Sets persistent port stats control flag.
+ *
+ * @param dev_id Device id
+ * @param enable makes port stats persistent (true) of not (false). Default
+ *               value is false.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_stats_persistent_set(bf_dev_id_t dev_id, bool enable);
+
+/**
+ * @brief Gets persistent port stats control flag.
+ *
+ * @param dev_id Device id
+ * @param enable returns the current value of the persistent port stats flag.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_stats_persistent_get(bf_dev_id_t dev_id, bool *enable);
+
+/**
  * @brief Clear the FEC counters
  *
  * @param dev_id Device id
@@ -1015,6 +1069,72 @@ bf_status_t bf_pm_rate_timer_check_del(bf_dev_id_t dev_id);
 bf_status_t bf_pm_port_clear_the_fec_counters(bf_dev_id_t dev_id,
                                               bf_dev_port_t dev_port);
 
+/**
+ * @brief Gets cumulative RS fec corrected and uncorreted block counters
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number corresponding to the front port index
+ * @param hi_ser High symbol error flag (1 = symbols errors exceeds the thresh.)
+ * @param align_status FEC align status (1 = all lanes synchronized and aligned)
+ * @param fec_corr_cnt Corrected blocks counter
+ * @param fec_uncorr_cnt Uncorrected blocks counter
+ * @param fec_ser_lane_0 Counter of FEC symbols errors on lane 0.
+ * @param fec_ser_lane_1 Counter of FEC symbols errors on lane 1.
+ * @param fec_ser_lane_2 Counter of FEC symbols errors on lane 2.
+ * @param fec_ser_lane_3 Counter of FEC symbols errors on lane 3.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_get_rs_fec_counters(bf_dev_id_t dev_id,
+                                           bf_dev_port_t dev_port,
+                                           bool *hi_ser,
+                                           bool *align_status,
+                                           uint32_t *fec_corr_cnt,
+                                           uint32_t *fec_uncorr_cnt);
+/**
+ * @brief Gets cumulative RS fec error counters per lane for Tofino 1 only
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number corresponding to the front port index
+ * @param lane_id lane id
+ * @param fec_ser_lane Counter of FEC symbols errors for specified lane.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_get_rs_fec_ser_lane_cnt_tof1(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t dev_port,
+                                                    uint32_t lane_id,
+                                                    uint32_t *fec_ser_lane);
+/**
+ * @brief Gets cumulative FC fec counters
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number corresponding to the front port index
+ * @param fc_block_lock_status FC FEC lock status flag (1 = locked).
+ * @param fc_fec_corr_blk_cnt Corrected blocks counter
+ * @param fc_fec_uncorr_blk_cnt Uncorrected blocks counter
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_get_fc_fec_counters(bf_dev_id_t dev_id,
+                                           bf_dev_port_t dev_port,
+                                           bool *fc_block_lock_status,
+                                           uint32_t *fc_fec_corr_blk_cnt,
+                                           uint32_t *fc_fec_uncorr_blk_cnt);
+/**
+ * @brief Gets cumulative PCS error counters
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number corresponding to the front port index
+ * @param ber_cnt PCS bad sync header counter
+ * @param errored_blk_cnt PCS errored block counter
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_get_pcs_counters(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        uint32_t *ber_cnt,
+                                        uint32_t *errored_blk_cnt);
 /**
  * @brief Get a particular stat counter for a port into user buffer
  *
@@ -1164,6 +1284,15 @@ bool bf_pm_intf_is_device_family_tofino2(bf_dev_id_t dev_id);
  * @return True if device-family is tofino
  */
 bool bf_pm_intf_is_device_family_tofino(bf_dev_id_t dev_id);
+
+/**
+ * @brief Given a dev id, return true if it tofino3
+ *
+ * @param dev_id Device id
+ *
+ * @return True if device-family is tofino3
+ */
+bool bf_pm_intf_is_device_family_tofino3(bf_dev_id_t dev_id);
 
 /**
  * @brief Sets the serdes rx and tx polarity
@@ -1373,6 +1502,12 @@ bf_status_t bf_pm_front_port_index_get_next(bf_dev_id_t dev_id,
  *  configured for CPU connectivity by default, and there are dedicated APIs to
  *  retrieve them, the CPU ports are not returned by this API.
  *
+ **  For Tofino-3: Recirc ports are
+ *      Pipe == 0:
+ *         port 6 is recirc
+ *      Pipe != 0:
+ *         0, 2, 4, 6 are recirc ports
+ *
  *  For Tofino-2: Recirc ports are
  *      Pipe == 0:
  *         Chan 1, 6 and 7
@@ -1429,6 +1564,46 @@ bf_status_t bf_pm_port_link_up_max_err_set(bf_dev_id_t dev_id,
 bf_status_t bf_pm_port_link_up_max_err_get(bf_dev_id_t dev_id,
                                            bf_pal_front_port_handle_t *port_hdl,
                                            uint32_t *max_errors);
+/**
+ * @brief Set link up debounce for the specified port.
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ * @param debounce_value link up debounce in FSM cycles.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_debounce_thresh_set(bf_dev_id_t dev_id,
+                                           bf_pal_front_port_handle_t *port_hdl,
+                                           uint32_t debounce_value);
+
+/**
+ * @brief Get link up debounce for the specified port.
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ * @param debounce_value link up debounce in FSM cycles.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_debounce_thresh_get(bf_dev_id_t dev_id,
+                                           bf_pal_front_port_handle_t *port_hdl,
+                                           uint32_t *debounce_value);
 
 bf_status_t bf_pm_init_platform(void);
+
+/**
+ * @brief Get the AN advertisement speed for the port
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param speed Speed of the port
+ * @param n_lanes Lane number of the port
+ *
+ * @return AN advertisement speed
+ */
+bf_an_adv_speeds_t bf_pm_get_an_adv_speed(bf_dev_id_t dev_id,
+                                          bf_dev_port_t dev_port,
+                                          bf_port_speed_t speed,
+                                          uint32_t n_lanes);
 #endif

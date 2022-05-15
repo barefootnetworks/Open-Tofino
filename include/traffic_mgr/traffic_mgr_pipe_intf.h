@@ -67,6 +67,26 @@ bf_status_t bf_tm_qstat_report_mode_set(bf_dev_id_t dev,
                                         bool mode);
 
 /**
+ * @brief Get Egress Pipe Queue States default Reporting Mode
+ * False: Trigger Qstat reporting from Q color threshold
+ * True: Trigger Qstat reporting from Q any updates
+ *
+ * Default: 0
+ *
+ * Related APIs: bf_tm_pipe_egress_hysteresis_set()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] pipe       Pipe Identifier.
+ * @param[out] mode      Queue states default reporting mode.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_qstat_report_mode_get_default(bf_dev_id_t dev,
+                                                bf_dev_pipe_t pipe,
+                                                bool *mode);
+
+/**
  * @brief Get Egress Pipe Queue States Reporting Mode
  * False: Trigger Qstat reporting from Q color threshold
  * True: Trigger Qstat reporting from Q any updates
@@ -106,6 +126,60 @@ bf_status_t bf_tm_qstat_report_mode_get(bf_dev_id_t dev,
 bf_status_t bf_tm_pipe_egress_hysteresis_set(bf_dev_id_t dev,
                                              bf_dev_pipe_t pipe,
                                              uint32_t cells);
+
+/**
+ * Get egress Pipe deflection port enable mode
+ *
+ * Default: true
+ *
+ * Related APIs: bf_tm_pipe_deflection_port_enable_set()
+ *
+ * @param[in] dev         ASIC device identifier.
+ * @param[in] pipe        Pipe Identifier.
+ * @param[out] enable     Deflection mode enable status.
+ * @return                Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_pipe_deflection_port_enable_get(bf_dev_id_t dev,
+                                                  bf_dev_pipe_t pipe,
+                                                  bool *enable);
+
+/**
+ * Get egress Pipe deflection port default enable mode.
+ *
+ * Default: true
+ *
+ * Related APIs: bf_tm_pipe_deflection_port_enable_get()
+ *
+ * @param[in] dev         ASIC device identifier.
+ * @param[in] pipe        Pipe Identifier.
+ * @param[out] enable     Deflection mode default enable status.
+ * @return                Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_pipe_deflection_port_enable_get_default(bf_dev_id_t dev,
+                                                          bf_dev_pipe_t pipe,
+                                                          bool *enable);
+
+/**
+ * Set egress Pipe deflection port enable mode
+ *
+ * Default: true
+ *
+ * Related APIs: bf_tm_pipe_deflection_port_enable_get()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] pipe       Pipe Identifier.
+ * @param[in] enable     Deflection mode enable status.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_pipe_deflection_port_enable_set(bf_dev_id_t dev,
+                                                  bf_dev_pipe_t pipe,
+                                                  bool enable);
 
 /* @} */
 

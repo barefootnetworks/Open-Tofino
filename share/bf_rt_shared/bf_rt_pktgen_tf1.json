@@ -3,7 +3,7 @@
   "__SPDX-License-ID": "CC-BY-ND-4.0",
   "tables": [
     {
-      "name": "$PKTGEN_PORT_CFG",
+      "name": "tf1.pktgen.port_cfg",
       "id": 4278386689,
       "table_type": "PktgenPortCfg",
       "size": 256,
@@ -80,10 +80,33 @@
         }
       ],
       "supported_operations": [],
-      "attributes": []
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        }
+      }
     },
     {
-      "name": "$PKTGEN_APPLICATION_CFG",
+      "name": "tf1.pktgen.app_cfg",
       "id": 4278386690,
       "table_type": "PktgenAppCfg",
       "size": 8,
@@ -103,7 +126,7 @@
       "action_specs": [
         {
           "id": 1,
-          "name": "$PKTGEN_TRIGGER_TIMER_ONE_SHOT",
+          "name": "trigger_timer_one_shot",
           "data": [
             {
               "id": 1,
@@ -119,7 +142,7 @@
         },
         {
           "id": 2,
-          "name": "$PKTGEN_TRIGGER_TIMER_PERIODIC",
+          "name": "trigger_timer_periodic",
           "data": [
             {
               "id": 1,
@@ -135,12 +158,12 @@
         },
         {
           "id": 3,
-          "name": "$PKTGEN_TRIGGER_PORT_DOWN",
+          "name": "trigger_port_down",
           "data": []
         },
         {
           "id": 4,
-          "name": "$PKTGEN_TRIGGER_RECIRC_PATTERN",
+          "name": "trigger_recirc_pattern",
           "data": [
             {
               "id": 4,
@@ -355,10 +378,45 @@
         }
       ],
       "supported_operations": [],
-      "attributes": []
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Updates an entry associated with an App ID."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves first valid Pktgen object in the table."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves n valid Pktgen objects from the table."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API returns table size as this is fixed table."
+        }
+      }
     },
     {
-      "name": "$PKTGEN_PKT_BUFFER",
+      "name": "tf1.pktgen.pkt_buffer",
       "id": 4278386691,
       "table_type": "PktgenPktBufferCfg",
       "size": 1024,
@@ -403,7 +461,32 @@
         }
       ],
       "supported_operations": [],
-      "attributes": []
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        }
+      }
     }
   ]
 }

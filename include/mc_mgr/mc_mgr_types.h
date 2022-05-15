@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _MC_MGR_TYPES_H
 #define _MC_MGR_TYPES_H
 

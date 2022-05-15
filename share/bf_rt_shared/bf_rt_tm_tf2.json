@@ -1,0 +1,5466 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "tf2.tm.port.dpg",
+      "description": "TM Port Default Priority Group (DPG) iCoS and buffer settings.",
+      "id": 4278517781,
+      "table_type": "TmPortDpg",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "icos_ppg_map",
+            "description": "Map of PPGs (non-default PG) allocated for this Port and assigned to iCoS. Index is iCoS, item is ppg_id key. Zero item value means the DPG handles that iCoS without PPG assigned. Only these PPGs which are mapped to iCoS are listed here.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "icos_0",
+            "description": "iCoS=0 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "icos_1",
+            "description": "iCoS=1 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "icos_2",
+            "description": "iCoS=2 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "icos_3",
+            "description": "iCoS=3 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 6,
+            "name": "icos_4",
+            "description": "iCoS=4 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 7,
+            "name": "icos_5",
+            "description": "iCoS=5 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 8,
+            "name": "icos_6",
+            "description": "iCoS=6 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 9,
+            "name": "icos_7",
+            "description": "iCoS=7 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "guaranteed_cells",
+            "description": "The guaranteed minimum buffer size allocated to the Port default priority group (DPG). Buffer size is in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "hysteresis_cells",
+            "description": "Hysteresis limit in number of cells the DPG usage should fall from its limit value before drop condition is cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "pool_id",
+            "description": "Optional Ingress Application pool for this DPG. Active if pool_max_cells is not zero.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "IG_APP_POOL_0",
+                "IG_APP_POOL_1",
+                "IG_APP_POOL_2",
+                "IG_APP_POOL_3"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "pool_max_cells",
+            "description": "Limit, in terms of cells, to which the DPG buffer can grow inside the application pool. Limit is specified in number of cells. Once this limit is crossed, and if the DPG's burst absorption factor (BAF) is non zero then, depending on availability of buffers the DPG is allowed to use up to BAF limit of the buffer memory currently available. The DPG does not use shared pool if the pool_max_cells is set to zero.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "dynamic_baf",
+            "description": "Dynamic Burst Absorption Factor value ID assigned for ths DPG. Used to decide how much of the available buffer memory can be used by the DPG. If BAF limit is NONE, the DPG is treated as static and no dynamic buffering is possible over the pool_max_cells.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "1.5%",
+                "3%",
+                "6%",
+                "11%",
+                "20%",
+                "33%",
+                "50%",
+                "66%",
+                "80%",
+                "DISABLE"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Retrieves an existing DPG specified in the key and populates the corresponding data fields."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Updates an existing DPG identified by the key with values from the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the very first DPG."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the next n entries in the table after the entry, identified by the key."
+        },
+        "tableUsageGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Returns the table size constant value."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Resets to HW default settings except r/o iCoS settings (use tm.ppg.cfg to change)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.mirror.dpg",
+      "description": "TM Mirror Port Default Priority Group (DPG) iCoS and buffer settings.",
+      "id": 4278517873,
+      "table_type": "TmMirrorDpg",
+      "size": 4,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "icos_ppg_map",
+            "description": "Map of PPGs (non-default PG) allocated for this Port and assigned to iCoS. Index is iCoS, item is ppg_id key. Zero item value means the DPG handles that iCoS without PPG assigned. Only these PPGs which are mapped to iCoS are listed here.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "icos_0",
+            "description": "iCoS=0 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "icos_1",
+            "description": "iCoS=1 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "icos_2",
+            "description": "iCoS=2 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "icos_3",
+            "description": "iCoS=3 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 6,
+            "name": "icos_4",
+            "description": "iCoS=4 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 7,
+            "name": "icos_5",
+            "description": "iCoS=5 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 8,
+            "name": "icos_6",
+            "description": "iCoS=6 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 9,
+            "name": "icos_7",
+            "description": "iCoS=7 assignment to default PG on this port.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "guaranteed_cells",
+            "description": "The guaranteed minimum buffer size allocated to the Port default priority group (DPG). Buffer size is in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "hysteresis_cells",
+            "description": "Hysteresis limit in number of cells the DPG usage should fall from its limit value before drop condition is cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "pool_id",
+            "description": "Optional Ingress Application pool for this DPG. Active if pool_max_cells is not zero.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "IG_APP_POOL_0",
+                "IG_APP_POOL_1",
+                "IG_APP_POOL_2",
+                "IG_APP_POOL_3"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "pool_max_cells",
+            "description": "Limit, in terms of cells, to which the DPG buffer can grow inside the application pool. Limit is specified in number of cells. Once this limit is crossed, and if the DPG's burst absorption factor (BAF) is non zero then, depending on availability of buffers the DPG is allowed to use up to BAF limit of the buffer memory currently available. The DPG does not use shared pool if the pool_max_cells is set to zero.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "dynamic_baf",
+            "description": "Dynamic Burst Absorption Factor value ID assigned for ths DPG. Used to decide how much of the available buffer memory can be used by the DPG. If BAF limit is NONE, the DPG is treated as static and no dynamic buffering is possible over the pool_max_cells.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "1.5%",
+                "3%",
+                "6%",
+                "11%",
+                "20%",
+                "33%",
+                "50%",
+                "66%",
+                "80%",
+                "DISABLE"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Retrieves the Mirror Port DPG identified by the dev_tgt.pipe_id with values in the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableDefaultEntrySet": {
+          "description": "Updates the Mirror Port DPG identified by the dev_tgt.pipe_id with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableDefaultEntryReset": {
+          "description": "Updates the Mirror Port DPG identified by the dev_tgt.pipe_id with HW reset values except r/o iCoS settings (use tm.ppg.cfg to change).",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Applies tableDefaultEntryReset to the dev_tgt.pipe_id entry or to all pipes with PIPE_ALL."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.ppg.cfg",
+      "description": "TM Port Priority Group (PPG) settings.",
+      "id": 4278517808,
+      "table_type": "TmPpgCfg",
+      "size": 512,
+      "key": [
+        {
+          "id": 1,
+          "name": "ppg_id",
+          "description": "The PPG unique id (1..255). Zero value means NULL id. The value is chosen by the application when it adds a new entry. The PPG object is allocated from the Pipe resources (up to 128 items per pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 1,
+                "name": "dev_port",
+                "description": "The device port on the same dev_tgt.pipe_id which currently uses this PPG. The value must be provided to add an entry. With entry modify it is optional for consistency check to be equal with what is set on the PPG initially.",
+                "repeated": false,
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "pfc_enable",
+                "description": "Enable or disable PFC treatment for this PPG. ",
+                "repeated": false,
+                "type": {
+                  "type": "bool"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 3,
+                "name": "pfc_skid_max_cells",
+                "description": "Skid pool (PFC Head room) limit in number of buffer cells available for this PPG in lossless (PFC) mode.",
+                "repeated": false,
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "mirror_port",
+          "data": []
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "icos_0",
+            "description": "iCoS=0 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "icos_1",
+            "description": "iCoS=1 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "icos_2",
+            "description": "iCoS=2 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "icos_3",
+            "description": "iCoS=3 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "icos_4",
+            "description": "iCoS=4 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
+            "name": "icos_5",
+            "description": "iCoS=5 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "icos_6",
+            "description": "iCoS=6 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "icos_7",
+            "description": "iCoS=7 assignment to this PPG on this port and released from its DPG",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "guaranteed_cells",
+            "description": "The guaranteed minimum buffer size allocated to this PPG. Buffer size is in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "hysteresis_cells",
+            "description": "Hysteresis limit in number of cells the PPG usage should fall from its limit value before drop condition is cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "pool_id",
+            "description": "Optional Ingress Application pool for this PPG. Active if pool_max_cells is not zero.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "IG_APP_POOL_0",
+                "IG_APP_POOL_1",
+                "IG_APP_POOL_2",
+                "IG_APP_POOL_3"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "pool_max_cells",
+            "description": "Limit, in terms of cells, to which the PPG buffer can grow inside the application pool. Limit is specified in number of cells. Once this limit is crossed, and if the PPG's burst absorption factor (BAF) is non zero then, depending on availability of buffers the PPG is allowed to use up to BAF limit of the buffer memory currently available. The PPG does not use shared pool if the pool_max_cells is set to zero.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 16,
+            "name": "dynamic_baf",
+            "description": "Dynamic Burst Absorption Factor value ID assigned for ths PPG. Used to decide how much of the available buffer memory can be used by the PPG. If BAF limit is NONE, the DPG is treated as static and no dynamic buffering is possible over the pool_max_cells.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "1.5%",
+                "3%",
+                "6%",
+                "11%",
+                "20%",
+                "33%",
+                "50%",
+                "66%",
+                "80%",
+                "DISABLE"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 17,
+            "name": "ppg_counter_id",
+            "description": "The PPG counter id associated with this PPG. Used to access a counter entry from table tm.counter.ppg.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Allocates a new PPG identified by dev_tgt.pipe_id and the ppg_id unique key chosen by the caller. The PPG is allocated for the dev_port which must be on the same pipe. Initially no iCoS is assigned to the new PPG. The should delete the PPG to avoid resource leak when it is not needed."
+        },
+        "tableEntryDel": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Deletes an existing PPG identified by dev_tgt.pipe_id and the ppg_id unique key. The PPG will be freed and its iCoS released back to the Port's DPG."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Updates an existing PPG identified by dev_tgt.pipe_id and the key; modifies values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing PPG identified by dev_tgt.pipe_id and the key; populates the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Fetches data fields of the very first entry in the pipe identified by dev_tgt.pipe_id."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Fetches data fields of the next n entries in the table after the entry, identified by dev_tgt.pipe_id and the key."
+        },
+        "tableUsageGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Returns how many PPGs are currently allocated on the pipe identified by dev_tgt.pipe_id or on all pipes with PIPE_ALL."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Deletes all currently allocated PPGs on the pipe identified by dev_tgt.pipe_id or for all pipes with PIPE_ALL. The iCoS will be released to Ports' DPGs."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pool.cfg",
+      "description": "This table is used to configure various properties for pools.",
+      "id": 4278517762,
+      "table_type": "TmPoolCfg",
+      "size": 14,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3",
+              "IG_SKID_POOL",
+              "IG_EG_NEGATIVE_MIRROR_POOL",
+              "EG_PRE_FIFO",
+              "IG_EG_GUARANTEED_MIN",
+              "EG_UNICAST_CUT_THROUGH",
+              "EG_MULTICAST_CUT_THROUGH"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "size_cells",
+            "description": "Used to specify the number of cells that need to be allocated for a particular pool.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the size of the pool identified by the key field in terms of number of cells."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the current size of the pool identified by the key field in terms of number of cells."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the name and the current size (in terms of number of cells) of the very first pool from the list of pools specified in the key field."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the names and the current sizes (in terms of number of cells) of the next n pools starting from the pool provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field above can have."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pool.skid",
+      "description": "This table is used to configure various properties for the skid pool.",
+      "id": 4278517763,
+      "table_type": "TmPoolSkid",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "resume_limit_cells",
+            "description": "Used to specify the number of cells that will need to be freed up in order to resume the link pause or PFC. Gets rounded down to the multiple of 8 if not.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the current resume limit of the skid pool."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the current resume limit of the skid pool to the initial value (0)."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the current resume limit of the skid pool."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the current resume limit of the skid pool to the initial value (0)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pool.app",
+      "description": "This table is used to configure various properties for application pools.",
+      "id": 4278517764,
+      "table_type": "TmPoolApp",
+      "size": 8,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The application pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3"
+            ]
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "color_drop_disable",
+          "data": []
+        },
+        {
+          "id": 2,
+          "name": "color_drop_enable",
+          "data": [
+            {
+              "id": 1,
+              "name": "green_limit_cells",
+              "repeated": false,
+              "mandatory": true,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            },
+            {
+              "id": 2,
+              "name": "yellow_limit_cells",
+              "repeated": false,
+              "mandatory": true,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            },
+            {
+              "id": 3,
+              "name": "red_limit_cells",
+              "repeated": false,
+              "mandatory": true,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        }
+      ],
+      "data": [],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the various properties (described by the data fields above) of the application pool identified by the key field."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the current values of the properties (described by the data fields above) of the application pool identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the name and the current values of the properties (described by the data fields above) of the very first application pool from the list of application pools specified in the key field."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the names and the current values of the properties (described by the data fields above) of the next n application pools starting from the application pool provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field above can have."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pool.color",
+      "description": "This table is used to configure various properties for colors for all the application pools.",
+      "id": 4278517765,
+      "table_type": "TmPoolColor",
+      "size": 3,
+      "key": [
+        {
+          "id": 1,
+          "name": "color",
+          "description": "The color identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "GREEN",
+              "YELLOW",
+              "RED"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "color_drop_resume_limit_cells",
+            "description": "Used to specify the number of cells for the resume limit. The resume condition is triggered when the pool usage for all the application pools drops by this value from the limit value which was originally set for the color drop.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the table entry identified by the key field in terms of number of cells."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the table entry identified by the key field in terms of number of cells."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the table entry for the very first color from the list of colors specified in the key field."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the table entries for next n colors starting from the color provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field (number of colors) above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the data fields for the table entries for all the colors to their default values."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pool.app_pfc",
+      "description": "This table is used to configure various properties for the given application pool for the given COS (Class of Service) which used to implement PFC (Priority Flow Control).",
+      "id": 4278517766,
+      "table_type": "TmPoolAppPfc",
+      "size": 32,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The application pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3"
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "cos",
+          "description": "Class of Service value (ranges between 0-7).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "bytes",
+            "width": 3
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "pfc_limit_cells",
+            "description": "Used to specify the PFC limit in terms of number of cells for an application pool. When the PPG usage hits this limit, PFC is triggered.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the first table entry identified by the first pool value from the key above and cos value 0."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the data fields for all the table entries to their default values."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.cfg",
+      "description": "TM Port general config parameters.",
+      "id": 4278517776,
+      "table_type": "TmPortCfg",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "pg_id",
+            "description": "The port's Port Group ID value. To be used as a pg_id key to tm.port.group, or tm.queue tables together with egress_qid_queues[] values as pg_queue key.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "pg_port_nr",
+            "description": "The port's number in its Port Group.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "port_queues_count",
+            "description": "How many physical queues are carved for the Port from its Port Group resource. Also it is a value range for ingress_qid_map items. Modified via tm.port.group table.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "ingress_qid_map",
+            "description": "Ingress Logical Queue IDs mapping of the Port. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count-1. Modified via tm.port.group table.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "egress_qid_queues",
+            "description": "The physical queues which are assigned at the Port Group to the Logical Queue IDs of this Port. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the port group queue number (pg_queue) assigned on this Port for the Logical Queue ID. This value is to be used as a key field for TM Queue object to access its parameters.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 6,
+            "name": "copy_to_cpu",
+            "description": "True if this port is the only port on its pipe which is connected to CPU for packet copy function enabled.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 7,
+            "name": "mirror_drop_destination",
+            "description": "True if this port is assigned for egressing out negative mirror traffic on its pipe (one port and one queue is used per pipe for this purpose). The queue (pg_id, mirror_drop_pg_queue) has the same value at its tm.queue.cfg.mirror_drop_destination.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 8,
+            "name": "mirror_drop_pg_queue",
+            "description": "Port group queue number of the Mirror Drop Queue if mirror_drop_destination is True, otherwise 0. Use (pg_id, mirror_drop_pg_queue) as a key to get the queue settings from TM Queue tables.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 9,
+            "name": "pkt_extraction_credits",
+            "description": "Get current egress packet expansion credits for the port.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Retrieves an existing TM object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the very first entry in the table."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the next n entries in the table after the entry, identified by the key fields."
+        },
+        "tableUsageGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Returns the table size constant value."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.buffer",
+      "description": "TM Port memory buffer parameters.",
+      "id": 4278517779,
+      "table_type": "TmPortBuffer",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "ct_enable",
+            "description": "Port cut-through mode. See also port.port.$CUT_THROUGH_EN",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "uc_ct_limit_cells",
+            "description": "The port cut-through buffer size in terms on number of cells. The specified size is set aside for unicast traffic in cut-through mode. Size in terms of cells. Valid values are [1..15].",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "ig_limit_cells",
+            "description": "When buffer usage accounted on this port crosses the limit, traffic is not admitted into traffic manager.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "ig_hysteresis_cells",
+            "description": "The port hysteresis limit. When usage of cells goes below the hysteresis value, then the port pause or drop condition will be cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "skid_limit_cells",
+            "description": "The port skid limit. Cannot be increased beyond the size of the skid pool. If set to zero, in transit traffic from all lossless PPGs of the port will be dropped once pause/pfc is asserted.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Retrieves an existing TM object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the very first entry in the table."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the next n entries in the table after the entry, identified by the key fields."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Resets to HW default settings all the entries in the table."
+        },
+        "tableUsageGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Returns the table size constant value."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.flowcontrol",
+      "description": "TM Port flow control parameters.",
+      "id": 4278517780,
+      "table_type": "TmPortFlowcontrol",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "mode_tx",
+            "description": "Flow control mode to use on the port: PFC (IEE 802.1Qbb), port PAUSE (IEEE 802.3 ) or NONE. Default is no pause or flow control.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "NONE",
+                "PFC",
+                "PAUSE"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "mode_rx",
+            "description": "How the port should react on flow control frame: PFC - to honor PPF; PORT - to pause the port; NONE - flow control request frame is ignored and traffic will continue to be pushed into egress pipe and egress port. Default: PFC.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "NONE",
+                "PFC",
+                "PAUSE"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "cos_to_icos",
+            "description": "When the Port needs to send PFC frame to the connected counterparty in the PFC mode, then it will translate iCoS to CoS using this map. Default: stright mapping iCoS = CoS",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Retrieves an existing TM object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the very first entry in the table."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Fetches data fields of the next n entries in the table after the entry, identified by the key fields."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Resets to HW default settings all the entries in the table."
+        },
+        "tableUsageGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Returns the table size constant value."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.group_cfg",
+      "description": "TM Port Group general config parameters.",
+      "id": 4278517777,
+      "table_type": "TmPortGroupCfg",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "ingress_qid_max",
+            "description": "Maximum ingress Logical Queue IDs allowed for mapping to physical queues on the ports of a port group.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "pg_queues",
+            "description": "Maximum physical queues available for a port group.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Returns HW default settings for the data fields.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGet": {
+          "description": "Retrieves the only entry available without a key populating the corresponding data fields.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches data fields of the very first and the only entry in the table.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.group",
+      "description": "TM Port Group parameters.",
+      "id": 4278517778,
+      "table_type": "TmPortGroup",
+      "size": 36,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "pg_dev_ports",
+            "description": "The device Ports in this Port Group. The device port ID (a 9-bit value) refers to a physical port on a Tofino based system; it is used in the Tofino fixed-function API calls and in P4 programming.",
+            "repeated": true,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "map",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items are in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 3,
+                "name": "ingress_qid_map_0",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 0 which port ID is in pg_dev_ports[0]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[0].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 4,
+                "name": "egress_qid_queues_0",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 0. The appropriate port ID is in the pg_dev_ports[0]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 5,
+                "name": "ingress_qid_map_1",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 1 which port ID is in pg_dev_ports[1]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[1].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 6,
+                "name": "egress_qid_queues_1",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 1. The appropriate port ID is in the pg_dev_ports[1]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 7,
+                "name": "ingress_qid_map_2",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 2 which port ID is in pg_dev_ports[2]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[2].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 8,
+                "name": "egress_qid_queues_2",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 2. The appropriate port ID is in the pg_dev_ports[2]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 9,
+                "name": "ingress_qid_map_3",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 3 which port ID is in pg_dev_ports[3]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[3].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 10,
+                "name": "egress_qid_queues_3",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 3. The appropriate port ID is in the pg_dev_ports[3]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 11,
+                "name": "ingress_qid_map_4",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 4 which port ID is in pg_dev_ports[4]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[4].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 12,
+                "name": "egress_qid_queues_4",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 4. The appropriate port ID is in the pg_dev_ports[4]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 13,
+                "name": "ingress_qid_map_5",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 5 which port ID is in pg_dev_ports[5]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[5].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 14,
+                "name": "egress_qid_queues_5",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 5. The appropriate port ID is in the pg_dev_ports[5]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 15,
+                "name": "ingress_qid_map_6",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 6 which port ID is in pg_dev_ports[6]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[6].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 16,
+                "name": "egress_qid_queues_6",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 6. The appropriate port ID is in the pg_dev_ports[6]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 17,
+                "name": "ingress_qid_map_7",
+                "description": "Ingress Logical Queue IDs mapping of the port group's port 7 which port ID is in pg_dev_ports[7]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is a port queue number in the range of 0..port_queue_count[7].",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 18,
+                "name": "egress_qid_queues_7",
+                "description": "The Port Group physical queues which are assigned from its resources to the Logical Queue IDs for the Port Group's port 7. The appropriate port ID is in the pg_dev_ports[7]. Each item's index corresponds to an inbound Logical Queue ID. Each item's value is the egress port group queue number pg_queue assigned on the port for the Logical Queue ID. This value is to be used as a key field for TM Queue tables.",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 2,
+          "name": "seq",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items will be in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 3,
+          "name": "even",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items will be in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 4,
+          "name": "crop",
+          "data": [
+            {
+              "mandatory": true,
+              "read_only": false,
+              "singleton": {
+                "id": 2,
+                "name": "port_queue_count",
+                "description": "How many physical queues are carved to this egress port from its port group resource. Each item is equal to how many unique items will be in the ingress_qid_map_ of the appropriate port. The sum for all the items must be less or equal to the tm.port.group_cfg.pg_queues",
+                "repeated": true,
+                "type": {
+                  "type": "uint8"
+                }
+              }
+            }
+          ],
+          "annotations": []
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Returns HW default settings for the data fields as 'map' action.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGet": {
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches data fields of the very first entry in the pipe.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value per pipe, or for all pipes with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.queue.cfg",
+      "description": "TM Queue general config parameters.",
+      "id": 4278517793,
+      "table_type": "TmQueueCfg",
+      "size": 4608,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "mirror_drop_destination",
+            "description": "Indicates if the Queue is assigned for egressing out negative mirror traffic on its port pipe (one such queue per pipe).",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "pfc_cos",
+            "description": "Non-zero CoS value set when the egress queue needs to honor received PFC from downstream. The queue will not participate in scheduling until PFC gets cleared. By default, all queues use mapping CoS zero.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Returns HW default settings for the data fields.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGet": {
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches data fields of the very first entry in the pipe.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.queue.map",
+      "description": "TM Queue mappings.",
+      "id": 4278517794,
+      "table_type": "TmQueueMap",
+      "size": 4608,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "dev_port",
+            "description": "The device port ID (a 9-bit value) which currently uses this physical queue.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "queue_nr",
+            "description": "The device port queue number which is currently mapped to this physical queue.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "ingress_qid_max",
+            "description": "Maximum ingress Logical Queue IDs mappings allowed to this physical queue.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "ingress_qid_count",
+            "description": "How many ingress Logical Queue IDs are mapped to this queue. Equals to number of items in the ingress_qid_list. Indirectly changed by tm.port_group.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "ingress_qid_list",
+            "description": "Ingress Logical Queue IDs mapped to this queue. Represents inverse map to what tm.port_group provides. Indirectly changed by tm.port_group.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches data fields of the very first entry in the pipe.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.queue.color",
+      "description": "TM Queue color limits.",
+      "id": 4278517795,
+      "table_type": "TmQueueColor",
+      "size": 4608,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_enable",
+            "description": "The Queue color drop mode. Based on packet color, when a queue color threshold limit is reached, packets are dropped. By default it is False and color tail drop is disabled.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "drop_limit_yellow",
+            "description": "Yellow color drop limit. Should be larger than the red color drop limit.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "12.5%",
+                "25%",
+                "37.5%",
+                "50%",
+                "62.5%",
+                "75%",
+                "87.5%",
+                "100%"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "drop_limit_red",
+            "description": "Red color drop limit. Should be smaller than the yellow color drop limit.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "12.5%",
+                "25%",
+                "37.5%",
+                "50%",
+                "62.5%",
+                "75%",
+                "87.5%",
+                "100%"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "hysteresis_yellow_cells",
+            "description": "Yellow color hysteresis limit in units of 8 cells the queue usage should fall from its limit value before drop condition is clearedi. The value will be set to HW rounded down to 8 cell units",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "hysteresis_red_cells",
+            "description": "Red color hysteresis limit in units of 8 cells the queue usage should fall from its limit value before drop condition is cleared. The value will be set to HW rounded down to 8 cell units.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "drop_visible",
+            "description": "On Tofino2 visible queues will be reported to ingress MAU for Queue length cross any color threshold.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Returns HW default settings for the data fields.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGet": {
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches data fields of the very first entry in the pipe.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.queue.buffer",
+      "description": "TM Queue buffer and shared pool assignments.",
+      "id": 4278517796,
+      "table_type": "TmQueueBuffer",
+      "size": 4608,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "guaranteed_cells",
+            "description": "The guaranteed minimum buffer size allocated to the queue in terms of number of cells not included into a shared pool. By default, the TM buffer capacity is equally distributed among all the queues that are active. If zero, then the pool_max_cells from the shared pool should be assigned.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "hysteresis_cells",
+            "description": "Hysteresis limit in number of cells the queue usage should reduce before drop condition is cleared. The value will be set to HW rounded down to 8 cell units.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "tail_drop_enable",
+            "description": "The queue tail drop mode. By default, the packet drops are enabled when queue threshold limits are reached. Setting this to False will not drop packets on the egress side even if the threshold limits are reached, which will lead to ingress drops eventually.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "shared_pool",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 4,
+                "name": "pool_id",
+                "description": "Egress Application pool to be used for the port queue.",
+                "repeated": false,
+                "type": {
+                  "type": "string",
+                  "choices": [
+                    "EG_APP_POOL_0",
+                    "EG_APP_POOL_1",
+                    "EG_APP_POOL_2",
+                    "EG_APP_POOL_3"
+                  ]
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 5,
+                "name": "pool_max_cells",
+                "description": "Limit, in terms of cells, to which the queue buffer can grow inside the application pool. Once this limit is crossed, and if the queue burst absorption factor (BAF) is non zero, then depending on availability of buffers the queue is allowed to use up to BAF limit of the buffer memory currently available. The queue does not use shared pool if the pool_max_cells is set to zero, the same way as the action 'buffer_only' does, and in this case the guaranteed_cells should be non-zero.",
+                "repeated": false,
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 6,
+                "name": "dynamic_baf",
+                "description": "Dynamic Burst Absorption Factor value ID assigned for the queue. Used to decide how much of the available buffer memory can be used for the queue. If BAF limit is NONE, the queue is treated as static and no dynamic buffering is possible over the pool_max_cells.",
+                "repeated": false,
+                "type": {
+                  "type": "string",
+                  "choices": [
+                    "1.5%",
+                    "3%",
+                    "6%",
+                    "11%",
+                    "20%",
+                    "33%",
+                    "50%",
+                    "66%",
+                    "80%",
+                    "DISABLE"
+                  ]
+                }
+              }
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "id": 2,
+          "name": "buffer_only",
+          "data": [],
+          "annotations": []
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Returns HW default settings for the data fields as 'shared_pool' action.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGet": {
+          "description": "Retrieves an entry identified by the key fields populating the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches data fields of the very first entry in the pipe.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches data fields of the next n entries in the pipe after the entry, identified by the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the pipe, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.queue.sched_cfg",
+      "description": "TM Queue Scheduler parameters.",
+      "id": 4278517797,
+      "table_type": "TmQueueSchedCfg",
+      "size": 4608,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "min_rate_enable",
+            "description": "Enable token bucket that assures guaranteed (min) rate for the Queue with tm.queue.sched_shaping parameters.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "min_priority",
+            "description": "The queue scheduling priority when serving guaranteed (min) bandwidth.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "LOW",
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "HIGH"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "max_rate_enable",
+            "description": "Enable token bucket that assures max shaping rate for the Queue with tm.queue.sched_shaping parameters.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "max_priority",
+            "description": "The queue scheduling priority when serving max shaping bandwidth.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "LOW",
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "HIGH"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "dwrr_weight",
+            "description": "The queue DWRR weight.",
+            "repeated": false,
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "advanced_flow_control",
+            "description": "The queue scheduler advanced flow control mode.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "CREDIT",
+                "XOFF"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "scheduling_enable",
+            "description": "Enable the Queue for scheduling. If disabled, queue will not participate in scheduling.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "pg_l1_node",
+            "description": "L1 Node this Queeue is associated to as a child node. The L1 Node must be already assigned to a Port at the same Port Group as the Queue, and it remains in use while it has at least one scheduled child Queue. This value to be used together with this queue port group id (pg_id) as a key field for TM L1 Node object to access its parameters.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches the very first enty from the dev_tgt.pipe_id.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches next n entries from the dev_tgt.pipe_id after the entry, identified by the key.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value for the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.queue.sched_shaping",
+      "description": "TM Queue Scheduler shaping settings.",
+      "id": 4278517798,
+      "table_type": "TmQueueSchedShaping",
+      "size": 4608,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "unit",
+            "description": "Unit of shaping rate and burst size: PPS - in Packets/s; BPS - Kbit/s for rate, Bytes/s for burst.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "PPS",
+                "BPS"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "provisioning",
+            "description": "Shaper provisioning mode: how mantissa/exponent values are rounded from the values given.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "UPPER",
+                "LOWER",
+                "MIN_ERROR"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "min_rate",
+            "description": "Guaranteed shaping rate in units (Packets/s or Kbit/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "min_burst_size",
+            "description": "Guaranteed shaping burst size in units (Packets/s or Bytes/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "max_rate",
+            "description": "Remaining shaping rate in units (Packets/s or Kbit/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "max_burst_size",
+            "description": "Remaining shaping burst size in units (Packets/s or Bytes/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches the very first enty from the dev_tgt.pipe_id.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches next n entries from the dev_tgt.pipe_id after the entry, identified by the key.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value for the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.sched_cfg",
+      "description": "TM Port Scheduler parameters.",
+      "id": 4278517782,
+      "table_type": "TmPortSchedCfg",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "max_rate_enable",
+            "description": "Enable token bucket that assures max shaping rate for the Port with tm.port.sched_shaping parameters.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "l1_nodes_count",
+            "description": "How many L1 Nodes are currently associated to this Port. It is equal to how many items are in l1_nodes[].",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "l1_nodes",
+            "description": "L1 Node ids (pg_l1_node) currently associated with this Port. These values to be used together with this port's port group id (tm.port.cfg.pg_id) as a key field for TM L1 Node object to access its parameters.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "scheduling_speed",
+            "description": "Port scheduling speed. Set 'BF_SPEED_NONE' to disable Port's scheduling.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_SPEED_NONE",
+                "BF_SPEED_1G",
+                "BF_SPEED_10G",
+                "BF_SPEED_25G",
+                "BF_SPEED_40G",
+                "BF_SPEED_40G_R2",
+                "BF_SPEED_40G_NB",
+                "BF_SPEED_40G_NON_BREAKABLE",
+                "BF_SPEED_50G",
+                "BF_SPEED_50G_CONS",
+                "BF_SPEED_100G",
+                "BF_SPEED_200G",
+                "BF_SPEED_400G"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an existing entry identified by the key field.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches the very first enty",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches next n entries after the entry, identified by the key.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an existing entry identified by the key field.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the table.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.port.sched_shaping",
+      "description": "TM Port Scheduler shaping settings.",
+      "id": 4278517783,
+      "table_type": "TmPortSchedShaping",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "unit",
+            "description": "Unit of shaping rate and burst size: PPS - in Packets/s; BPS - Kbit/s for rate, Bytes/s for burst.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "PPS",
+                "BPS"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "provisioning",
+            "description": "Shaper provisioning mode: how mantissa/exponent values are rounded from the values given.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "UPPER",
+                "LOWER",
+                "MIN_ERROR"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "max_rate",
+            "description": "Port Shaping rate in units (Packets/s or Kbit/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "max_burst_size",
+            "description": "Port Shaping burst size in units (Packets/s or Bytes/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an existing entry identified by the key field.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches the very first enty",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches next n entries after the entry, identified by the key.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an existing entry identified by the key field.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the table.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.l1_node.sched_cfg",
+      "description": "L1 Node Scheduler parameters.",
+      "id": 4278517857,
+      "table_type": "TmL1NodeSchedCfg",
+      "size": 1152,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_l1_node",
+          "description": "The device port group L1 Node number (valid range for Tofino2 is 0..31).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "min_rate_enable",
+            "description": "Enable/Disable token bucket that assures guaranteed (min) rate for the L1 Node with tm.l1_node.sched_shaping parameters.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "min_priority",
+            "description": "The L1 Node scheduling priority when serving guaranteed (min) bandwidth.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "LOW",
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "HIGH"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "max_rate_enable",
+            "description": "Enable/Disable token bucket that assures max shaping rate for the L1 Node with tm.l1_node.sched_shaping parameters.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "max_priority",
+            "description": "The L1 Node scheduling priority when serving max shaping bandwidth.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "LOW",
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "HIGH"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "dwrr_weight",
+            "description": "The L1 Node DWRR weight. The weight is used when L1 Nodes with the same priority level are scheduled during remaining (max) bandwidth sharing.",
+            "repeated": false,
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "priority_propagation",
+            "description": "Enable/Disable priority propagation from the child queues.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "queues_count",
+            "description": "How many child queues are currently assigned to this L1 Node. It is equal to how many items are in pg_queues[].",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "pg_queues",
+            "description": "Port group queue numbers (pg_queue) of all child physical queues currently assigned to this L1 Node. These values to be used as a key field for TM Queue object to access its parameters.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "in_use",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 10,
+                "name": "scheduling_enable",
+                "description": "Enable/Disable this L1 Node for scheduling. If disabled, L1 Node will not participate in scheduling, but it remains assigned to the dev_port in HW.",
+                "repeated": false,
+                "type": {
+                  "type": "bool"
+                }
+              }
+            },
+            {
+              "mandatory": false,
+              "read_only": false,
+              "singleton": {
+                "id": 9,
+                "name": "dev_port",
+                "description": "Device port ID assignment of this L1 Node. See tm.port.sched_cfg.l1_nodes for reverse reference. The device port is from the same dev_tgt.pipe_id and pg_id as the L1 Node. The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+                "repeated": false,
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "free",
+          "data": [
+            {
+              "mandatory": false,
+              "read_only": true,
+              "singleton": {
+                "id": 11,
+                "name": "dev_port",
+                "description": "Device port ID associated to this inactive L1 Node. See tm.port.sched_cfg.l1_nodes for reverse reference. The device port is from the same dev_tgt.pipe_id and pg_id as the L1 Node. The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+                "repeated": false,
+                "type": {
+                  "type": "uint32"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches the very first enty from the dev_tgt.pipe_id.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches next n entries from the dev_tgt.pipe_id after the entry, identified by the key.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value for the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.l1_node.sched_shaping",
+      "description": "L1 Node Scheduler shaping settings.",
+      "id": 4278517858,
+      "table_type": "TmL1NodeSchedShaping",
+      "size": 1152,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_l1_node",
+          "description": "The device port group L1 Node number (valid range for Tofino2 is 0..31).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "unit",
+            "description": "Unit of shaping rate and burst size: PPS - in Packets/s; BPS - Kbit/s for rate, Bytes/s for burst.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "PPS",
+                "BPS"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "min_rate",
+            "description": "Guaranteed shaping rate in units (Packets/s or Kbit/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "min_burst_size",
+            "description": "Guaranteed shaping burst size in units (Packets/s or Bytes/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "max_rate",
+            "description": "Remaining shaping rate in units (Packets/s or Kbit/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "max_burst_size",
+            "description": "Remaining shaping burst size in units (Packets/s or Bytes/s)",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "description": "Retrieves an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "description": "Fetches the very first enty from the dev_tgt.pipe_id.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "description": "Fetches next n entries from the dev_tgt.pipe_id after the entry, identified by the key.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableEntryMod": {
+          "description": "Updates an existing entry identified by dev_tgt.pipe_id and the key fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableClear": {
+          "description": "Resets to HW default settings all the entries in the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns the table size constant value for the dev_tgt.pipe_id, or in the table with PIPE_ALL.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.ig_port",
+      "description": "This table is used to read or clear various counters for ports from ingress TM perspective.",
+      "id": 4278517825,
+      "table_type": "TmCounterIgPort",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value, for example 189) used to refer to a traffic port on a Tofino based system. The dev-port is the port designation used in the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_count_packets",
+            "description": "Per port drop count in terms of number of packets.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "usage_cells",
+            "description": "Port usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "watermark_cells",
+            "description": "Watermark value for port in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the first table entry identified by the first device port identifier."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the data fields for all the table entries to their default values."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.eg_port",
+      "description": "This table is used to read or clear various counters for ports from egress TM perspective.",
+      "id": 4278517826,
+      "table_type": "TmCounterEgPort",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value, for example 189) used to refer to a traffic port on a Tofino based system. The dev-port is the port designation used in the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_count_packets",
+            "description": "Per port drop count in terms of number of packets.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "usage_cells",
+            "description": "Port usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "watermark_cells",
+            "description": "Watermark value for port in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field. The fields with clear_only annotation can only be written with 0."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the first table entry identified by the first device port identifier."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the R/W data fields for all the table entries to their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.queue",
+      "description": "This table is used to read or clear various counters for egress queues.",
+      "id": 4278517827,
+      "table_type": "TmCounterQueue",
+      "size": 1152,
+      "key": [
+        {
+          "id": 1,
+          "name": "pg_id",
+          "description": "The device port group (valid range for Tofino2 is 0..8 at each pipe).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pg_queue",
+          "description": "The device port group queue number (valid range for Tofino2 is 0..127).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_count_packets",
+            "description": "Per queue drop count in terms of number of packets.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "usage_cells",
+            "description": "Queue usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "watermark_cells",
+            "description": "Watermark value for queue in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field. The fields with clear_only annotation can only be written with 0."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the first entry in the pipe."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the next n table entries in the pipe for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for all the table entries to their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.pool",
+      "description": "This table is used to read or clear various counters for pools.",
+      "id": 4278517828,
+      "table_type": "TmCounterPool",
+      "size": 8,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The pool identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "usage_cells",
+            "description": "Pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "watermark_cells",
+            "description": "Watermark value for pool in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field. The fields with clear_only annotation can only be written with 0."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the first entry identified by the pool in the list."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the R/W data fields for all the table entries to their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.pipe",
+      "description": "This table is used to read or clear various pipe counters.",
+      "id": 4278517829,
+      "table_type": "TmCounterPipe",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "total_buffer_full_drop_packets",
+            "description": "Number of packets which were dropped because of buffer full condition.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "discard_queue_usage_cells",
+            "description": "Discard queue current usage in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "discard_queue_watermark_cells",
+            "description": "Watermark value for the discard queue in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "total_cells",
+            "description": "Total number of cells received by the pipe.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "total_packets",
+            "description": "Total number of packets received by the pipe.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "uc_ct_packets",
+            "description": "Unicast cut through packet count through the pipe. The counter is incremented after packet is admitted into TM in egress direction.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "mc_ct_packets",
+            "description": "Multicast cut through packet count through the pipe. The counter is incremented after packet is admitted into TM in egress direction.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "ig_no_dest_drop_packets",
+            "description": "The number of packets which were dropped because of no destination on ingress side.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
+            "name": "ig_buf_full_drop_packets",
+            "description": "The number of packets which were dropped because of buffer full condition on ingress side.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 10,
+            "name": "eg_total_drop_packets",
+            "description": "The total number of packets which were dropped on egress side.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "mc_queue_drop_packets",
+            "description": "The total number of multicast packets dropped during queue admission control check.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "mc_input_fifo_0_drop_packets",
+            "description": "The total number of multicast packets dropped at input FIFO 0.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "mc_input_fifo_1_drop_packets",
+            "description": "The total number of multicast packets dropped at input FIFO 1.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "mc_input_fifo_2_drop_packets",
+            "description": "The total number of multicast packets dropped at input FIFO 2.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "mc_input_fifo_3_drop_packets",
+            "description": "The total number of multicast packets dropped at input FIFO 3.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to modify the data fields for the pipe. The fields with clear_only annotation can only be written with 0."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for the pipe to their initial values (0 here)."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the data fields for the pipe."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for the pipe(s) their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.dpg",
+      "description": "This table is used to read or clear various counters for the Port Default Priority Group (DPG).",
+      "id": 4278517830,
+      "table_type": "TmCounterPortDpg",
+      "size": 288,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "description": "The device port ID (a 9-bit value, for example 189) used to refer to a traffic port on a Tofino based system. The dev-port is the port designation used in the Tofino fixed-function API calls and in P4 programming.",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_count_packets",
+            "description": "The drop count in terms of number of packets.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "guaranteed_min_usage_cells",
+            "description": "The guaranteed minimum pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "shared_pool_usage_cells",
+            "description": "The shared pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "skid_pool_usage_cells",
+            "description": "The skid pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "watermark_cells",
+            "description": "The watermark value in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field. The fields with clear_only annotation can only be written with 0."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the first table entry identified by the first device port identifier."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the R/W data fields for all the table entries to their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.mirror_dpg",
+      "description": "This table is used to read or clear various counters associated with the default priority group for the mirror port.",
+      "id": 4278517831,
+      "table_type": "TmCounterMirrorPortDpg",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "drop_count_packets",
+            "description": "The drop count in terms of number of packets.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "guaranteed_min_usage_cells",
+            "description": "The guaranteed minimum pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "shared_pool_usage_cells",
+            "description": "The shared pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "skid_pool_usage_cells",
+            "description": "The skid pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "watermark_cells",
+            "description": "The watermark value in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to modify the data fields for the default priority group(s) for the mirror port(s) on the pipe(s). The fields with clear_only annotation can only be written with 0."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for the default priority group(s) for the mirror port(s) on the pipe(s) to their initial values (0 here)."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the data fields for the default priority group for the mirror port on the pipe."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for the default priority group(s) for the mirror port(s) on the pipe(s) to their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.counter.ppg",
+      "description": "This table is used to read or clear various counters for the PFC priority groups associated to ports.",
+      "id": 4278517832,
+      "table_type": "TmCounterPpg",
+      "size": 128,
+      "key": [
+        {
+          "id": 1,
+          "name": "ppg_counter_id",
+          "description": "The PPG counter id from tm.ppg.cfg table. For each user assigned ppg id, there will be a counter id generated and can be looked up in tm.ppg.cfg table.",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint8"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "ppg_id",
+            "description": "The user assigned ppg id. This can be used to reference an entry from tm.ppg.cfg table.",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "drop_count_packets",
+            "description": "The drop count in terms of number of packets.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "guaranteed_min_usage_cells",
+            "description": "The guaranteed minimum pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "shared_pool_usage_cells",
+            "description": "The shared pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "skid_pool_usage_cells",
+            "description": "The skid pool usage count in terms of number of cells.",
+            "repeated": false,
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "watermark_cells",
+            "description": "The watermark value in terms of number of cells.",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "clear_only",
+                "value": "true"
+              }
+            ],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field. The fields with clear_only annotation can only be written with 0."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the first table entry identified by the first counter identifier."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for all the table entries to their default values (0 here)."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.cfg",
+      "description": "This table is read or write global TM configurations.",
+      "id": 4278517889,
+      "table_type": "TmCfg",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "timestamp_shift_bits",
+            "description": "Number of global timestamp bits that is to be right shifted. Up to 16 bits can be right shifted. Anything greater than 16 is capped to 16.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "cell_size_bytes",
+            "description": "The cell size in bytes.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "total_cells",
+            "description": "Total Traffic Manager buffer capability measured in cell count.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to modify the R/W data fields for the global TM configuration."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the R/W data fields for the global TM configuration to their initial reset values."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to fetch the data fields for the global TM configuration."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset the R/W data fields for the global TM configuration to their initial reset values."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pipe.multicast_fifo",
+      "description": "This table is used to read or write various settings for multicast fifos for the pipes.",
+      "id": 4278517841,
+      "table_type": "TmPipeMulticastFifo",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "icos_mask",
+            "description": "Multicast fifo to icos mapping.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "arbitration_mode",
+            "description": "Input fifo arbitration mode. Note that if strict priority is enabled on a FIFO, all FIFOs higher must also be enabled for strict priority. For example, to set FIFO 1 as strict priority, 2 and 3 must also be strict priority.",
+            "repeated": true,
+            "type": {
+              "type": "string",
+              "choices": [
+                "STRICT_PRIORITY",
+                "WRR"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "wrr_weight",
+            "description": "Input fifo arbitration weight values used by the weighted round robin arbitration mode.",
+            "repeated": true,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "depth",
+            "description": "Input fifo depth (Sum of all four sizes cannot exceed 1024).",
+            "repeated": true,
+            "type": {
+              "type": "uint16"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to modify the R/W data fields for the multicast fifos."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for the multicast fifos to their initial reset values."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API is used to fetch the data fields for the multicast fifos."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset the R/W data fields for the multicast fifos to their initial reset values."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pipe.cfg",
+      "description": "TM Pipe general settings.",
+      "id": 4278517840,
+      "table_type": "TmPipeCfg",
+      "size": 4,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "mirror_drop_enable",
+            "description": "Enable Mirror Drop ('Deflection on Drop') function on the pipe.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "mirror_drop_pg_id",
+            "description": "Port group of the Mirror Drop Port. Use it with mirror_drop_pg_queue a key to get the queue settings from TM Queue tables.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "mirror_drop_pg_queue",
+            "description": "Port group queue number of the Mirror Drop Queue which one is assigned to egress out negative mirror traffic on the Pipe. Use it with mirror_drop_pg_id as a key to get the queue settings from TM Queue tables.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "mirror_drop_dev_port",
+            "description": "The device port on the same dev_tgt.pipe_id which one is assigned to egress out negative mirror traffic on the Pipe as a Mirror Drop Port. See also tm.port.cfg.mirror_drop_destination. The device port ID (a 9-bit value) to refer to a port on a Tofino based system; it is used for the Tofino fixed-function API calls and in P4 programming.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "mirror_drop_queue_nr",
+            "description": "The device port queue number which one is assigned to egress out negative mirror traffic on the Pipe. See also tm.queue.cfg.mirror_drop_destination.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
+            "name": "eg_limit_cells",
+            "description": "The egress pipe limit in number of buffer cells. When admitting a packet into the traffic manager, apart from the other checks, the packet also has to pass usage check on per egress pipe usage limit. When exceeded, the packet will not be admitted.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 7,
+            "name": "eg_hysteresis_cells",
+            "description": "The pipe level hysteresis limit in number buffer of cells. When usage of cells goes below the hysteresis limit, pipe level drop condition will be cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 8,
+            "name": "queue_color_drop_visible",
+            "description": "Egress Pipe 'Queue Stats Reporting' mode on Tofino2. True for color threshold update, False for any update. Each Queue is participating in updates if its tm.queue.color.drop_visible = True",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Retrieves the entry identified by dev_tgt.pipe_id with values in the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableDefaultEntrySet": {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableDefaultEntryReset": {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with HW reset values.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Applies tableDefaultEntryReset to the dev_tgt.pipe_id entry or to all pipes with PIPE_ALL."
+        }
+      }
+    },
+    {
+      "name": "tf2.tm.pipe.sched_cfg",
+      "description": "TM Pipe Scheduler settings.",
+      "id": 4278517842,
+      "table_type": "TmPipeSchedCfg",
+      "size": 4,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "packet_ifg_compensation",
+            "description": "Per packet byte adjustment value. Set number of bytes added per each packet by shaper to adjust its length.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "advanced_flow_control_enable",
+            "description": "Enable Scheduler Advanced Flow Control mode.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet": {
+          "description": "Retrieves the entry identified by dev_tgt.pipe_id with values in the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableDefaultEntrySet": {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with values from the corresponding data fields.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ]
+        },
+        "tableDefaultEntryReset": {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with HW reset values.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Applies tableDefaultEntryReset to the dev_tgt.pipe_id entry or to all pipes with PIPE_ALL."
+        }
+      }
+    }
+  ]
+}

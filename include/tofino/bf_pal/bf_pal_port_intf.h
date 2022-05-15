@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _BF_PAL_PORT_INTF_H
 #define _BF_PAL_PORT_INTF_H
 
@@ -361,6 +362,34 @@ bf_status_t bf_pal_port_autoneg_policy_get(
  */
 bf_status_t bf_pal_port_autoneg_policy_set_all(bf_dev_id_t dev_id,
                                                int an_policy);
+
+/**
+ * @brief Set the advertised speeds for the port
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[in] adv_speed_arr Array of advertised speeds for the port
+ * @param[in] adv_speed_cnt Number of advertised speeds in array
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_autoneg_adv_speed_set(bf_dev_id_t dev_id,
+                                              bf_dev_port_t dev_port,
+                                              bf_port_speed_t *adv_speed_arr,
+                                              uint32_t adv_speed_cnt);
+
+/**
+ * @brief Get HCD speed value of the port
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[out] hcd Highest Common Denominator speed negotiated
+ * @param[out] hcd_lanes Highest Common Denominator number of lanes negotiated
+ * @param[out] fec FEC mode negotiated
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_autoneg_hcd_fec_get(bf_dev_id_t dev_id,
+                                            bf_dev_port_t dev_port,
+                                            bf_port_speed_t *hcd,
+                                            int *hcd_lanes,
+                                            bf_fec_type_t *fec);
 
 /**
  * @brief Set the KR mode policy for the port
@@ -946,4 +975,13 @@ bf_status_t bf_pal_port_mac_stats_historical_set(bf_dev_id_t dev_id,
 bf_status_t bf_pal_interrupt_based_link_monitoring_get(bf_dev_id_t dev_id,
                                                        bool *en);
 
+/**
+ * @brief Get the dev port corresponding to the recirculation port index
+ * @param dev_id Device id
+ * @param recirc_devport_list Pointer to an array[30]
+ * @return On success, returns maximum number of recirc ports
+ * @return On error, returns 0
+ */
+uint32_t bf_pal_recirc_devports_get(bf_dev_id_t dev_id,
+                                    uint32_t *recirc_devport_list);
 #endif

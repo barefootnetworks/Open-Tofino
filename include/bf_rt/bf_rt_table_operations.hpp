@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table_operations.hpp
  *
  *  @brief Contains BF-RT Table Operations APIs
@@ -120,6 +121,6 @@ class BfRtTableOperations {
                                         const BfRtHitStateUpdateCb &callback,
                                         const void *cookie) = 0;
 };
-}  // bfrt
+}  // namespace bfrt
 
 #endif  // _BF_RT_TABLE_OPERATIONS_HPP
