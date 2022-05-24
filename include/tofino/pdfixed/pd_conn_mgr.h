@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _TOFINO_PDFIXED_PD_CONN_MGR_H
 #define _TOFINO_PDFIXED_PD_CONN_MGR_H
 
@@ -216,6 +217,21 @@ p4_pd_status_t p4_pd_pktgen_disable(p4_pd_sess_hdl_t shdl,
                                     uint32_t port);
 
 /**
+ * @brief Get packet generator enable state for the given port
+ *
+ * @param[in] dev Device identifier
+ * @param[in] port Port identifier
+ * @param[out] enabled Pktgen enable state
+ *
+ * @return Status of the API call
+ *
+ */
+p4_pd_status_t p4_pd_pktgen_enable_state_get(p4_pd_sess_hdl_t shdl,
+                                             bf_dev_id_t dev,
+                                             uint32_t port,
+                                             bool *enabled);
+
+/**
  * @brief Enable recirculation pattern matching for the given port
  *
  * @param[in] shdl Session handle
@@ -242,6 +258,20 @@ p4_pd_status_t p4_pd_pktgen_disable_recirc_pattern_matching(
     p4_pd_sess_hdl_t shdl, bf_dev_id_t dev, uint32_t port);
 
 /**
+ * @brief Get recirculation pattern matching state for the given port
+ *
+ * @param[in] shdl Session handle
+ * @param[in] dev Device identifier
+ * @param[in] port Port identifier
+ * @param[out] enabled Recirc pattern matching enable state
+ *
+ * @return Status of the API call
+ *
+ */
+p4_pd_status_t p4_pd_pktgen_recirc_pattern_matching_state_get(
+    p4_pd_sess_hdl_t shdl, bf_dev_id_t dev, uint32_t port, bool *enabled);
+
+/**
  * @brief Clear packet generator port down for the given port
  *
  * @param[in] shdl Session handle
@@ -254,6 +284,22 @@ p4_pd_status_t p4_pd_pktgen_disable_recirc_pattern_matching(
 p4_pd_status_t p4_pd_pktgen_clear_port_down(p4_pd_sess_hdl_t shdl,
                                             bf_dev_id_t dev,
                                             uint32_t port);
+
+/**
+ * @brief Get packet generator port down state for the given port
+ *
+ * @param[in] shdl Session handle
+ * @param[in] dev Device identifier
+ * @param[in] port Port identifier
+ * @param[out] is_cleared Cleared state identifier
+ *
+ * @return Status of the API call
+ *
+ */
+p4_pd_status_t p4_pd_pktgen_port_down_get(p4_pd_sess_hdl_t shdl,
+                                          bf_dev_id_t dev,
+                                          uint32_t port,
+                                          bool *is_cleared);
 
 /**
  * @brief Configure packet gen for the given application id of Tofino
@@ -326,11 +372,26 @@ p4_pd_status_t p4_pd_pktgen_cfg_app_tof2_get(p4_pd_sess_hdl_t shdl,
  * @return Status of the API call
  *
  */
-p4_pd_status_t p4_pd_pktgen_port_down_msk_tof2(
-    p4_pd_sess_hdl_t shdl,
+p4_pd_status_t p4_pd_pktgen_port_down_msk_tof2(p4_pd_sess_hdl_t shdl,
+                                               p4_pd_dev_target_t dev_tgt,
+                                               uint32_t port_mask_sel,
+                                               p4_pd_port_down_mask_tof2 mask);
+
+/**
+ * @brief Get packet gen port down mask for Tofino2
+ *
+ * @param[in] shdl Session handle
+ * @param[in] dev_tgt Device and pipe information
+ * @param[in] port_mask_sel Port mask select
+ * @param[out] mask Port mask
+ *
+ * @return Status of the API call
+ *
+ */
+p4_pd_status_t p4_pd_pktgen_port_down_msk_tof2_get(
     p4_pd_dev_target_t dev_tgt,
     uint32_t port_mask_sel,
-    struct p4_pd_port_down_mask_tof2 mask);
+    p4_pd_port_down_mask_tof2 *mask);
 
 /**
  * @brief Configure packet gen port down replay mode
@@ -391,6 +452,22 @@ p4_pd_status_t p4_pd_pktgen_app_disable(p4_pd_sess_hdl_t shdl,
                                         uint32_t app_id);
 
 /**
+ * @brief Get packet gen app enable state for the given application id
+ *
+ * @param[in] shdl Session handle
+ * @param[in] dev_tgt Device and pipe information
+ * @param[in] app_id Packet gen application id
+ * @param[out] enabled Packet gen application enable state
+ *
+ * @return Status of the API call
+ *
+ */
+p4_pd_status_t p4_pd_pktgen_app_enable_state_get(p4_pd_sess_hdl_t shdl,
+                                                 p4_pd_dev_target_t dev_tgt,
+                                                 uint32_t app_id,
+                                                 bool *enabled);
+
+/**
  * @brief Write the given packet to the packet buffer of packet gen
  *
  * @param[in] shdl Session handle
@@ -402,12 +479,29 @@ p4_pd_status_t p4_pd_pktgen_app_disable(p4_pd_sess_hdl_t shdl,
  * @return Status of the API call
  *
  */
-
 p4_pd_status_t p4_pd_pktgen_write_pkt_buffer(p4_pd_sess_hdl_t shdl,
                                              p4_pd_dev_target_t dev_tgt,
                                              uint32_t offset,
                                              uint32_t size,
                                              uint8_t *buf);
+
+/**
+ * @brief Read the given packet to the packet buffer of packet gen
+ *
+ * @param[in] shdl Session handle
+ * @param[in] dev_tgt Device and pipe information
+ * @param[in] offset Offset address for the packet
+ * @param[in] size Size of the packet
+ * @param[in] buf Pointer to the packet contents
+ *
+ * @return Status of the API call
+ *
+ */
+p4_pd_status_t p4_pd_pktgen_read_pkt_buffer(p4_pd_sess_hdl_t shdl,
+                                            p4_pd_dev_target_t dev_tgt,
+                                            uint32_t offset,
+                                            uint32_t size,
+                                            uint8_t *buf);
 
 /**
  * @brief Get the batch counter for packet gen application id

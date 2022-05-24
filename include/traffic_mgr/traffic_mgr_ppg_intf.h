@@ -139,6 +139,17 @@ bf_status_t bf_tm_ppg_lossless_treatment_disable(bf_dev_id_t dev,
                                                  bf_tm_ppg_hdl ppg);
 
 /**
+ * @brief Clear PPG drop state register in WAC
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] ppg        ppg handle
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_ppg_wac_drop_state_clear(bf_dev_id_t dev, bf_tm_ppg_hdl ppg);
+
+/**
  * @brief Set PPG Pool and limit properties
  * A non deafult PPG can be optionally assigned to any application pool.
  * When assigned to application pool, static or dynamic shared limit
@@ -241,6 +252,17 @@ bf_status_t bf_tm_ppg_guaranteed_min_limit_set(bf_dev_id_t dev,
 bf_status_t bf_tm_ppg_skid_limit_set(bf_dev_id_t dev,
                                      bf_tm_ppg_hdl ppg,
                                      uint32_t cells);
+
+/**
+ * @brief Clear ppg resume limits.
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] ppg        ppg whose resume limits has to be cleared.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_ppg_resume_limit_clear(bf_dev_id_t dev, bf_tm_ppg_hdl ppg);
 
 /**
  * @brief Set ppg hysteresis limits.

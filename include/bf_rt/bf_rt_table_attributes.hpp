@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table_attributes.hpp
  *
  *  @brief Contains BF-RT Table Attribute APIs
@@ -62,10 +63,10 @@ enum class TableAttributesType {
 enum class TableAttributesIdleTableMode {
   /** Idle poll mode. When set, entry_hit_state on MAT entries can be
      queried to check idle time */
-  POLL_MODE,
+  POLL_MODE = 0,
   /** Idle notify mode. Can be used to set CB for idletimeout on a MAT */
-  NOTIFY_MODE,
-  INVALID_MODE
+  NOTIFY_MODE = 1,
+  INVALID_MODE = 2
 };
 
 /**
@@ -136,7 +137,8 @@ typedef std::function<void(
 typedef std::function<void(const bf_dev_id_t &dev_id,
                            const BfRtTableKey *key,
                            const bool &port_up,
-                           void *cookie)> BfRtPortStatusNotifCb;
+                           void *cookie)>
+    BfRtPortStatusNotifCb;
 
 /**
  * @brief Selector Table Update Callback. This can be used to get notification
@@ -156,7 +158,8 @@ typedef std::function<void(const std::shared_ptr<BfRtSession> session,
                            const bf_rt_id_t &sel_grp_id,
                            const bf_rt_id_t &act_mbr_id,
                            const int &logical_entry_index,
-                           const bool &is_add)> selUpdateCb;
+                           const bool &is_add)>
+    selUpdateCb;
 /**
  * @brief Class to expose APIs to set/get the entry scope arguments with
  * std::bitset.The absolute scope val is a 32 bit unsigned int which can be set
@@ -375,8 +378,8 @@ class BfRtTableAttributes {
    * @return Status of the API call
    */
   virtual bf_status_t dynKeyMaskSet(
-      const std::unordered_map<bf_rt_id_t, std::vector<uint8_t>> &
-          field_mask) = 0;
+      const std::unordered_map<bf_rt_id_t, std::vector<uint8_t>>
+          &field_mask) = 0;
 
   /**
    * @brief Get Dynamic Key Mask params in the Attributes Object
@@ -584,6 +587,6 @@ class BfRtTableAttributes {
                                           selUpdateCb *callback_fn,
                                           void **cookie) const = 0;
 };
-}  // bfrt
+}  // namespace bfrt
 
 #endif  // _BF_RT_TABLE_ATTRIBUTES_HPP

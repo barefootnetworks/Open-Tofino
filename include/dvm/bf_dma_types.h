@@ -47,6 +47,8 @@ typedef enum bf_dma_type_e {
 } bf_dma_type_t;
 #define BF_DMA_TYPE_MAX_TOF (BF_DMA_CPU_PKT_TRANSMIT_3 + 1)
 #define BF_DMA_TYPE_MAX_TOF2 (BF_DMA_TM_BLOCK_READ_1 + 1)
+#define BF_DMA_TYPE_MAX_TOF3 (BF_DMA_TM_BLOCK_READ_1 + 1)
+
 static const char *bf_dma_type_strs[BF_DMA_TYPE_MAX + 1] = {
     "BF_DMA_PIPE_INSTRUCTION_LIST", "BF_DMA_PIPE_LEARN_NOTIFY",
     "BF_DMA_PIPE_STAT_NOTIFY",      "BF_DMA_PIPE_IDLE_STATE_NOTIFY",

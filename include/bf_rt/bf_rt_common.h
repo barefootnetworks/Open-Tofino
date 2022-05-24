@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_common.h
  *
  *  @brief Contains Common data types used in BF-RT
@@ -104,7 +105,7 @@ typedef struct bf_rt_target_ {
   /** Pipe ID */
   bf_dev_pipe_t pipe_id;
   /** Gress direction In/Eg */
-  pipe_mgr_pvs_gress_en direction;
+  bf_dev_direction_t direction;
   /** Parser ID */
   uint8_t prsr_id;
 } bf_rt_target_t;

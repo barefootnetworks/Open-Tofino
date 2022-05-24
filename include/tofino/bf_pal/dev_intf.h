@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _TOFINO_BF_PAL_DEV_INTF_H
 #define _TOFINO_BF_PAL_DEV_INTF_H
 
@@ -50,12 +51,16 @@ bf_status_t bf_pal_device_add(bf_dev_id_t dev_id,
  */
 bf_status_t bf_pal_device_warm_init_end(bf_dev_id_t dev_id);
 
+bf_status_t bf_pal_pltfm_reset_config(bf_dev_id_t dev_id);
+
 // Below callbacks are local to bf-switchd
 typedef bf_status_t (*bf_pal_device_warm_init_begin_fn)(
     bf_dev_id_t dev_id,
     bf_dev_init_mode_t warm_init_mode,
     bf_dev_serdes_upgrade_mode_t serdes_upgrade_mode,
     bool upgrade_agents);
+
+typedef bf_status_t (*bf_pal_device_reset_config_fn)(bf_dev_id_t dev_id);
 
 typedef bf_status_t (*bf_pal_device_add_fn)(
     bf_dev_id_t dev_id, bf_device_profile_t *device_profile);
@@ -80,6 +85,7 @@ typedef struct bf_pal_dev_callbacks_s {
   bf_pal_device_cpuif_netdev_name_get_fn cpuif_netdev_name_get;
   bf_pal_device_cpuif_10g_netdev_name_get_fn cpuif_10g_netdev_name_get;
   bf_pal_device_pltfm_type_get_fn pltfm_type_get;
+  bf_pal_device_reset_config_fn reset_config;
 } bf_pal_dev_callbacks_t;
 
 bf_status_t bf_pal_device_callbacks_register(bf_pal_dev_callbacks_t *callbacks);

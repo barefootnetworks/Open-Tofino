@@ -278,9 +278,10 @@ bf_status_t bf_tm_q_color_limit_set(bf_dev_id_t dev,
  * @param[in] port       Port handle.
  * @param[in] queue      Queue whose color drop limit to be set.
  * @param[in] color      Color (RED, YELLOW)
- * @param[in] limit      Number of cells queue usage should reduce before
+ * @param[in] cells      Number of cells queue usage should reduce before
  *                       drop condition for appropriate colored packets is
- *                       cleared.
+ *                       cleared. The value will be rounded down at HW
+ *                       in 8 cell units.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -289,7 +290,7 @@ bf_status_t bf_tm_q_color_hysteresis_set(bf_dev_id_t dev,
                                          bf_dev_port_t port,
                                          bf_tm_queue_t queue,
                                          bf_tm_color_t color,
-                                         bf_tm_queue_color_limit_t limit);
+                                         bf_tm_thres_t cells);
 
 /**
  * @brief Enable queue tail drop condition. When queue
@@ -373,6 +374,36 @@ bf_status_t bf_tm_q_color_drop_disable(bf_dev_id_t dev,
                                        bf_tm_queue_t queue);
 
 /**
+ * @brief Clear egress q color dropstate register
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       port handle.
+ * @param[in] queue      queue whose color drop is to clear.
+ * @param[in] color      color id
+ * return                Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_q_color_drop_state_clear(bf_dev_id_t dev,
+                                           bf_dev_port_t port,
+                                           bf_tm_queue_t queue,
+                                           bf_tm_color_t color);
+
+/**
+ * @brief Clear Ingress Buffer Per Queue State Shadow Copy Register.
+ * Supported for Tofino only.
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       port handle.
+ * @param[in] queue      queue whose dropstate shadow is to clear.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_q_shadow_drop_state_clear(bf_dev_id_t dev,
+                                            bf_dev_port_t port,
+                                            bf_tm_queue_t queue);
+
+/**
  * @brief Set Queue visible condition.
  * Visible queues will be reported to ingress
  * MAU for Queue length cross any color threshold. (TM Visibility feature)
@@ -452,15 +483,19 @@ bf_status_t bf_tm_q_hysteresis_set(bf_dev_id_t dev,
                                    uint32_t cells);
 
 /**
- * @brief Set dest port() queue) for negative mirror traffic
+ * @brief Set destination for negative mirror traffic
  * Use this API to set (port, queue) used for egressing out
  * negative mirror traffic. Its possible to set one such
  * (port,queue) value for each pipe.
+ * Port queue number must be chosen according to the current port queues
+ * mapping. Make sure to update the destination port and its queue number
+ * if that port, or any other port of its port group, has queue mapping
+ * changed.
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[in] port       Negative Mirror port.
- * @param[in] queue      Queue where negative mirror traffic is enqueued.
+ * @param[in] port       Negative Mirror device port.
+ * @param[in] queue      Port's queue for negative mirror traffic.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error

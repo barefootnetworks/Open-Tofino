@@ -1,0 +1,740 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "tf2.pktgen.port_cfg",
+      "id": 4278386689,
+      "table_type": "PktgenPortCfg",
+      "size": 256,
+      "key": [
+        {
+          "id": 1,
+          "name": "dev_port",
+          "repeated": false,
+          "annotations": [
+            {
+              "name": "$bfrt_port_type_class",
+              "value": "dev_port"
+            }
+          ],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "recirculation_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "pktgen_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "pattern_matching_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "clear_port_down_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        }
+      }
+    },
+    {
+      "name": "tf2.pktgen.app_cfg",
+      "id": 4278386690,
+      "table_type": "PktgenAppCfg",
+      "size": 16,
+      "key": [
+        {
+          "id": 1,
+          "name": "app_id",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "trigger_timer_one_shot",
+          "data": [
+            {
+              "id": 1,
+              "name": "timer_nanosec",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "trigger_timer_periodic",
+          "data": [
+            {
+              "id": 1,
+              "name": "timer_nanosec",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "trigger_port_down",
+          "data": [
+            {
+              "id": 3,
+              "name": "port_mask_sel",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "uint32"
+              }
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "trigger_recirc_pattern",
+          "data": [
+            {
+              "id": 4,
+              "name": "pattern_value",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 128
+              }
+            },
+            {
+              "id": 5,
+              "name": "pattern_mask",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 128
+              }
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "trigger_dprsr",
+          "data": [
+            {
+              "id": 4,
+              "name": "pattern_value",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 128
+              }
+            },
+            {
+              "id": 5,
+              "name": "pattern_mask",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 128
+              }
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "trigger_pfc",
+          "data": [
+            {
+              "id": 8,
+              "name": "pfc_header",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 128
+              }
+            },
+            {
+              "id": 9,
+              "name": "timer_enable",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bool"
+              }
+            },
+            {
+              "id": 10,
+              "name": "timer",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 16
+              }
+            },
+            {
+              "id": 11,
+              "name": "max_pfc_events",
+              "repeated": false,
+              "mandatory": false,
+              "annotations": [],
+              "type": {
+                "type": "bytes",
+                "width": 10
+              }
+            }
+          ]
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "app_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "pkt_len",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 16
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "pkt_buffer_offset",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 16
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "pipe_local_source_port",
+            "repeated": false,
+            "annotations": [
+              {
+                "name": "$bfrt_port_type_class",
+                "value": "dev_port"
+              }
+            ],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 16,
+            "name": "increment_source_port",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 17,
+            "name": "batch_count_cfg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 16
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 18,
+            "name": "packets_per_batch_cfg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 16
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 19,
+            "name": "ibg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 20,
+            "name": "ibg_jitter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 21,
+            "name": "ipg",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 22,
+            "name": "ipg_jitter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 23,
+            "name": "batch_counter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 24,
+            "name": "pkt_counter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 25,
+            "name": "trigger_counter",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 26,
+            "name": "offset_len_from_recir_pkt_enable",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 27,
+            "name": "source_port_wrap_max",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 8
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 28,
+            "name": "assigned_chnl_id",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 8
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Updates an entry associated with an App ID."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves first valid Pktgen object in the table."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves n valid Pktgen objects from the table."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API returns table size as this is fixed table."
+        }
+      }
+    },
+    {
+      "name": "tf2.pktgen.pkt_buffer",
+      "id": 4278386691,
+      "table_type": "PktgenPktBufferCfg",
+      "size": 1024,
+      "key": [
+        {
+          "id": 1,
+          "name": "pkt_buffer_offset",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        },
+        {
+          "id": 2,
+          "name": "pkt_buffer_size",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "buffer",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 8
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        }
+      }
+    },
+    {
+      "name": "tf2.pktgen.port_mask",
+      "id": 4278386692,
+      "table_type": "PktgenPortMaskCfg",
+      "size": 2,
+      "key": [
+        {
+          "id": 1,
+          "name": "port_mask_sel",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "mask",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bytes",
+              "width": 72
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        }
+      }
+    },
+    {
+      "name": "tf2.pktgen.port_down_replay",
+      "id": 4278386693,
+      "table_type": "PktgenPortDownReplyCfg",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "replay_mode",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "enum",
+              "choices": [
+                "REPLAY_NONE",
+                "REPLAY_ALL",
+                "REPLAY_MISSED"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryAdd": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
+        },
+        "tableEntryMod": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "Updates an entry identified by the key fields with values from the corresponding data fields."
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        }
+      }
+    }
+  ]
+}

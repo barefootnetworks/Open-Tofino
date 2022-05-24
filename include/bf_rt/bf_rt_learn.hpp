@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_learn.hpp
  *
  *  @brief Contains BF-RT Learn Object APIs
@@ -48,7 +49,8 @@ typedef std::function<bf_status_t(
     const std::shared_ptr<BfRtSession> session,
     std::vector<std::unique_ptr<BfRtLearnData>> learnDataVec,
     bf_rt_learn_msg_hdl *const learn_msg_hdl,
-    const void *cookie)> bfRtCbFunction;
+    const void *cookie)>
+    bfRtCbFunction;
 
 /**
  * @brief Class to contain metadata of Learn Obj and perform functions

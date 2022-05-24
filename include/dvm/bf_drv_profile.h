@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef BF_DRV_PROFILE_H_INCLUDED
 #define BF_DRV_PROFILE_H_INCLUDED
 
@@ -23,7 +24,7 @@
  * @{
  */
 
-#define MAX_P4_PIPELINES 4
+#define MAX_P4_PIPELINES 8
 #define PROG_NAME_LEN 256
 #define MAX_PROGRAMS_PER_DEVICE MAX_P4_PIPELINES
 
@@ -42,9 +43,13 @@ typedef struct serdes_fw_profile {
   char *serdes_fw;
   char *tof2_serdes_grp_0_7_fw;
   char *tof2_serdes_grp_8_fw;
+  char *tof3_serdes_1_32_fw;
+  char *tof3_serdes_0_fw;
 } serdes_fw_profile_t;
 
-typedef struct microp_fw_profile { char *microp_fw; } microp_fw_profile_t;
+typedef struct microp_fw_profile {
+  char *microp_fw;
+} microp_fw_profile_t;
 
 typedef struct bf_p4_program {
   char prog_name[PROG_NAME_LEN];

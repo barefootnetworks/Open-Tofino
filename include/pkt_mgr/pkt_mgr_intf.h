@@ -19,12 +19,13 @@
 extern "C" {
 #endif
 
-#include "bfsys/bf_sal/bf_sys_dma.h"
+#include "target-sys/bf_sal/bf_sys_dma.h"
 #include "dvm/bf_dma_types.h"
 #include "dvm/bf_drv_intf.h"
 #include <pkt_mgr/bf_pkt.h>
 
 #define PKT_MGR_NUM_DEVICES BF_MAX_DEV_COUNT
+#define PKT_MGR_NUM_SUBDEVICES BF_MAX_SUBDEV_COUNT
 
 /**
  * @addtogroup pkt_mgr-txrx
@@ -178,10 +179,12 @@ bf_status_t pkt_mgr_unlock_device(bf_dev_id_t dev_id);
  *
  * @param[in] dev_id Device identifier
  *
+ * @param[in] subdev_id subdevice id within the chip id
+ *
  * @return true: if the device is locked, false: otherwise
  *
  */
-bool bf_pkt_is_locked(bf_dev_id_t dev_id);
+bool bf_pkt_is_locked(bf_dev_id_t dev_id, bf_subdev_id_t subdev_id);
 
 /* @} */
 
@@ -206,41 +209,54 @@ typedef struct bf_tbus_cfg_s {
 } bf_tbus_cfg_t;
 
 /**
- * @brief Configure TBUS control register
+ * configure tbus control register
  *
- * @param[in] chip Device identifier
- * @param[in] txxibussu_cfg Pointer to TBUS config parameters structure
- *
- * @return 0 on success, -1 on error
- *
+ * @param chip
+ *  chip id
+ * @param subdev_id
+ *  subdevice id within the chip id
+ * @param tsu_cfg
+ *  configuration param structure
+ * @return
+ *  0 on Success, -1 on error
  */
-int bf_tbus_config(uint8_t chip, bf_tbus_cfg_t *txxibussu_cfg);
+int bf_tbus_config(uint8_t chip,
+                   bf_subdev_id_t subdev_id,
+                   bf_tbus_cfg_t *tbus_cfg);
 
 /**
  * @brief Flush TBUS DMA buffers
  *
  * @param[in] dev_id Device identifier
  *
+ * @param[in] subdev_id subdevice id within the chip id
+ *
  * @return 0 on success, -1 on error
  *
  */
-int bf_tbus_flush_dma(uint8_t chip);
+int bf_tbus_flush_dma(uint8_t chip, bf_subdev_id_t subdev_id);
 
 /**
  * @brief Set TBUS timestamp offset
  *
  * @param[in] chip Device identifier
+ *
+ * @param[in] subdev_id subdevice id within the chip id
+ *
  * @param[in] offset Offset to be set
  *
  * @return 0 on success, -1 on error
  *
  */
-int bf_tbus_set_ts_offset(uint8_t chip, uint16_t offset);
+int bf_tbus_set_ts_offset(uint8_t chip,
+                          bf_subdev_id_t subdev_id,
+                          uint16_t offset);
 
 /**
  * @brief Set TBUS interrupt enable register
  *
  * @param[in] chip Device identifier
+ * @param[in] subdev_id subdevice id within the chip id
  * @param[in] int_id Interrupt register enumeration ID
  * @param[in] high_prio Interrupt priority register to access,
  * 1 for high priority, 0 for low priority
@@ -250,8 +266,12 @@ int bf_tbus_set_ts_offset(uint8_t chip, uint16_t offset);
  * @return 0 on success, -1 on error
  *
  */
-int bf_tbus_int(
-    uint8_t chip, int int_id, int high_prio, uint32_t *val, int get);
+int bf_tbus_int(uint8_t chip,
+                bf_subdev_id_t subdev_id,
+                int int_id,
+                int high_prio,
+                uint32_t *val,
+                int get);
 
 /**
  * @brief Service TX completions and packet receive DRs

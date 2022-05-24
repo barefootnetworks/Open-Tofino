@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table.h
  *
  *  @brief Contains BF-RT Table APIs
@@ -126,8 +127,8 @@ typedef enum bf_rt_table_type_ {
   PRE_PRUNE = 29,
   /** Mirror configuration table */
   MIRROR_CFG = 30,
-  /** Traffic Mgr PPG Table */
-  TM_PPG = 31,
+  /** Traffic Mgr PPG Table - retired */
+  TM_PPG_OBSOLETE = 31,
   /** PRE Port table */
   PRE_PORT = 32,
   /** Dynamic Hashing algorithm table*/
@@ -162,7 +163,67 @@ typedef enum bf_rt_table_type_ {
   SNAPSHOT_DATA = 47,
   /** TM Pool App PFC table */
   TM_POOL_APP_PFC = 48,
-  INVLD = 49
+  /** TM Ingress Port Counters table */
+  TM_COUNTER_IG_PORT = 49,
+  /** TM Egress Port Counters table */
+  TM_COUNTER_EG_PORT = 50,
+  /** TM Queue Counters table */
+  TM_COUNTER_QUEUE = 51,
+  /** TM Pool Counters table */
+  TM_COUNTER_POOL = 52,
+  /** TM Port general config parameters table */
+  TM_PORT_CFG = 53,
+  /** TM Port Buffer table */
+  TM_PORT_BUFFER = 54,
+  /** TM Port Flow Control table */
+  TM_PORT_FLOWCONTROL = 55,
+  /** TM Pipe Counters table */
+  TM_COUNTER_PIPE = 56,
+  /** Debug Counters table */
+  DBG_CNT = 57,
+  /** Logical table debug counters table */
+  LOG_DBG_CNT = 58,
+  /** TM Cfg table */
+  TM_CFG = 59,
+  /** TM Pipe Multicast fifo table */
+  TM_PIPE_MULTICAST_FIFO = 60,
+  /** TM Mirror port DPG table */
+  TM_MIRROR_DPG = 61,
+  /** TM Port DPG table */
+  TM_PORT_DPG = 62,
+  /** TM PPG configuration table */
+  TM_PPG_CFG = 63,
+  /** Register param table */
+  REG_PARAM = 64,
+  /** TM Port DPG Counters table */
+  TM_COUNTER_PORT_DPG = 65,
+  /** TM Mirror Port DPG Counters table */
+  TM_COUNTER_MIRROR_PORT_DPG = 66,
+  /** TM PPG Counters table */
+  TM_COUNTER_PPG = 67,
+  /** Dynamic hash compute table */
+  DYN_HASH_COMPUTE = 68,
+  /** Action Selector Get Member table */
+  SELECTOR_GET_MEMBER = 69,
+  /** TM Egress Port Queue Scheduler parameters table */
+  TM_QUEUE_SCHED_CFG = 70,
+  /** TM Egress Port Queue Scheduler shaping table */
+  TM_QUEUE_SCHED_SHAPING = 71,
+  /** TM Egress Port Scheduler parameters table */
+  TM_PORT_SCHED_CFG = 72,
+  /** TM Egress Port Scheduler shaping table */
+  TM_PORT_SCHED_SHAPING = 73,
+  /** TM Pipe general config parameters table */
+  TM_PIPE_CFG = 74,
+  /** TM Pipe Scheduler parameters table */
+  TM_PIPE_SCHED_CFG = 75,
+  /** TM L1 Node Scheduler parameters table */
+  TM_L1_NODE_SCHED_CFG = 76,
+  /** TM L1 Node Scheduler shaping table */
+  TM_L1_NODE_SCHED_SHAPING = 77,
+  /** Device Warm init Table */
+  DEV_WARM_INIT = 78,
+  INVLD = 79
 } bf_rt_table_type_t;
 
 typedef enum bf_rt_table_api_type_ {
@@ -204,6 +265,8 @@ typedef enum bf_rt_table_api_type_ {
   KEY_GET = 13,
   /** Get entry handle from key. */
   HANDLE_GET = 14,
+  /** Invalid not supported API. */
+  INVALID_API = 15
 } bf_rt_table_api_type_t;
 
 bool bf_rt_generic_flag_support(void);
@@ -1196,6 +1259,110 @@ bf_status_t bf_rt_table_action_data_allocate_with_fields(
     bf_rt_table_data_hdl **data_hdl_ret);
 
 /**
+ * @brief Allocate Data Object for a container field
+ *
+ * @note: Users do not need to deallocate this object. After sending this object
+ * as part of setValue, the parent Data object takes ownership. This will get
+ * freed when parent is deallocated. For getValue, a previous allocate isn't
+ * required.
+ * However, if setValue fails for some reason and user needs to deallocate, then
+ * a \ref bf_rt_table_data_deallocate() can be called
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] c_field_id Container field ID
+ * @param[out] data_hdl_ret Data Object returned
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_table_data_allocate_container(
+    const bf_rt_table_hdl *table_hdl,
+    const bf_rt_id_t c_field_id,
+    bf_rt_table_data_hdl **data_hdl_ret);
+
+/**
+ * @brief Allocate Data Object for a container field
+ *
+ * @note: Users do not need to deallocate this object. After sending this object
+ * as part of setValue, the parent Data object takes ownership. This will get
+ * freed when parent is deallocated. For getValue, a previous allocate isn't
+ * required.
+ * However, if setValue fails for some reason and user needs to deallocate, then
+ * a \ref bf_rt_table_data_deallocate() can be called
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] c_field_id Container field ID
+ * @param[in] action_id Action ID
+ * @param[out] data_hdl_ret Data Object returned
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_table_action_data_allocate_container(
+    const bf_rt_table_hdl *table_hdl,
+    const bf_rt_id_t c_field_id,
+    const bf_rt_id_t action_id,
+    bf_rt_table_data_hdl **data_hdl_ret);
+
+/**
+ * @brief Data Allocate for container with a list of field-ids.
+ * This allocates the data object for
+ * the list of field-ids. The field-ids passed must be valid for this table
+ * and container.
+ * The Data Object then entertains APIs to read/write only those set of fields
+ *
+ * @note: Users do not need to deallocate this object. After sending this object
+ * as part of setValue, the parent Data object takes ownership. This will get
+ * freed when parent is deallocated. For getValue, a previous allocate isn't
+ * required.
+ * However, if setValue fails for some reason and user needs to deallocate, then
+ * a \ref bf_rt_table_data_deallocate() can be called
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] c_field_id Container field ID
+ * @param[in] fields Array of field IDs
+ * @param[in] num_array Size of input array
+ * @param[out] data_hdl_ret Data Object returned
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_table_data_allocate_container_with_fields(
+    const bf_rt_table_hdl *table_hdl,
+    const bf_rt_id_t c_field_id,
+    const bf_rt_id_t *fields,
+    const uint32_t num_array,
+    bf_rt_table_data_hdl **data_hdl_ret);
+
+/**
+ * @brief Data Allocate for container with a list of field-ids.
+ * This allocates the data object for
+ * the list of field-ids. The field-ids passed must be valid for this table
+ * and container.
+ * The Data Object then entertains APIs to read/write only those set of fields
+ *
+ * @note: Users do not need to deallocate this object. After sending this object
+ * as part of setValue, the parent Data object takes ownership. This will get
+ * freed when parent is deallocated. For getValue, a previous allocate isn't
+ * required.
+ * However, if setValue fails for some reason and user needs to deallocate, then
+ * a \ref bf_rt_table_data_deallocate() can be called
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] c_field_id Container field ID
+ * @param[in] action_id Action ID
+ * @param[in] fields Array of field IDs
+ * @param[in] num_array Size of input array
+ * @param[out] data_hdl_ret Data Object returned
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_table_action_data_allocate_container_with_fields(
+    const bf_rt_table_hdl *table_hdl,
+    const bf_rt_id_t c_field_id,
+    const bf_rt_id_t action_id,
+    const bf_rt_id_t *fields,
+    const uint32_t num_array,
+    bf_rt_table_data_hdl **data_hdl_ret);
+
+/**
  * @brief Reset the data object previously allocated using dataAllocate on the
  * table
  *
@@ -1503,28 +1670,28 @@ bf_status_t bf_rt_data_field_is_mandatory_with_action_get(
     bool *is_mandatory);
 
 /**
-* @brief Get whether a field is ReadOnly.
-*
-* @param[in] table_hdl Table object
-* @param[in] field_id Field ID
-* @param[out] is_read_only Boolean value indicating if it is ReadOnly
-*
-* @return Status of the API call
-*/
+ * @brief Get whether a field is ReadOnly.
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] field_id Field ID
+ * @param[out] is_read_only Boolean value indicating if it is ReadOnly
+ *
+ * @return Status of the API call
+ */
 bf_status_t bf_rt_data_field_is_read_only_get(const bf_rt_table_hdl *table_hdl,
                                               const bf_rt_id_t field_id,
                                               bool *is_read_only_ret);
 
 /**
-* @brief Get whether a field is ReadOnly.
-*
-* @param[in] table_hdl Table object
-* @param[in] field_id Field ID
-* @param[in] action_id Action ID
-* @param[out] is_read_only Boolean value indicating if it is ReadOnly
-*
-* @return Status of the API call
-*/
+ * @brief Get whether a field is ReadOnly.
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] field_id Field ID
+ * @param[in] action_id Action ID
+ * @param[out] is_read_only Boolean value indicating if it is ReadOnly
+ *
+ * @return Status of the API call
+ */
 bf_status_t bf_rt_data_field_is_read_only_with_action_get(
     const bf_rt_table_hdl *table_hdl,
     const bf_rt_id_t field_id,

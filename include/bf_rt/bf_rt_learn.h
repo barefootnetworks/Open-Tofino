@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_learn.h
  *
  *
@@ -142,7 +143,7 @@ bf_status_t bf_rt_learn_field_id_list_get(const bf_rt_learn_hdl *learn,
  * @return Status of the API call
  */
 bf_status_t bf_rt_learn_field_id_get(const bf_rt_learn_hdl *learn,
-                                     char *name,
+                                     const char *name,
                                      bf_rt_id_t *field_id);
 
 /**

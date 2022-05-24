@@ -22,11 +22,11 @@
 #include <dvm/bf_drv_profile.h>
 #include <dvm/bf_dma_types.h>
 #include <port_mgr/port_mgr_port_evt.h>
-#include <bfsys/bf_sal/bf_sys_intf.h>
+#include <target-sys/bf_sal/bf_sys_intf.h>
 #ifndef __KERNEL__
 #include <tofino/pdfixed/pd_devport_mgr.h>
-#include <bfutils/uCli/ucli.h>
-#include <bfutils/cJSON.h>
+#include <target-utils/uCli/ucli.h>
+#include <target-utils/third-party/cJSON/cJSON.h>
 #endif
 
 /**
@@ -63,6 +63,9 @@ typedef struct bf_dma_info_s {
   unsigned int dma_dr_buf_size;
   bf_dma_dr_info_t dma_dr_info[BF_DMA_TYPE_MAX];
   bf_dma_buf_info_t dma_buff_info[BF_DMA_TYPE_MAX];
+  /* dma_info belongs to a dev/subdev pair */
+  bf_dev_id_t dev_id;
+  bf_subdev_id_t subdev_id;
 } bf_dma_info_t;
 
 typedef enum bf_dev_init_mode_s {
@@ -126,6 +129,25 @@ typedef enum bf_ha_corrective_action {
   BF_HA_CA_PORT_FSM_LINK_MONITORING,
   BF_HA_CA_PORT_MAX
 } bf_ha_corrective_action_t;
+
+static const char *bf_ha_corrective_action_to_str[] = {
+    "CA_PORT_NONE",
+    "CA_PORT_ADD",
+    "CA_PORT_ENABLE",
+    "CA_PORT_ADD_THEN_ENABLE",
+    "CA_PORT_FLAP",
+    "CA_PORT_DISABLE",
+    "CA_PORT_DELETE_THEN_ADD",
+    "CA_PORT_DELETE_THEN_ADD_THEN_ENABLE",
+    "CA_PORT_DELETE",
+    "CA_PORT_FSM_LINK_MONITORING",
+    "CA_PORT_MAX",
+};
+
+static inline const char *bf_ha_ca_str(bf_ha_corrective_action_t ca) {
+  if (ca >= BF_HA_CA_PORT_MAX) return "CA_PORT_INVALID";
+  return bf_ha_corrective_action_to_str[ca];
+}
 
 /*
  * This is per port structure which holds the port number and the corrective
@@ -243,6 +265,36 @@ bf_status_t bf_device_add(bf_dev_family_t dev_family,
 bf_status_t bf_virtual_device_add(bf_dev_id_t dev_id,
                                   bf_device_profile_t *profile,
                                   bf_dev_type_t dev_type);
+
+typedef struct bf_vdd_info_t {
+  /** The family indicates which union member is valid. */
+  bf_dev_family_t family;
+  /** One member of the union for each chip type which supports VDD info. */
+  union {
+    struct {
+      /** The recommended value, in millivolts, of the VDD rail. */
+      int vdd;
+      /** The recommended value, in millivolts, of the VDDL rail. */
+      int vddl;
+    } tof3;
+  } u;
+} bf_vdd_info_t;
+
+/**
+ * @brief Query per-chip VDD voltage requirements.
+ *        This API may be used to determine the recommended VDD voltage for the
+ *        chip.  Platform software should lower, or raise, the voltage from the
+ *        initial voltage as specified in the data sheet to this value.  Note
+ *        value may vary from chip to chip but will always be fixed for a given
+ *        chip.
+ *        Applies to TF3 and later.
+ *
+ * @param[in]  dev_id The ASIC id.
+ * @param[out] val The per chip voltage value(s) are returned here.
+ *
+ * @return Status of the API call.
+ */
+bf_status_t bf_device_vdd_get(bf_dev_id_t dev_id, bf_vdd_info_t *val);
 
 /**
  * @brief Deletes an existing device.
@@ -393,18 +445,41 @@ bf_status_t bf_port_serdes_upgrade_notify(bf_dev_id_t dev_id,
  *
  * @return Valid pcie port. In case of error returns -1.
  */
-int bf_pcie_cpu_port_get(bf_dev_id_t dev_id);
+bf_dev_port_t bf_pcie_cpu_port_get(bf_dev_id_t dev_id);
 
 /**
  * @brief Get ethernet CPU port number on the device. Based on skew and
- * asci-type
- * the API will return appropriate port number to be used as CPU ethernet port.
+ * asci-type the API will return appropriate port number to be used as CPU
+ * ethernet port.
  *
  * @param[in] dev_id The ASIC id.
  *
  * @return Valid eth port. In case of error returns -1.
  */
-int bf_eth_cpu_port_get(bf_dev_id_t dev_id);
+bf_dev_port_t bf_eth_cpu_port_get(bf_dev_id_t dev_id);
+
+/**
+ * @brief Get maximum ethernet CPU port number on the device. Based on skew and
+ * asci-type the API will return appropriate port number to be used as CPU
+ * ethernet port.
+ *
+ * @param[in] dev_id The ASIC id.
+ *
+ * @return Valid max eth port. In case of error returns -1.
+ */
+bf_dev_port_t bf_eth_max_cpu_port_get(bf_dev_id_t dev_id);
+
+/**
+ * @brief Get next ethernet CPU port number on the device. Based on skew and
+ * asci-type the API will return appropriate port number to be used as CPU
+ * ethernet port.
+ *
+ * @param[in] dev_id The ASIC id.
+ * @param[in/out] port The port number.
+ *
+ * @return Status of the API call.
+ */
+bf_status_t bf_eth_get_next_cpu_port(bf_dev_id_t dev_id, bf_dev_port_t *port);
 
 /**
  * @brief Register port status (link up/down) callback.
@@ -488,6 +563,7 @@ typedef enum bf_error_type_e {
   BF_ERR_TYPE_PARITY,
   BF_ERR_TYPE_OVERFLOW,
   BF_ERR_TYPE_UNDERFLOW,
+  BF_ERR_TYPE_PKT_DROP,
 } bf_error_type_t;
 
 typedef enum bf_error_block_e {
@@ -643,6 +719,7 @@ typedef enum bf_error_block_location_e {
   BF_ERR_LOC_LFLTR_LBUF,
 } bf_error_block_location_t;
 
+/* Error event callback function prototype. */
 typedef bf_status_t (*bf_error_event_cb)(bf_error_sev_level_t severity,
                                          bf_dev_id_t dev_id,
                                          bf_dev_pipe_t pipe,
@@ -651,13 +728,14 @@ typedef bf_status_t (*bf_error_event_cb)(bf_error_sev_level_t severity,
                                          bf_error_type_t type,
                                          bf_error_block_t blk,
                                          bf_error_block_location_t loc,
-                                         bf_dev_port_t *port_list,
+                                         const char *obj_name,
+                                         const bf_dev_port_t *port_list,
                                          int num_ports,
-                                         char *string,
+                                         const char *string,
                                          void *cookie);
 
 /**
- * @brief The function is used to register for error notifications
+ * @brief Register for error notifications.
  *
  * @param[in] dev ASIC device identifier
  * @param[in] event_cb Event callback API
@@ -674,7 +752,7 @@ typedef bf_status_t (*bf_port_stuck_cb)(bf_dev_id_t dev_id,
                                         void *cookie);
 
 /**
- * @brief The function is used to register for port stuck notifications
+ * @brief Register for port stuck notifications.
  *
  * @param[in] dev ASIC device identifier
  * @param[in] port_stuck_cb Port stuck callback API
@@ -713,20 +791,21 @@ typedef bf_status_t (*bf_drv_virtual_device_add_cb)(
     bf_dev_init_mode_t warm_init_mode);
 
 /**
- * @brief The function is used to notify memory error events
+ * @brief Notify application of error events.
  *
  * @param[in] sev Severity of event
  * @param[in] dev ASIC device identifier
  * @param[in] pipe Pipeline identifier
- * @param[in] stage Stage number in the pipe
- * @param[in] address Address of the memory for the error event
- * @param[in] type Type of the memory error
- * @param[in] blk Memory error block
- * @param[in] loc Memory error block location
- * @param[in] all_ports_in_pipe Flag to identify all ports in pipe or not
- * @param[in] port_list Port list
- * @param[in] num_ports Number of ports
- * @param[in] format Memory event string
+ * @param[in] stage MAU stage number
+ * @param[in] address Physical memory address
+ * @param[in] type Type of error
+ * @param[in] blk Error block
+ * @param[in] loc Error location
+ * @param[in] obj_name P4 object name (may be null)
+ * @param[in] all_ports_in_pipe Event applies to all ports in pipe
+ * @param[in] port_list Port list (may be null)
+ * @param[in] num_ports Length of port list
+ * @param[in] format Format string
  *
  * @return Status of the API call
  */
@@ -738,13 +817,14 @@ bf_status_t bf_notify_error_events(bf_error_sev_level_t sev,
                                    bf_error_type_t type,
                                    bf_error_block_t blk,
                                    bf_error_block_location_t loc,
+                                   const char *obj_name,
                                    bool all_ports_in_pipe,
-                                   bf_dev_port_t *port_list,
+                                   const bf_dev_port_t *port_list,
                                    int num_ports,
                                    const char *format,
                                    ...);
 /**
- * @brief The function is used to notify port stuck events
+ * @brief Notify application of port stuck events.
  *
  * @param[in] dev ASIC device identifier
  * @param[in] port Port identifier
@@ -1049,6 +1129,17 @@ bf_status_t bf_device_init_mode_get(bf_dev_id_t dev_id,
                                     bf_dev_init_mode_t *warm_init_mode);
 
 /**
+ * @brief Check if warm init is currently in progress on the device
+ *
+ * @param[in] dev_id The ID of the device
+ * @param[out] warm_init_in_progress True is warm init is in progress
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_device_warm_init_in_progress(bf_dev_id_t dev_id,
+                                            bool *warm_init_in_progress);
+
+/**
  * @brief Get the family of a device
  *
  * @param[in] dev_id The device id
@@ -1159,5 +1250,30 @@ bf_status_t bf_drv_lrt_dr_timeout_get(bf_dev_id_t dev_id, uint32_t *timeout_ms);
  */
 bf_status_t bf_drv_complete_port_mode_transition_wa(
     bf_dev_id_t dev_id, bf_dev_port_t port_id, bf_port_speeds_t port_speed);
+
+/*
+ * @brief This function is used to get the device SKU type
+ *
+ * @param[in] dev_id The device id
+ *
+ * @return Device SKU type
+ */
+bf_dev_type_t bf_drv_get_dev_type(bf_dev_id_t dev_id);
+
+#ifndef __KERNEL__
+ucli_status_t bf_drv_show_tech_ucli_sys__(ucli_context_t *uc);
+#endif
+
+typedef enum bf_show_tech_drv_module_e {
+  BF_SHOW_TECH_DRV_SYS = 0,
+  BF_SHOW_TECH_DRV_DVM,
+  BF_SHOW_TECH_DRV_LLD,
+  BF_SHOW_TECH_DRV_PM,
+  BF_SHOW_TECH_DRV_PORT,
+  BF_SHOW_TECH_DRV_PIPE,
+  BF_SHOW_TECH_DRV_TM,
+  BF_SHOW_TECH_DRV_MC,
+  BF_SHOW_TECH_DRV_MAX,
+} bf_show_tech_drv_module_t;
 
 #endif  // BF_DRV_INTF_H_INCLUDED

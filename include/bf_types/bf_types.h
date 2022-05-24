@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _BF_TYPES_H
 #define _BF_TYPES_H
 
@@ -50,6 +51,14 @@ typedef struct bf_dev_target_t {
   bf_dev_pipe_t dev_pipe_id;
 } bf_dev_target_t;
 
+/** Strcture for direction definition
+ */
+typedef enum {
+  BF_DEV_DIR_INGRESS = 0,
+  BF_DEV_DIR_EGRESS = 1,
+  BF_DEV_DIR_ALL = 0xff
+} bf_dev_direction_t;
+
 /** Wildcard to specify all parser engines in a pipe */
 #define BF_DEV_PIPE_PARSER_ALL 0xFF
 
@@ -60,9 +69,6 @@ typedef enum bf_port_speed_e {
   BF_SPEED_10G = (1 << 1),
   BF_SPEED_25G = (1 << 2),
   BF_SPEED_40G = (1 << 3),
-  BF_SPEED_40G_NB = (1 << 4), /* Requires both ports in the same (100G)
-                                port group to be of the same speed */
-  BF_SPEED_40G_NON_BREAKABLE = BF_SPEED_40G_NB,
   BF_SPEED_50G = (1 << 5),
   BF_SPEED_100G = (1 << 6),
 
@@ -83,13 +89,20 @@ typedef enum bf_fec_type_e {
   BF_FEC_TYP_NONE = 0,
   BF_FEC_TYP_FIRECODE = (1 << 0),
   BF_FEC_TYP_REED_SOLOMON = (1 << 1),
+  BF_FEC_TYP_REED_SOLOMON_INTERLEAVED = (1 << 2),
+  BF_FEC_TYP_REED_SOLOMON_KL = (1 << 3),
   BF_FEC_TYP_FC = BF_FEC_TYP_FIRECODE,
   BF_FEC_TYP_RS = BF_FEC_TYP_REED_SOLOMON,
+  BF_FEC_TYP_RS_IN = BF_FEC_TYP_REED_SOLOMON_INTERLEAVED,
+  BF_FEC_TYP_RS_KL = BF_FEC_TYP_REED_SOLOMON_KL,
 } bf_fec_type_t;
 static inline const char *bf_fec_type_str(bf_fec_type_t fec) {
   if (fec == BF_FEC_TYP_NONE) return "BF_FEC_TYP_NONE";
   if (fec == BF_FEC_TYP_FIRECODE) return "BF_FEC_TYP_FIRECODE";
   if (fec == BF_FEC_TYP_REED_SOLOMON) return "BF_FEC_TYP_REED_SOLOMON";
+  if (fec == BF_FEC_TYP_REED_SOLOMON_INTERLEAVED)
+    return "BF_FEC_TYP_REED_SOLOMON_INTERLEAVED";
+  if (fec == BF_FEC_TYP_REED_SOLOMON_KL) return "BF_FEC_TYP_REED_SOLOMON_KL";
   return "UNKNOWN FEC TYPE";
 }
 typedef uint32_t bf_fec_types_t;
@@ -163,23 +176,35 @@ static inline const char *bf_err_str(bf_status_t sts) {
 
 /** The max number of devices in the domain of the driver */
 #define BF_MAX_DEV_COUNT 8
+/** The max number of sub devices in the device */
+#define BF_MAX_SUBDEV_COUNT 2
+/** The number of pipes in the ASIC per subdev. */
+#define BF_SUBDEV_PIPE_COUNT 4
 /** The number of pipes in the ASIC. */
-#define BF_PIPE_COUNT 4
+#define BF_PIPE_COUNT (2 * BF_SUBDEV_PIPE_COUNT)
 /** The number of ports per pipe in the ASIC. */
 #define BF_PIPE_PORT_COUNT 72
+/** The number of ports per subdev */
+#define BF_SUBDEV_PORT_COUNT (BF_PIPE_PORT_COUNT * BF_SUBDEV_PIPE_COUNT)
 /** The number of ports in the ASIC. */
 #define BF_PORT_COUNT (BF_PIPE_PORT_COUNT * BF_PIPE_COUNT)
 /** The number of LAGs in the ASIC. */
 #define BF_LAG_COUNT 256
 /** The number of Multicast Group Ids in the ASIC. */
 #define BF_MGID_COUNT (64 * 1024)
+/** The number of fifos per PRE in the ASIC. */
+#define BF_PRE_FIFO_COUNT 4
 
-#define DEV_PORT_TO_PIPE(x) (((x) >> 7) & 3)
+static inline bool bf_dev_id_validate(bf_dev_id_t dev_id) {
+  return dev_id >= 0 && dev_id < BF_MAX_DEV_COUNT;
+}
+
+#define DEV_PORT_TO_PIPE(x) (((x) >> 7) & 7)
 #define DEV_PORT_TO_LOCAL_PORT(x) ((x)&0x7F)
 #define MAKE_DEV_PORT(pipe, port) (((pipe) << 7) | (port))
-#define DEV_PORT_VALIDATE(x) ((((x)&0x7F) < 72) && !((x) & ~0x1FF))
+#define DEV_PORT_VALIDATE(x) ((((x)&0x7F) < 72) && !((x) & ~0x3FF))
 #define LOCAL_PORT_VALIDATE(x) ((x) < 72)
-
+#define TM_IS_PRE_FIFO_INVALID(fifo) (fifo >= BF_PRE_FIFO_COUNT)
 /**
  * @}
  */
@@ -190,25 +215,85 @@ typedef enum bf_dev_type_t {
   BF_DEV_BFNT10064Q,  // TOF1
   BF_DEV_BFNT10032Q,
   BF_DEV_BFNT10032D,
-  BF_DEV_BFNT10024D,
-  BF_DEV_BFNT10018Q,
-  BF_DEV_BFNT10018D,
-  BF_DEV_BFNT10017D,
+  BF_DEV_BFNT10032D018,
+  BF_DEV_BFNT10032D020,
   BF_DEV_BFNT20128Q,  // TOF2
   BF_DEV_BFNT20128QM,
-  BF_DEV_BFNT20128QH,
-  BF_DEV_BFNT20096T,
   BF_DEV_BFNT20080T,
   BF_DEV_BFNT20080TM,
   BF_DEV_BFNT20064Q,
   BF_DEV_BFNT20064D,
-  BF_DEV_BFNT20048D,
+  BF_DEV_BFNT3_25512O,  // T3-25.6-8-512
+  BF_DEV_BFNT3_16320F,  // T3-16.0-5-320
+  BF_DEV_BFNT3_25256O,  // T3-25.6-8-256
+  BF_DEV_BFNT3_16160F,  // T3-16.0-5-160
+  BF_DEV_BFNT3_12256Q,  // T3-12.8-4-256
+  BF_DEV_BFNT3_09192T,  // T3-9.6-3-192
+  BF_DEV_BFNT3_08160T,  // T3-8.0-3-192
+  BF_DEV_BFNT3_06064Q,  // T3-6.4-4.128
+  BF_DEV_BFNT3_06064D,  // T3-6.4-2.128
+
+
+
   BF_DEV_TYPE_MAX
 } bf_dev_type_t;
+
+static inline const char *pipe_mgr_dev_type2str(bf_dev_type_t dev_type) {
+  switch (dev_type) {
+    case BF_DEV_BFNT10064Q:
+      return "BFN-T10-064Q";
+    case BF_DEV_BFNT10032Q:
+      return "BFN-T10-032Q";
+    case BF_DEV_BFNT10032D:
+      return "BFN-T10-032D";
+    case BF_DEV_BFNT10032D018:
+      return "BFN-T10-032D-018";
+    case BF_DEV_BFNT10032D020:
+      return "BFN-T10-032D-020";
+    case BF_DEV_BFNT20128Q:
+      return "BFN-T20-128Q";
+    case BF_DEV_BFNT20128QM:
+      return "BFN-T20-128QM";
+    case BF_DEV_BFNT20080T:
+      return "BFN-T20-080T";
+    case BF_DEV_BFNT20080TM:
+      return "BFN-T20-080TM";
+    case BF_DEV_BFNT20064Q:
+      return "BFN-T20-064Q";
+    case BF_DEV_BFNT20064D:
+      return "BFN-T20-064D";
+    case BF_DEV_BFNT3_25512O:
+      return "BFN-T30-25512O";
+    case BF_DEV_BFNT3_16320F:
+      return "BFN-T30-16320F";
+    case BF_DEV_BFNT3_25256O:
+      return "BFN-T30-25256O";
+    case BF_DEV_BFNT3_16160F:
+      return "BFN-T30-16160F";
+    case BF_DEV_BFNT3_12256Q:
+      return "BFN-T30-12256Q";
+    case BF_DEV_BFNT3_09192T:
+      return "BFN-T30-09192T";
+    case BF_DEV_BFNT3_08160T:
+      return "BFN-T30-08160T";
+    case BF_DEV_BFNT3_06064Q:
+      return "BFN-T30-06064Q";
+    case BF_DEV_BFNT3_06064D:
+      return "BFN-T30-06064D";
+
+
+
+
+    default:
+      return "UNKNOWN";
+  }
+}
 
 typedef enum bf_dev_family_t {
   BF_DEV_FAMILY_TOFINO,
   BF_DEV_FAMILY_TOFINO2,
+  BF_DEV_FAMILY_TOFINO3,
+
   BF_DEV_FAMILY_UNKNOWN,
 } bf_dev_family_t;
 
@@ -218,6 +303,10 @@ static inline const char *bf_dev_family_str(bf_dev_family_t fam) {
       return "Tofino";
     case BF_DEV_FAMILY_TOFINO2:
       return "Tofino2";
+    case BF_DEV_FAMILY_TOFINO3:
+      return "Tofino3";
+
+
     case BF_DEV_FAMILY_UNKNOWN:
       return "Unknown";
   }
@@ -225,16 +314,26 @@ static inline const char *bf_dev_family_str(bf_dev_family_t fam) {
 }
 
 static inline bool bf_is_dev_type_family_tofino(bf_dev_type_t t) {
-  return t >= BF_DEV_BFNT10064Q && t <= BF_DEV_BFNT10017D;
+  return t >= BF_DEV_BFNT10064Q && t <= BF_DEV_BFNT10032D020;
 }
 
 static inline bool bf_is_dev_type_family_tofino2(bf_dev_type_t t) {
-  return t >= BF_DEV_BFNT20128Q && t <= BF_DEV_BFNT20048D;
+  return t >= BF_DEV_BFNT20128Q && t <= BF_DEV_BFNT20064D;
 }
+
+static inline bool bf_is_dev_type_family_tofino3(bf_dev_type_t t) {
+  return t >= BF_DEV_BFNT3_25512O && t <= BF_DEV_BFNT3_06064D;
+}
+
+
+
+
 
 static inline bf_dev_family_t bf_dev_type_to_family(bf_dev_type_t t) {
   if (bf_is_dev_type_family_tofino(t)) return BF_DEV_FAMILY_TOFINO;
   if (bf_is_dev_type_family_tofino2(t)) return BF_DEV_FAMILY_TOFINO2;
+  if (bf_is_dev_type_family_tofino3(t)) return BF_DEV_FAMILY_TOFINO3;
+
   return BF_DEV_FAMILY_UNKNOWN;
 }
 

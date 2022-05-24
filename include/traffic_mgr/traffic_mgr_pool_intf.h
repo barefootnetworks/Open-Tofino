@@ -191,7 +191,8 @@ bf_status_t bf_tm_pool_skid_size_set(bf_dev_id_t dev, uint32_t cells);
  * Related APIs: bf_tm_pool_skid_size_set(), bf_tm_pool_skid_hysteresis_get()
  *
  * @param[in] dev        ASIC device identifier.
- * @param[in] cells      Number of cells set as skid pool hysteresis.
+ * @param[in] cells      Number of cells set as skid pool hysteresis. If not a
+ *                       multiple of 8, gets rounded down.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error

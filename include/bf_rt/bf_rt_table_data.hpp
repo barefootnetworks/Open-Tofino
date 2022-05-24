@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table_data.hpp
  *
  *  @brief Contains BF-RT Table Data APIs
@@ -143,6 +144,28 @@ class BfRtTableData {
                                const bool &value) = 0;
 
   /**
+   * @brief Set value. Valid on fields of BfRtTableData type. This is used on
+   * fields which are containers. Note that the user only handles memory of
+   * the topmost data object. The data objects corresponding to internal
+   * containers are managed by the top most data object and are destroyed
+   * when the top object goes away.
+   * API user needs to move the unique_ptrs and give ownership to the data
+   * object this is being called upon. Side-effect being, if the set API
+   * fails, then user needs to allocate again since the previous object(s)
+   * moved in the API would have been freed now.
+   * Note that the corresponding getValue() doesn't transfer ownership back
+   * user
+   *
+   * @param[in] field_id Field ID
+   * @param[out] vec Vector BfRtTableData unique_ptrs to be filled in
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t setValue(
+      const bf_rt_id_t &field_id,
+      std::vector<std::unique_ptr<BfRtTableData>> ret_vec) = 0;
+
+  /**
    * @brief Set value. Valid only on fields with string type
    *
    * @param[in] field_id Field ID
@@ -252,8 +275,13 @@ class BfRtTableData {
    */
   virtual bf_status_t getValue(const bf_rt_id_t &field_id,
                                std::vector<uint64_t> *arr) const = 0;
+
   /**
-   * @brief Get value. Valid on fields of BfRtTableData type
+   * @brief Get value. Valid on fields of BfRtTableData type. This is used on
+   * fields which are containers. Note that the user only handles memory
+   * of the topmost data object. The data objects corresponding to internal
+   * containers are managed by the top most data object and are destroyed
+   * when the top object goes away.
    *
    * @param[in] field_id Field ID
    * @param[out] Pointer To the list of BfRtTableData values to be filled in.
@@ -292,7 +320,7 @@ class BfRtTableData {
    *
    * @param[out] table Pointer to the pointer to BfRtTable to be filled in. <br>
    *             A table data object can be associated with a parent table
-   *object. This API <br>
+   *             object. This API <br>
    *             returns the parent object if it exists.
    *
    * @return Status of the API call
@@ -303,7 +331,7 @@ class BfRtTableData {
    *
    * @param[out] learn Pointer to the pointer to BfRtLearn to be filled in. <br>
    *             A table data object can be associated with a parent Learn
-   *object. This API <br>
+   *             object. This API <br>
    *             returns the parent learn object if it exists.
    *
    * @return Status of the API call
@@ -331,6 +359,6 @@ class BfRtTableData {
                                bool *is_active) const = 0;
 };
 
-}  // bfrt
+}  // namespace bfrt
 
 #endif  // _BF_RT_TABLE_DATA_HPP

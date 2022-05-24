@@ -2529,7 +2529,7 @@ bf_status_t bf_serdes_set_spico_clk_source(bf_dev_id_t dev_id,
  * @param[in]  row     : row from below table
  * @param[in]  col     : col from below table
  * @param[in]  value   : value to set parameter to
- *
+ * <pre>
  *                    0x0       0x01  0x2   0x3     0x4
  *            0x0 - thresh_HF    d0e   HF  GAIN  dvos_d0e_lo*
  *            0x1 - thresh_LF    d0o   LF    2*  dvos_d0e_hi*
@@ -2547,7 +2547,7 @@ bf_status_t bf_serdes_set_spico_clk_source(bf_dev_id_t dev_id,
  *            0xD - ctle_only                    tvos_d1e_hi*
  *            0xE - enable_dlev                  tvos_d1o_lo*
  *            0xF - run_coarse                   tvos_d1o_hi*
- *
+ * </pre>
  * @return Status of the API call
  *
  */

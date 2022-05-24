@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _TOFINO_BF_PAL_PLATFORM_INTF_H
 #define _TOFINO_BF_PAL_PLATFORM_INTF_H
 

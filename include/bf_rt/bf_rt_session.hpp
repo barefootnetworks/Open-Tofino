@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_session.hpp
  *
  *  @brief Contains BF-RT Session APIs
@@ -168,6 +169,6 @@ class BfRtSession {
   /** @} */  // End of group Transaction
 };
 
-}  // bfrt
+}  // namespace bfrt
 
 #endif

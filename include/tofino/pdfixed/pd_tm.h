@@ -28,6 +28,7 @@ typedef uint32_t p4_pd_tm_queue_t;
 typedef uint32_t p4_pd_tm_l1_node_t;
 typedef uint16_t p4_pd_tm_icos_t;
 typedef uint32_t p4_pd_tm_pipe_t;
+typedef uint32_t p4_pd_tm_thres_t;
 
 typedef enum {
   PD_COLOR_GREEN = 0,
@@ -128,11 +129,28 @@ typedef struct _p4_pd_tm_blklvl_cntrs {
 } p4_pd_tm_blklvl_cntrs_t;
 
 typedef struct _p4_pd_tm_pre_fifo_cntrs {
-  uint64_t wac_drop_cnt_pre0_fifo[4];
-  uint64_t wac_drop_cnt_pre1_fifo[4];
-  uint64_t wac_drop_cnt_pre2_fifo[4];
-  uint64_t wac_drop_cnt_pre3_fifo[4];
+  uint64_t wac_drop_cnt_pre0_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre1_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre2_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre3_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre4_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre5_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre6_fifo[BF_PRE_FIFO_COUNT];
+  uint64_t wac_drop_cnt_pre7_fifo[BF_PRE_FIFO_COUNT];
 } p4_pd_tm_pre_fifo_cntrs_t;
+
+typedef struct _p4_pd_tm_dev_cfg_t {
+  uint8_t pipe_cnt;
+  uint8_t pg_per_pipe;
+  uint8_t q_per_pg;
+  uint8_t ports_per_pg;
+  uint16_t pfc_ppg_per_pipe;
+  uint16_t total_ppg_per_pipe;
+  uint8_t pre_fifo_per_pipe;
+  uint8_t l1_per_pg;
+  uint16_t l1_per_pipe;
+
+} p4_pd_tm_dev_cfg_t;
 
 /**
  * @brief Allocate an unused PPG. The new PPG can be used to implement
@@ -601,9 +619,10 @@ p4_pd_status_t p4_pd_tm_set_q_color_limit(p4_pd_tm_dev_t dev,
  * @param[in] port       Port handle.
  * @param[in] queue      Queue whose color drop limit to be set.
  * @param[in] color      Color (RED, YELLOW)
- * @param[in] limit      Number of cells queue usage should reduce before
+ * @param[in] cells      Number of cells queue usage should reduce before
  *                       drop condition for appropriate colored packets is
- *                       cleared.
+ *                       cleared. The value will be set to HW rounded down
+ *                       to 8 cell units.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -613,7 +632,7 @@ p4_pd_status_t p4_pd_tm_set_q_color_hysteresis(p4_pd_tm_dev_t dev,
                                                p4_pd_tm_port_t port,
                                                p4_pd_tm_queue_t queue,
                                                p4_pd_color_t color,
-                                               p4_pd_color_limit_t limit);
+                                               p4_pd_tm_thres_t cells);
 
 /**
  * @brief Set queue hysteresis value.
@@ -720,15 +739,20 @@ p4_pd_status_t p4_pd_tm_disable_q_color_drop(p4_pd_tm_dev_t dev,
                                              p4_pd_tm_queue_t queue);
 
 /**
- * @brief Set dest port() queue) for negative mirror traffic
+ * @brief Set negative mirror traffic destination port and its queue.
  * Use this API to set (port, queue) used for egressing out
- * negative mirror traffic. Its possible to set one such
+ * negative mirror traffic on the pipe. It's possible to set one such
  * (port,queue) value for each pipe.
+ * The device port id must be on the pipe given.
+ * Port queue number must be chosen according to the current port queues
+ * mapping. Make sure to update the destination port and its queue number
+ * if that port, or any other port of its port group, has queue mapping
+ * changed.
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[in] port       Negative Mirror port.
- * @param[in] queue      Queue where negative mirror traffic is enqueued.
+ * @param[in] port       Negative mirror traffic destination device port id.
+ * @param[in] queue      Negative mirror traffic destination port queue number.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -741,13 +765,16 @@ p4_pd_status_t p4_pd_tm_set_negative_mirror_dest(p4_pd_tm_dev_t dev,
 
 /**
  * @brief Get negative mirror destination in a pipe.
+ * Use this API to get (port, queue) currently used for egressing out
+ * negative mirror traffic on the pipe.
+ * Port queue is get according to the port's current queue map.
  *
  * Related APIs: p4_pd_tm_set_negative_mirror_dest()
  *
  * @param[in] dev         ASIC device identifier.
  * @param[in] pipe        Device pipe.
- * @param[out] port       Negative mirror traffic destination port.
- * @param[out] queue      Negative mirror traffic queue within destination port.
+ * @param[out] port       Negative mirror traffic destination device port id.
+ * @param[out] queue      Negative mirror traffic destination port queue number.
  * @return                Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -1065,13 +1092,16 @@ p4_pd_status_t p4_pd_tm_set_egress_pipe_hysteresis(p4_pd_tm_dev_t dev,
  * When buffer usage accounted on port basis crosses the
  * limit, traffic is not admitted into traffic manager.
  *
- * Default: Set to 100% buffer usage.
+ * Default: Set to 100% buffer usage. (286,720 cells for Tofino, 393,216 cells
+ * for Tofino2).
  *
  * Related APIs: p4_pd_tm_get_ingress_port_drop_limit()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] port       Port Identifier
- * @param[in] cells      Limits in terms of cells.
+ * @param[in] cells      Limits in terms of cells. The lowest 3 bits will be
+ *                       lost, so the limit should be the module of 8 for the
+ *                       correctness
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -1082,18 +1112,42 @@ p4_pd_status_t p4_pd_tm_set_ingress_port_drop_limit(p4_pd_tm_dev_t dev,
                                                     uint32_t cells);
 
 /**
+ * @brief Set egress port limit.
+ * When buffer usage accounted on port basis crosses the
+ * limit, traffic will be droppped on QAC stage.
+ *
+ * Default: Set to 100% buffer usage (286,720 cells for Tofino, 393,216 cells
+ * for Tofino2).
+ *
+ * Related APIs: p4_pd_tm_get_egress_port_drop_limit()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @param[in] cells      Limits in terms of cells.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_set_egress_port_drop_limit(p4_pd_tm_dev_t dev,
+                                                   p4_pd_tm_port_t port,
+                                                   uint32_t cells);
+
+/**
  * @brief Set port hysteresis limits.
  * When usage of cells goes below hysteresis value port pause or
  * drop condition will be cleared.
  *
- * Default : No hysteresis.
+ * Default : 32 cells.
  *
  * Related APIs: p4_pd_tm_set_ingress_port_drop_limit(),
  *               p4_pd_tm_get_ingress_port_hysteresis()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] port       Port Identifier
- * @param[in] cells      Offset Limit
+ * @param[in] cells      Offset Limit. The lowest 3 bits will be
+ *                       lost, so the limit should be the module of 8 for the
+ *                       correctness
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -1102,6 +1156,30 @@ p4_pd_status_t p4_pd_tm_set_ingress_port_drop_limit(p4_pd_tm_dev_t dev,
 p4_pd_status_t p4_pd_tm_set_ingress_port_hysteresis(p4_pd_tm_dev_t dev,
                                                     p4_pd_tm_port_t port,
                                                     uint32_t cells);
+
+/**
+ * @brief Set port egress hysteresis limits.
+ * When usage of cells goes below hysteresis value port drop condition will be
+ * cleared.
+ *
+ * Default : 32 cells.
+ *
+ * Related APIs: p4_pd_tm_set_egress_port_drop_limit(),
+ *               p4_pd_tm_get_egress_port_hysteresis()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @param[in] cells      Offset Limit. The lowest 3 bits will be
+ *                       lost, so the limit should be the module of 8 for the
+ *                       correctness
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_set_egress_port_hysteresis(p4_pd_tm_dev_t dev,
+                                                   p4_pd_tm_port_t port,
+                                                   uint32_t cells);
 
 /**
  * @brief Set Port Unicast Cut Through Limit
@@ -1271,7 +1349,9 @@ p4_pd_status_t p4_pd_tm_set_q_sched_priority(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] weight          Weight value. Supported range [ 1.. 1023 ]
+ * @param[in] weight          Weight value. Supported range [ 0.. 1023 ]
+ *                            Weight 0  is used to disable the DWRR especially
+ *                            when Max Rate Leakybucket is used.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -1455,7 +1535,7 @@ p4_pd_status_t p4_pd_tm_sched_l1_priority_set(p4_pd_tm_dev_t dev,
 /**
  * @brief Set l1 node DWRR weights.
  * These weights are used by l1 nodes at same priority level.
- * Across prioirty these weights serve as ratio to
+ * Across priority these weights serve as ratio to
  * share excess or remaining bandwidth.
  *
  * Default: l1 node scheduling weights set to 1023
@@ -1465,7 +1545,9 @@ p4_pd_status_t p4_pd_tm_sched_l1_priority_set(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] l1 node         L1 node
- * @param[in] weight          Weight value. Supported range [ 1.. 1023 ]
+ * @param[in] weight          Weight value. Supported range [ 0.. 1023 ]
+ *                            Weight 0  is used to disable the DWRR especially
+ *                            when Max Rate Leakybucket is used.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -1475,6 +1557,28 @@ p4_pd_status_t p4_pd_tm_sched_l1_dwrr_weight_set(p4_pd_tm_dev_t dev,
                                                  p4_pd_tm_port_t port,
                                                  p4_pd_tm_l1_node_t l1_node,
                                                  uint16_t weight);
+
+/**
+ * @brief Get l1 node DWRR weight.
+ * These weights are used by l1 nodes at same priority level.
+ * Across priority these weights serve as ratio to
+ * share excess or remaining bandwidth.
+ *
+ * Related APIs: p4_pd_tm_sched_l1_dwrr_weight_set()
+ *
+ * @param[in] dev             ASIC device identifier
+ * @param[in] port            Port
+ * @param[in] l1_node         L1 node
+ * @param[out] weight         Weight value
+ * @return                    Status of API call
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_sched_l1_dwrr_weight_get(p4_pd_tm_dev_t dev,
+                                                 p4_pd_tm_port_t port,
+                                                 p4_pd_tm_l1_node_t l1_node,
+                                                 uint16_t *weight);
 
 /**
  * @brief Set l1 node shaping rate in units of kbps or pps.
@@ -2194,6 +2298,57 @@ p4_pd_status_t p4_pd_tm_get_port_q_mapping(p4_pd_tm_dev_t dev,
                                            uint8_t *q_map);
 
 /**
+ * @brief This API can be used to get port and ingress qid for
+ * particular physical queue
+ *
+ * @param[in] dev              ASIC device identifier.
+ * @param[in] log_pipe         Logical pipe ID.
+ * @param[in] pipe_queue       Physical pipe-related queue ID.
+ * @param[out] port            Port handle {logical pipe id, port id}.
+ * @param[out] qid_count       Number of ingress queues (first ingress_q_count
+ *                             in array is significant).
+ * @param[out] qid_list        Ingress queue array.
+ *                             :
+ *                             Caller has to provide array of size 32 for TOF or
+ *                             128 for TOF2
+ *                             if physical queue is not currently mapped, port
+ *                             is set to the port's group first port and
+ *                             qid_count is set to the 0
+ *
+ * @return                     Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_get_pipe_queue_qid_list(p4_pd_tm_dev_t dev,
+                                                p4_pd_tm_pipe_t log_pipe,
+                                                p4_pd_tm_queue_t pipe_queue,
+                                                p4_pd_tm_port_t *port,
+                                                uint32_t *qid_count,
+                                                p4_pd_tm_queue_t *qid_list);
+
+/**
+ * @brief This API can be used to get physical queue for particular port and
+ * ingress qid.
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       port handle.
+ * @param[in] ingress_qid  ingress qid.
+ * @param[out] log_pipe  logical pipe ID.
+ * @param[out] phys_q    physical queue ID.
+ *
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_get_port_pipe_physical_queue(p4_pd_tm_dev_t dev,
+                                                     p4_pd_tm_port_t port,
+                                                     uint32_t ingress_qid,
+                                                     p4_pd_tm_pipe_t *log_pipe,
+                                                     p4_pd_tm_queue_t *phys_q);
+
+/**
  * @brief Get Queue App pool, limit configuration
  * A queue can be optionally assigned to any application pool.
  * When assigned to application pool, get static or dynamic shared limit
@@ -2289,7 +2444,7 @@ p4_pd_status_t p4_pd_tm_get_q_color_limit(p4_pd_tm_dev_t dev,
  * @param[in] port       Port handle.
  * @param[in] queue      Queue whose dynamic limits has to be adjusted.
  * @param[in] color      Color (RED, YELLOW, GREEN)
- * @param[out] limit     Number of cells queue usage drops to
+ * @param[out] cells     Number of cells queue usage drops to
  *                       when drop condition is cleared.
  * @return               Status of API call.
  *  BF_SUCCESS on success
@@ -2300,7 +2455,7 @@ p4_pd_status_t p4_pd_tm_get_q_color_hysteresis(p4_pd_tm_dev_t dev,
                                                p4_pd_tm_port_t port,
                                                p4_pd_tm_queue_t queue,
                                                p4_pd_color_t color,
-                                               uint32_t *limit);
+                                               p4_pd_tm_thres_t *cells);
 
 /**
  * @brief Get Port Unicast Cut Through Limit
@@ -2624,6 +2779,25 @@ p4_pd_status_t p4_pd_tm_get_ingress_port_drop_limit(p4_pd_tm_dev_t dev,
                                                     uint32_t *cells);
 
 /**
+ * @brief Get Egress port limit.
+ * When buffer usage accounted on port basis crosses the limit,
+ * traffic will be droppped on QAC stage.
+ *
+ * Related APIs: p4_pd_tm_set_app_pool_color_drop_limit()
+ *
+ * @param[in] dev         ASIC device identifier.
+ * @param[in] port        Port Identifier
+ * @param[out] cells      Limit in terms of number of cells.
+ * @return                Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_get_egress_port_drop_limit(p4_pd_tm_dev_t dev,
+                                                   p4_pd_tm_port_t port,
+                                                   uint32_t *cells);
+
+/**
  * @brief Get port hysteresis limits.
  * When usage of cells goes below hysteresis value  port pause or drop
  * condition  will be cleared.
@@ -2641,6 +2815,26 @@ p4_pd_status_t p4_pd_tm_get_ingress_port_drop_limit(p4_pd_tm_dev_t dev,
 p4_pd_status_t p4_pd_tm_get_ingress_port_hysteresis(p4_pd_tm_dev_t dev,
                                                     p4_pd_tm_port_t port,
                                                     uint32_t *cells);
+
+/**
+ * @brief Get port egress hysteresis limits.
+ * When usage of cells goes below hysteresis value  port drop
+ * condition  will be cleared.
+ *
+ * Related APIs: bf_tm_port_egress_hysteresis_set()
+ *
+ * @param[in] dev         ASIC device identifier.
+ * @param[in] port        Port Identifier
+ * @param[out] cells      Offset Limit
+ * @return                Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_get_egress_port_hysteresis(p4_pd_tm_dev_t dev,
+                                                   p4_pd_tm_port_t port,
+                                                   uint32_t *cells);
+
 /**
  * @brief This API can be used to get pause type set on port.
  *
@@ -3337,6 +3531,54 @@ p4_pd_status_t p4_pd_tm_sched_adv_fc_mode_enable_set(p4_pd_tm_dev_t dev,
 p4_pd_status_t p4_pd_tm_sched_adv_fc_mode_enable_get(p4_pd_tm_dev_t dev,
                                                      p4_pd_tm_pipe_t pipe,
                                                      bool *enable);
+/**
+ * @brief Get TM device-specific settings.
+ *
+ * @param[in]  dev            ASIC device identifier.
+ * @param[out] cfg            Config.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+p4_pd_status_t p4_pd_tm_dev_config_get(p4_pd_tm_dev_t dev,
+                                       p4_pd_tm_dev_cfg_t *cfg);
+
+/**
+ * Set egress Pipe deflection port enable mode
+ *
+ * Default: true
+ *
+ * Related APIs: bf_tm_pipe_deflection_port_enable_get()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] pipe       Pipe Identifier.
+ * @param[in] enable     Deflection mode enable status.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+p4_pd_status_t pd_tm_pipe_deflection_port_enable_set(p4_pd_tm_dev_t dev,
+                                                     p4_pd_tm_pipe_t pipe,
+                                                     bool enable);
+
+/**
+ * Get egress Pipe deflection port enable mode
+ *
+ * Default: true
+ *
+ * Related APIs: bf_tm_pipe_deflection_port_enable_set()
+ *
+ * @param[in] dev         ASIC device identifier.
+ * @param[in] pipe        Pipe Identifier.
+ * @param[out] enable     Deflection mode enable status.
+ * @return                Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+p4_pd_status_t pd_tm_pipe_deflection_port_enable_get(p4_pd_tm_dev_t dev,
+                                                     p4_pd_tm_pipe_t pipe,
+                                                     bool *enable);
+
 /* @} */
 
 #endif

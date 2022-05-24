@@ -27,13 +27,16 @@
  * When buffer usage accounted on port basis crosses the
  * limit, traffic is not admitted into traffic manager.
  *
- * Default: Set to 100% buffer usage.
+ * Default: Set to 100% buffer usage. (286,720 cells for Tofino, 393,216 cells
+ * for Tofino2).
  *
  * Related APIs: bf_tm_port_ingress_drop_limit_get()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] port       Port Identifier
- * @param[in] cells      Limits in terms of cells.
+ * @param[in] cells      Limits in terms of cells. The lowest 3 bits will be
+ *                       lost, so the limit should be the module of 8 for the
+ *                       correctness
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -43,18 +46,56 @@ bf_status_t bf_tm_port_ingress_drop_limit_set(bf_dev_id_t dev,
                                               uint32_t cells);
 
 /**
+ * @brief Clear port drop state register in WAC.
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_wac_drop_state_clear(bf_dev_id_t dev,
+                                            bf_dev_port_t port);
+
+/**
+ * @brief Clear port drop state register in QAC.
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_qac_drop_state_clear(bf_dev_id_t dev,
+                                            bf_dev_port_t port);
+
+/**
+ * @brief Clear port drop limit register in QAC.
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_qac_drop_limit_clear(bf_dev_id_t dev,
+                                            bf_dev_port_t port);
+
+/**
  * @brief Set port hysteresis limits.
  * When usage of cells goes below hysteresis value port pause or
  * drop condition will be cleared.
  *
- * Default : No hysteresis.
+ * Default : 32 cells.
  *
  * Related APIs: bf_tm_port_ingress_drop_limit_set(),
  *               bf_tm_port_ingress_hysteresis_get()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] port       Port Identifier
- * @param[in] cells      Offset Limit
+ * @param[in] cells      Offset Limit. The lowest 3 bits will be
+ *                       lost, so the limit should be the module of 8 for the
+ *                       correctness
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -69,6 +110,50 @@ bf_status_t bf_tm_port_ingress_hysteresis_set(bf_dev_id_t dev,
  * @addtogroup tm-egress
  * @{
  */
+
+/**
+ * @brief Set egress port limit.
+ * When buffer usage accounted on port basis crosses the
+ * limit, traffic Will be dropped on QAC stage.
+ *
+ * Default: Set to 100% buffer usage. (286,720 cells for Tofino, 393,216 cells
+ * for Tofino2).
+ *
+ * Related APIs: bf_tm_port_egress_drop_limit_get()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @param[in] cells      Limits in terms of cells.
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_egress_drop_limit_set(bf_dev_id_t dev,
+                                             bf_dev_port_t port,
+                                             uint32_t cells);
+
+/**
+ * @brief Set port hysteresis limits.
+ * When usage of cells goes below hysteresis value port pause or
+ * drop condition will be cleared.
+ *
+ * Default : 32 cells.
+ *
+ * Related APIs: bf_tm_port_egress_drop_limit_set(),
+ *               bf_tm_port_egress_hysteresis_get()
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port Identifier
+ * @param[in] cells      Offset Limit. The lowest 3 bits will be
+ *                       lost, so the limit should be the module of 8 for the
+ *                       correctness
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_egress_hysteresis_set(bf_dev_id_t dev,
+                                             bf_dev_port_t port,
+                                             uint32_t cells);
 
 /**
  * @brief Set Port Unicast Cut Through Limit
@@ -171,6 +256,17 @@ bf_status_t bf_tm_port_flowcontrol_rx_set(bf_dev_id_t dev,
 bf_status_t bf_tm_port_pfc_cos_mapping_set(bf_dev_id_t dev,
                                            bf_dev_port_t port,
                                            uint8_t *cos_to_icos);
+
+/**
+ * @brief Clear PFC state register for Port
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port id
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_pfc_state_clear(bf_dev_id_t dev, bf_dev_port_t port);
 
 /**
  * @brief Sets CPU port.

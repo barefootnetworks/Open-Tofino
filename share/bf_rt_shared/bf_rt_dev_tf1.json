@@ -1,0 +1,432 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "tf1.dev.device_configuration",
+      "id": 4278583297,
+      "table_type": "DevConfigure",
+      "size": 1,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "sku",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "UNKNOWN",
+                "BFN-T10-064Q",
+                "BFN-T10-032Q",
+                "BFN-T10-032D",
+                "BFN-T10-032D-020",
+                "BFN-T10-032D-018"
+              ],
+              "default_value": "UNKNOWN"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "num_pipes",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "num_max_ports",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "num_front_ports",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "pcie_cpu_port",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 6,
+            "name": "eth_cpu_port_list",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 7,
+            "name": "internal_port_list",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 8,
+            "name": "external_port_list",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 9,
+            "name": "recirc_port_list",
+            "repeated": true,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 10,
+            "name": "intr_based_link_monitoring",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 11,
+            "name": "flow_learn_intr_mode",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 12,
+            "name": "lrt_dr_timeout_msec",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 13,
+            "name": "flow_learn_timeout_usec",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32",
+              "default_value": 500
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 14,
+            "name": "inactive_node_delete",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to set global device configuration."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to get global device configuration."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset writable datafields to default values."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset writable datafields to default values."
+        }
+      }
+    },
+    {
+      "name": "tf1.dev.warm_init",
+      "id": 4278583298,
+      "table_type": "WarmInit",
+      "size": 1,
+      "key": [],
+      "action_specs": [
+        {
+          "id": 1,
+          "name": "begin",
+          "data": []
+        },
+        {
+          "id": 2,
+          "name": "completed",
+          "data": []
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "error",
+            "description": "The error state holder, action 'begin' needs to pass an empty object, so the action 'completed' could output the current warm-init status",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "init_mode",
+            "description": "The warm init mode to use for this device",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "INIT_COLD",
+                "WARM_INIT_FAST_RECFG",
+                "WARM_INIT_HITLESS"
+              ],
+              "default_value": "INIT_COLD"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "upgrade_agents",
+            "description": "Flag to denote whether to upgrade the agents",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "p4_programs",
+            "description": "P4 programs configuration container settings",
+            "repeated": true,
+            "annotations": [],
+            "container": [
+              {
+                "mandatory": false,
+                "read_only": false,
+                "singleton": {
+                  "id": 5,
+                  "name": "p4_name",
+                  "description": "Name of the P4 program to be set in the device_profile",
+                  "repeated": false,
+                  "annotations": [],
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "mandatory": false,
+                "read_only": false,
+                "singleton": {
+                  "id": 6,
+                  "name": "p4_pipelines",
+                  "description": "P4 pipeline configuration container settings",
+                  "repeated": true,
+                  "annotations": [],
+                  "container": [
+                    {
+                      "id": 7,
+                      "name": "runtime_context_file",
+                      "description": "Path to the context.json file to be set in the device_profile",
+                      "mandatory": false,
+                      "repeated": false,
+                      "annotations": [],
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "id": 8,
+                      "name": "binary_path",
+                      "description": "Path to the tofino.bin file to be set in the device_profile",
+                      "mandatory": false,
+                      "repeated": false,
+                      "annotations": [],
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "id": 9,
+                      "name": "pipeline_name",
+                      "description": "Name of the pipeline to be set in the device_profile",
+                      "mandatory": false,
+                      "repeated": false,
+                      "annotations": [],
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "id": 10,
+                      "name": "pipe_scope",
+                      "description": "List of pipes ids to be set in the device_profile",
+                      "mandatory": false,
+                      "repeated": true,
+                      "annotations": [],
+                      "type": {
+                        "type": "uint32"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 11,
+                "name": "bfrt_json_file",
+                "description": "Name or path of the bf-rt.json file to be set in the device_profile",
+                "mandatory": false,
+                "repeated": false,
+                "annotations": [],
+                "type": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to begin/completed warm_init procedure. \"pipe_id\" is not being used from the target because it is used as part of warm_init config instead."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to query warm_init arguments. \"pipe_id\" is not being used from the target because it is used as part of warm_init config instead."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to reset warm_init arguments. \"pipe_id\" is not being used from the target because it is used as part of warm_init config instead."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id"
+          ],
+          "description": "This API is used to clear warm_init arguments. \"pipe_id\" is not being used from the target because it is used as part of warm_init config instead."
+        }
+      }
+    }
+  ]
+}

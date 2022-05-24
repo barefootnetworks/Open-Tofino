@@ -419,6 +419,18 @@ bf_status_t bf_mc_ecmp_destroy(bf_mc_session_hdl_t shdl,
                                bf_mc_ecmp_hdl_t ecmp_hdl);
 
 /**
+ * Release an ECMP group when no mgid is associated with it.
+ * Otherwise return BF_IN_USE error
+ * @param shdl Session handle.
+ * @param dev The ASIC id.
+ * @param ecmp_hdl Handle of the group to release.
+ * @return Status of the API call.
+ */
+bf_status_t bf_mc_ecmp_destroy_checked(bf_mc_session_hdl_t shdl,
+                                       bf_dev_id_t dev,
+                                       bf_mc_ecmp_hdl_t ehdl);
+
+/**
  * Get the first ECMP handle.
  * @param shdl Session handle.
  * @param dev The ASIC id.
@@ -483,6 +495,21 @@ bf_status_t bf_mc_ecmp_mbr_rem(bf_mc_session_hdl_t shdl,
                                bf_dev_id_t dev,
                                bf_mc_ecmp_hdl_t ecmp_hdl,
                                bf_mc_node_hdl_t node_hdl);
+
+/**
+ * replace all members (nodes) in an ECMP group with given nodes
+ * @param shdl Session handle.
+ * @param dev The ASIC id.
+ * @param ecmp_hdl Handle of the ecmp group.
+ * @param node_hdls Handle of the list of nodes.
+ * @param size the array size of the list of nodes.
+ * @return Status of the API call.
+ */
+bf_status_t bf_mc_ecmp_mbr_mod(bf_mc_session_hdl_t shdl,
+                               bf_dev_id_t dev,
+                               bf_mc_ecmp_hdl_t ecmp_hdl,
+                               bf_mc_node_hdl_t *node_hdls,
+                               uint32_t size);
 
 /**
  * Get the first member of the group associated with the ECMP handle.

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 /** @file bf_rt_table.hpp
  *
  *  @brief Contains BF-RT Table APIs
@@ -182,8 +183,8 @@ class BfRtTable {
     PRE_PRUNE = 29,
     /** Mirror configuration table */
     MIRROR_CFG = 30,
-    /** Traffic Mgr PPG Table */
-    TM_PPG = 31,
+    /** Traffic Mgr PPG Table - retired */
+    TM_PPG_OBSOLETE = 31,
     /** PRE Port table */
     PRE_PORT = 32,
     /** Dynamic Hashing algorithm table*/
@@ -218,7 +219,67 @@ class BfRtTable {
     SNAPSHOT_DATA = 47,
     /** TM Pool App PFC table */
     TM_POOL_APP_PFC = 48,
-    INVALID = 49
+    /** TM Ingress Port Counters table */
+    TM_COUNTER_IG_PORT = 49,
+    /** TM Egress Port Counters table */
+    TM_COUNTER_EG_PORT = 50,
+    /** TM Queue Counters table */
+    TM_COUNTER_QUEUE = 51,
+    /** TM Pool Counters table */
+    TM_COUNTER_POOL = 52,
+    /** TM Port general config parameters table */
+    TM_PORT_CFG = 53,
+    /** TM Port Buffer table */
+    TM_PORT_BUFFER = 54,
+    /** TM Port Flow Control table */
+    TM_PORT_FLOWCONTROL = 55,
+    /** TM Pipe Counters table */
+    TM_COUNTER_PIPE = 56,
+    /** Debug Counters table */
+    DBG_CNT = 57,
+    /** Logical table debug debug counters table */
+    LOG_DBG_CNT = 58,
+    /** TM Cfg table */
+    TM_CFG = 59,
+    /** TM Pipe Multicast fifo table */
+    TM_PIPE_MULTICAST_FIFO = 60,
+    /** TM Mirror port DPG table */
+    TM_MIRROR_DPG = 61,
+    /** TM Port DPG table */
+    TM_PORT_DPG = 62,
+    /** TM PPG configuration table */
+    TM_PPG_CFG = 63,
+    /** Register param table */
+    REG_PARAM = 64,
+    /** TM Port DPG Counters table */
+    TM_COUNTER_PORT_DPG = 65,
+    /** TM Mirror Port DPG Counters table */
+    TM_COUNTER_MIRROR_PORT_DPG = 66,
+    /** TM PPG Counters table */
+    TM_COUNTER_PPG = 67,
+    /** Dynamic hash compute table */
+    DYN_HASH_COMPUTE = 68,
+    /** Action Selector Get Member table */
+    SELECTOR_GET_MEMBER = 69,
+    /** TM Egress Port Queue Scheduler parameters table */
+    TM_QUEUE_SCHED_CFG = 70,
+    /** TM Egress Port Queue Scheduler shaping table */
+    TM_QUEUE_SCHED_SHAPING = 71,
+    /** TM Egress Port Scheduler parameters table */
+    TM_PORT_SCHED_CFG = 72,
+    /** TM Egress Port Scheduler shaping table */
+    TM_PORT_SCHED_SHAPING = 73,
+    /** TM Pipe general config parameters table */
+    TM_PIPE_CFG = 74,
+    /** TM Pipe Scheduler parameters table */
+    TM_PIPE_SCHED_CFG = 75,
+    /** TM L1 Node Scheduler parameters table */
+    TM_L1_NODE_SCHED_CFG = 76,
+    /** TM L1 Node Scheduler shaping table */
+    TM_L1_NODE_SCHED_SHAPING = 77,
+    /** Device Warm init Table */
+    DEV_WARM_INIT = 78,
+    INVALID = 79
   };
 
   /**
@@ -263,6 +324,8 @@ class BfRtTable {
     KEY_GET = 13,
     /** Get entry handle from key. */
     HANDLE_GET = 14,
+    /** Invalid not supported API. */
+    INVALID_API = 15
   };
 
   /**
@@ -487,8 +550,8 @@ class BfRtTable {
    *
    * @param[in] session Session Object
    * @param[in] dev_tgt Device target
-   * @param[in] entry_handle Handle to the entry
-   * @param[out] key Entry Key
+   * @param[in] key Entry Key
+   * @param[out] entry_handle Handle to the entry
    *
    * @return Status of the API call
    */
@@ -790,8 +853,8 @@ class BfRtTable {
    * @param[in] session Session Object
    * @param[in] dev_tgt Device target
    * @param[in] flags Call flags
-   * @param[in] entry_handle Handle to the entry
-   * @param[out] key Entry Key
+   * @param[in] key Entry Key
+   * @param[out] entry_handle Handle to the entry
    *
    * @return Status of the API call
    */
@@ -1073,19 +1136,8 @@ class BfRtTable {
   /**
    * @name Data APIs
    * There are 2 base versions of every Data API. One, which takes in an
-   * action_id and another which doesn't. All action_id APIs work only for
-   * tables which have any actions. All non-action_id APIs work only for
-   * tables which do NOT have actions. If action_id is specified it will
+   * action_id and another which doesn't. If action_id is specified it will
    * always be set.
-   *
-   * Exceptions: <br>
-   * 1. Tables with Actions <br>
-   *  a. \ref
-   *bfrt::BfRtTable::dataAllocate(std::unique_ptr<BfRtTableData>*data_ret)const
-   *    "dataAllocate(std::unique_ptr<BfRtTableData>*)"
-   *  : This API is allowed
-   *    with Gets and GetAlls in mind. However, if a tableAdd requires an
-   *    action ID, an error will be thrown during runtime. <br>
    *
    * @{
    */
@@ -1142,6 +1194,74 @@ class BfRtTable {
       std::unique_ptr<BfRtTableData> *data_ret) const = 0;
 
   /**
+   * @brief Data Allocate for a container field ID. Container ID
+   * is field ID of a container field. If container ID doesn't
+   * exist, then the API will fail
+   *
+   * @param[in] container_id Field ID of container
+   * @param[out] data_ret Data Object returned
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t dataAllocateContainer(
+      const bf_rt_id_t &container_id,
+      std::unique_ptr<BfRtTableData> *data_ret) const = 0;
+
+  /**
+   * @brief Data Allocate for a container field ID. Container ID
+   * is field ID of a container field. If container ID doesn't
+   * exist for the action ID, the API will fail
+   *
+   * @param[in] container_id Field ID of container
+   * @param[in] action_id Action ID
+   * @param[out] data_ret Data Object returned
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t dataAllocateContainer(
+      const bf_rt_id_t &container_id,
+      const bf_rt_id_t &action_id,
+      std::unique_ptr<BfRtTableData> *data_ret) const = 0;
+
+  /**
+   * @brief Data Allocate for a container field ID. Container ID
+   * is field ID of a container field. If container ID doesn't
+   * exist, then the API will fail. The field ID list should
+   * contain fields only pertaining to the container for mod/
+   * get
+   *
+   * @param[in] container_id Field ID of container
+   * @param[in] fields Vector of field IDs
+   * @param[out] data_ret Data Object returned
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t dataAllocateContainer(
+      const bf_rt_id_t &container_id,
+      const std::vector<bf_rt_id_t> &fields,
+      std::unique_ptr<BfRtTableData> *data_ret) const = 0;
+  /**
+   * @brief Data Allocate for a container field ID. Container ID
+   * is field ID of a container field. If container ID doesn't
+   * exist in the action ID, then the API will fail.
+   * The field ID list should
+   * contain fields only pertaining to the container for mod/
+   * get
+   *
+   * @param[in] container_id Field ID of container
+   * @param[in] fields Vector of field IDs
+   * @param[in] action_id Action ID
+   * @param[out] data_ret Data Object returned
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t dataAllocateContainer(
+      const bf_rt_id_t &container_id,
+      const std::vector<bf_rt_id_t> &fields,
+      const bf_rt_id_t &action_id,
+      std::unique_ptr<BfRtTableData> *data_ret) const = 0;
+
+  /**
    * @brief Get vector of DataField IDs. Only applicable for tables
    * without Action IDs
    *
@@ -1152,8 +1272,8 @@ class BfRtTable {
   virtual bf_status_t dataFieldIdListGet(std::vector<bf_rt_id_t> *id) const = 0;
 
   /**
-   * @brief Get vector of DataField IDs for a particular action. Only applicable
-   * for tables with Action IDs
+   * @brief Get vector of DataField IDs for a particular action. If action
+   * doesn't exist, then common fields list is returned.
    *
    * @param[in] action_id Action ID
    * @param[out] id Vector of IDs
@@ -1166,7 +1286,7 @@ class BfRtTable {
   /**
    * @brief Get vector of DataField IDs for a container's field id.
    *
-   * @param[in] Field ID
+   * @param[in] field Field ID of container
    * @param[out] id Vector of IDs
    *
    * @return Status of the API call
@@ -1175,8 +1295,7 @@ class BfRtTable {
       const bf_rt_id_t &field_id, std::vector<bf_rt_id_t> *id) const = 0;
 
   /**
-   * @brief Get the field ID of a Data Field from a name. Only applicable for
-   * tables without Action IDs
+   * @brief Get the field ID of a Data Field from a name.
    *
    * @param[in] name Name of a Data field
    * @param[out] field_id Field ID
@@ -1187,8 +1306,7 @@ class BfRtTable {
                                      bf_rt_id_t *field_id) const = 0;
 
   /**
-   * @brief Get the field ID of a Data Field from a name. Only applicable for
-   * tables with Action IDs
+   * @brief Get the field ID of a Data Field from a name
    *
    * @param[in] name Name of a Data field
    * @param[in] action_id Action ID
@@ -1201,8 +1319,8 @@ class BfRtTable {
                                      bf_rt_id_t *field_id) const = 0;
 
   /**
-   * @brief Get the Size of a field. Only applicable for tables without
-   * Action IDs. For container fields this function will return number
+   * @brief Get the Size of a field.
+   * For container fields this function will return number
    * of elements inside the container.
    *
    * @param[in] field_id Field ID
@@ -1214,8 +1332,7 @@ class BfRtTable {
                                        size_t *size) const = 0;
 
   /**
-   * @brief Get the Size of a field. Only applicable for tables with
-   * Action IDs
+   * @brief Get the Size of a field.
    *
    * @param[in] field_id Field ID
    * @param[in] action_id Action ID
@@ -1229,7 +1346,6 @@ class BfRtTable {
 
   /**
    * @brief Get whether a field is a ptr type.
-   * Only applicable for tables without Action IDs.
    * Only the ptr versions of setValue/getValue will work on fields
    * for which this API returns true
    *
@@ -1243,7 +1359,6 @@ class BfRtTable {
 
   /**
    * @brief Get whether a field is a ptr type.
-   * Only applicable for tables with Action IDs.
    * Only the ptr versions of setValue/getValue will work on fields
    * for which this API returns true
    *
@@ -1258,20 +1373,18 @@ class BfRtTable {
                                         bool *is_ptr) const = 0;
 
   /**
- * @brief Get whether a field is mandatory.
- * Only applicable for tables without Action IDs.
- *
- * @param[in] field_id Field ID
- * @param[out] is_mandatory Boolean value indicating if it is mandatory
- *
- * @return Status of the API call
- */
+   * @brief Get whether a field is mandatory.
+   *
+   * @param[in] field_id Field ID
+   * @param[out] is_mandatory Boolean value indicating if it is mandatory
+   *
+   * @return Status of the API call
+   */
   virtual bf_status_t dataFieldMandatoryGet(const bf_rt_id_t &field_id,
                                             bool *is_mandatory) const = 0;
 
   /**
    * @brief Get whether a field is mandatory.
-   * Only applicable for tables with Action IDs.
    *
    * @param[in] field_id Field ID
    * @param[in] action_id Action ID
@@ -1284,53 +1397,51 @@ class BfRtTable {
                                             bool *is_mandatory) const = 0;
 
   /**
-  * @brief Get whether a field is ReadOnly.
-  * Only applicable for tables without Action IDs.
-  *
-  * @param[in] field_id Field ID
-  * @param[out] is_read_only Boolean value indicating if it is ReadOnly
-  *
-  * @return Status of the API call
-  */
+   * @brief Get whether a field is ReadOnly.
+   *
+   * @param[in] field_id Field ID
+   * @param[out] is_read_only Boolean value indicating if it is ReadOnly
+   *
+   * @return Status of the API call
+   */
   virtual bf_status_t dataFieldReadOnlyGet(const bf_rt_id_t &field_id,
                                            bool *is_read_only) const = 0;
 
   /**
-  * @brief Get the IDs of oneof siblings of a field. If a field is part of a
-  * oneof , for example, consider $ACTION_MEMBER_ID and $SELECTOR_GROUP_ID. then
-  * this API will return [field_ID($ACTION_MEMBER_ID)] for $SELECTOR_GROUP_ID.
-  *
-  * Only applicable for tables with Action IDs.
-  *
-  * @param[in] field_id Field ID
-  * @param[out] oneof_siblings Set containing field IDs of oneof siblings
-  *
-  * @return Status of the API call
-  */
+   * @brief Get the IDs of oneof siblings of a field. If a field is part of a
+   * oneof , for example, consider $ACTION_MEMBER_ID and $SELECTOR_GROUP_ID.
+   * then this API will return [field_ID($ACTION_MEMBER_ID)] for
+   * $SELECTOR_GROUP_ID.
+   *
+   *
+   * @param[in] field_id Field ID
+   * @param[out] oneof_siblings Set containing field IDs of oneof siblings
+   *
+   * @return Status of the API call
+   */
   virtual bf_status_t dataFieldOneofSiblingsGet(
       const bf_rt_id_t &field_id,
       const bf_rt_id_t &action_id,
       std::set<bf_rt_id_t> *oneof_siblings) const = 0;
 
   /**
-  * @brief Get the IDs of oneof siblings of a field. If a field is part of a
-  * oneof , for example, consider $ACTION_MEMBER_ID and $SELECTOR_GROUP_ID. then
-  * this API will return [field_ID($ACTION_MEMBER_ID)] for $SELECTOR_GROUP_ID.
-  *
-  * Only applicable for tables without Action IDs.
-  *
-  * @param[in] field_id Field ID
-  * @param[out] oneof_siblings Set containing field IDs of oneof siblings
-  *
-  * @return Status of the API call
-  */
+   * @brief Get the IDs of oneof siblings of a field. If a field is part of a
+   * oneof , for example, consider $ACTION_MEMBER_ID and $SELECTOR_GROUP_ID.
+   * then this API will return [field_ID($ACTION_MEMBER_ID)] for
+   * $SELECTOR_GROUP_ID.
+   *
+   *
+   * @param[in] field_id Field ID
+   * @param[out] oneof_siblings Set containing field IDs of oneof siblings
+   *
+   * @return Status of the API call
+   */
   virtual bf_status_t dataFieldOneofSiblingsGet(
       const bf_rt_id_t &field_id,
       std::set<bf_rt_id_t> *oneof_siblings) const = 0;
 
   /**
    * @brief Get whether a field is ReadOnly.
-   * Only applicable for tables with Action IDs.
    *
    * @param[in] field_id Field ID
    * @param[in] action_id Action ID
@@ -1343,8 +1454,7 @@ class BfRtTable {
                                            bool *is_read_only) const = 0;
 
   /**
-   * @brief Get the Name of a field. Only applicable for tables without
-   * Action IDs
+   * @brief Get the Name of a field.
    *
    * @param[in] field_id Field ID
    * @param[out] name Name of the field
@@ -1355,8 +1465,7 @@ class BfRtTable {
                                        std::string *name) const = 0;
 
   /**
-   * @brief Get the Name of a field. Only applicable for tables with
-   * Action IDs
+   * @brief Get the Name of a field
    *
    * @param[in] field_id Field ID
    * @param[in] action_id Action ID
@@ -1369,7 +1478,6 @@ class BfRtTable {
                                        std::string *name) const = 0;
   /**
    * @brief Get the Data type of a field (INT/BOOL/ENUM/INT_ARR/BOOL_ARR)
-   * Only applicable for tables without Action IDs
    *
    * @param[in] field_id Field ID
    * @param[out] type Data type of a data field
@@ -1380,7 +1488,6 @@ class BfRtTable {
                                            DataType *type) const = 0;
   /**
    * @brief Get the Data type of a field (INT/BOOL/ENUM/INT_ARR/BOOL_ARR)
-   * Only applicable for tables with Action IDs
    *
    * @param[in] field_id Field ID
    * @param[in] action_id Action ID
@@ -1394,42 +1501,37 @@ class BfRtTable {
 
   /**
    * @brief Reset the data object previously allocated using dataAllocate on the
-   *table
+   * table
    *
-   * @details Note that this API can also be called on the tables for which
-   *action Id
-   *is applicable. Calling this API resets the action-id in the object to an
-   *invalid value. Typically this needs to be done when doing an entry get,
-   *since the caller does not know the action-id associated with the entry.
-   *Using the data object for an entry add on a table where action-id is
-   *applicable will result in an error.
+   * @details Calling this API resets the action-id in the object to an
+   * invalid value. Typically this needs to be done when doing an entry get,
+   * since the caller does not know the action-id associated with the entry.
+   * Using the data object for an entry add on a table where action-id is
+   * applicable will result in an error.
    *
    * @param[in/out] data Pointer to the data object allocated using dataAllocate
-   *on
-   *the table.
+   * on the table.
    *
    * @return Status of the API call. An error is returned if the data object is
-   *not associated with the table
+   * not associated with the table
    */
   virtual bf_status_t dataReset(BfRtTableData *data) const = 0;
 
   /**
    * @brief Reset the data object previously allocated using dataAllocate on the
-   *table
+   * table
    *
-   * @details Note that this API can be called only on the tables for which
-   *action Id
-   *is applicable. Calling this API sets the action-id in the object to the
-   *passed in value.
+   * @details Calling this API sets the action-id in the object to the
+   * passed in value.
    *
    * @param[in] action_id  new action id of the object
-   *the table.
+   * the table.
    * @param[in/out] Pointer to the data object allocated using dataAllocate on
-   *the table.
+   * the table.
    *
    * @return Status of the API call. An error is returned if the data object is
-   *not associated with the table or if action-id is not applicable on the
-   *table.
+   * not associated with the table or if action-id is not applicable on the
+   * table.
    */
   virtual bf_status_t dataReset(const bf_rt_id_t &action_id,
                                 BfRtTableData *data) const = 0;
@@ -1438,53 +1540,47 @@ class BfRtTable {
    * @brief Reset the data object previously allocated using dataAllocate on the
    *table
    *
-   * @details Note that this API can also be called on the tables for which
-   *action Id
-   *is applicable. Calling this API resets the action-id in the object to an
-   *invalid value. Typically this needs to be done when doing an entry get,
-   *since the caller does not know the action-id associated with the entry.
-   *Using the data object for an entry add on a table where action-id is
-   *applicable will result in an error. The data object will contain the passed
-   *in vector of field-ids active. This is typically done when reading an
-   *entry's fields. Note that, the fields passed in must be common data fields
-   *across all action-ids (common data fields, such as direct counter/direct
-   *meter etc), for tables on which action-id is applicable.
+   * @details Calling this API resets the action-id in the object to an
+   * invalid value. Typically this needs to be done when doing an entry get,
+   * since the caller does not know the action-id associated with the entry.
+   * Using the data object for an entry add on a table where action-id is
+   * applicable will result in an error. The data object will contain the passed
+   * in vector of field-ids active. This is typically done when reading an
+   * entry's fields. Note that, the fields passed in must be common data fields
+   * across all action-ids (common data fields, such as direct counter/direct
+   * meter etc), for tables on which action-id is applicable.
    *
    * @param[in] fields Vector of field-ids that are to be activated in the data
-   *object
-   *the table.
+   * object the table.
    * @param[in/out] Pointer to the data object allocated using dataAllocate on
-   *the table.
+   * the table.
    *
    * @return Status of the API call. An error is returned if the data object is
-   *not associated with the table, or if any field-id is action-specific, for
-   *tables on which action-id is applicable..
+   * not associated with the table, or if any field-id is action-specific, for
+   * tables on which action-id is applicable..
    */
   virtual bf_status_t dataReset(const std::vector<bf_rt_id_t> &fields,
                                 BfRtTableData *data) const = 0;
 
   /**
    * @brief Reset the data object previously allocated using dataAllocate on the
-   *table
+   * table
    *
-   * @details Note that this API can be called only on the tables for which
-   *action Id
-   *is applicable. Calling this API sets the action-id in the object to the
-   *passed in value and the list of fields passed in will be active in the data
-   *object. The list of fields passed in must belong to the passed in action-id
-   *or common across all action-ids associated with the table.
+   * @details Calling this API sets the action-id in the object to the
+   * passed in value and the list of fields passed in will be active in the data
+   * object. The list of fields passed in must belong to the passed in action-id
+   * or common across all action-ids associated with the table.
    *
    * @param[in] fields Vector of field-ids that are to be activated in the data
-   *object
-   *the table.
+   * object the table.
    * @param[in] action_id  new action id of the object
-   *the table.
+   * the table.
    * @param[in/out] Pointer to the data object allocated using dataAllocate on
-   *the table.
+   * the table.
    *
    * @return Status of the API call. An error is returned if the data object is
-   *not associated with the table or if action-id is not applicable on the
-   *table.
+   * not associated with the table or if action-id is not applicable on the
+   * table.
    */
   virtual bf_status_t dataReset(const std::vector<bf_rt_id_t> &fields,
                                 const bf_rt_id_t &action_id,
@@ -1906,6 +2002,6 @@ class BfRtTable {
   /** @} */  // End of group Callbacks
 };
 
-}  // bfrt
+}  // namespace bfrt
 
 #endif  // _BF_RT_TABLE_HPP

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: CC-BY-ND-4.0
  */
 
+
 #ifndef _BF_PAL_TYPES_H
 #define _BF_PAL_TYPES_H
 
@@ -13,6 +14,8 @@
 #define MAX_PORT_HDL_STRING_LEN 100
 #define MAX_CHAN_PER_PORT 8
 #define MAX_LANES_PER_PORT MAX_CHAN_PER_PORT
+#define MAX_TF3_SERDES_LANES_PER_CHAN 2
+#define MAX_TF_SERDES_LANES_PER_CHAN MAX_CHAN_PER_PORT
 
 /**
  * Identifies the admin state of a port in the system
@@ -70,15 +73,18 @@ typedef enum bf_pm_port_kr_mode_policy_e {
  * Identifies if a ports serdes are AC coupled or DC coupled on the board
  */
 typedef enum bf_pm_port_term_mode_e {
-  PM_TERM_MODE_UN_INITD = 0,
+  PM_TERM_MODE_DEFAULT = 0,
 
   // value is determined by board layout and must be set appropriately
   // by the application.
-  PM_TERM_MODE_AC = 1,
-  PM_TERM_MODE_DC = 2,
-  // default, AC coupled will be used
-  PM_TERM_MODE_DEFAULT = PM_TERM_MODE_AC,
-  PM_TERM_MODE_MAX = 3
+  // TOF1
+  PM_TERM_MODE_GND = 1,
+  PM_TERM_MODE_AVDD = 2,
+  PM_TERM_MODE_FLOAT = 3,
+  // TOF2
+  PM_TERM_MODE_AC = 4,
+  PM_TERM_MODE_DC = 5,
+  PM_TERM_MODE_MAX,
 } bf_pm_port_term_mode_e;
 
 /**
@@ -122,6 +128,7 @@ typedef enum bf_pm_port_dir_e {
   PM_PORT_DIR_DEFAULT = 0,  // both rx and tx
   PM_PORT_DIR_TX_ONLY = 1,
   PM_PORT_DIR_RX_ONLY = 2,
+  PM_PORT_DIR_DECOUPLED = 3,
   PM_PORT_DIR_MAX
 } bf_pm_port_dir_e;
 
@@ -228,5 +235,21 @@ typedef struct bf_pal_serdes_tx_eq_params_ {
     bf_pal_serdes_tx_eq_params_tof2_t tof2[MAX_CHAN_PER_PORT];
   } tx_eq;
 } bf_pal_serdes_tx_eq_params_t;
+
+/**
+ * Identifies the MAC lane to Serdes lanes static mappings based on the board
+ * layout. This information is derived from the platforms modules. Use this from
+ * Tofino3 and beyond
+ */
+typedef struct bf_pal_mac_to_multi_serdes_lane_map_t {
+  uint32_t tx_lane[MAX_TF_SERDES_LANES_PER_CHAN];  // Indicates which TX serdes
+                                                   // slices this MAC lane is
+                                                   // connected to
+  uint32_t rx_lane[MAX_TF_SERDES_LANES_PER_CHAN];  // Indicates which RX serdes
+                                                   // slices this MAC lane is
+                                                   // connected to
+  uint32_t num_serdes_per_lane;
+  uint32_t log_mac_lane;
+} bf_pal_mac_to_multi_serdes_lane_map_t;
 
 #endif

@@ -1,0 +1,3815 @@
+{
+  "__copyright__": "Intel Coproration",
+  "__SPDX-License-ID": "CC-BY-ND-4.0",
+  "tables": [
+    {
+      "name": "tf2.snapshot.phv",
+      "description": "This table represents ingress PHV available values per stage.",
+      "id": 4278648833,
+      "table_type": "SnapshotPhv",
+      "size": 20,
+      "key": [
+        {
+          "id": 0,
+          "name": "stage",
+          "description": "The pipe stage.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32"
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 0,
+            "name": "phv0",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 1,
+            "name": "phv1",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 2,
+            "name": "phv2",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 3,
+            "name": "phv3",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 4,
+            "name": "phv4",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 5,
+            "name": "phv5",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 6,
+            "name": "phv6",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 7,
+            "name": "phv7",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 8,
+            "name": "phv8",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 9,
+            "name": "phv9",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 10,
+            "name": "phv10",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 11,
+            "name": "phv11",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 12,
+            "name": "phv12",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 13,
+            "name": "phv13",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 14,
+            "name": "phv14",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 15,
+            "name": "phv15",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 16,
+            "name": "phv16",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 17,
+            "name": "phv17",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 18,
+            "name": "phv18",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 19,
+            "name": "phv19",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 20,
+            "name": "phv20",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 21,
+            "name": "phv21",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 22,
+            "name": "phv22",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 23,
+            "name": "phv23",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 24,
+            "name": "phv24",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 25,
+            "name": "phv25",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 26,
+            "name": "phv26",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 27,
+            "name": "phv27",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 28,
+            "name": "phv28",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 29,
+            "name": "phv29",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 30,
+            "name": "phv30",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 31,
+            "name": "phv31",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 32,
+            "name": "phv32",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 33,
+            "name": "phv33",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 34,
+            "name": "phv34",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 35,
+            "name": "phv35",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 36,
+            "name": "phv36",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 37,
+            "name": "phv37",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 38,
+            "name": "phv38",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 39,
+            "name": "phv39",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 40,
+            "name": "phv40",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 41,
+            "name": "phv41",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 42,
+            "name": "phv42",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 43,
+            "name": "phv43",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 44,
+            "name": "phv44",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 45,
+            "name": "phv45",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 46,
+            "name": "phv46",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 47,
+            "name": "phv47",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 48,
+            "name": "phv48",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 49,
+            "name": "phv49",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 50,
+            "name": "phv50",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 51,
+            "name": "phv51",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 52,
+            "name": "phv52",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 53,
+            "name": "phv53",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 54,
+            "name": "phv54",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 55,
+            "name": "phv55",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 56,
+            "name": "phv56",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 57,
+            "name": "phv57",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 58,
+            "name": "phv58",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 59,
+            "name": "phv59",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 60,
+            "name": "phv60",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 61,
+            "name": "phv61",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 62,
+            "name": "phv62",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 63,
+            "name": "phv63",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 64,
+            "name": "phv64",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 65,
+            "name": "phv65",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 66,
+            "name": "phv66",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 67,
+            "name": "phv67",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 68,
+            "name": "phv68",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 69,
+            "name": "phv69",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 70,
+            "name": "phv70",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 71,
+            "name": "phv71",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 72,
+            "name": "phv72",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 73,
+            "name": "phv73",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 74,
+            "name": "phv74",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 75,
+            "name": "phv75",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 76,
+            "name": "phv76",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 77,
+            "name": "phv77",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 78,
+            "name": "phv78",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 79,
+            "name": "phv79",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 80,
+            "name": "phv80",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 81,
+            "name": "phv81",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 82,
+            "name": "phv82",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 83,
+            "name": "phv83",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 84,
+            "name": "phv84",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 85,
+            "name": "phv85",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 86,
+            "name": "phv86",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 87,
+            "name": "phv87",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 88,
+            "name": "phv88",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 89,
+            "name": "phv89",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 90,
+            "name": "phv90",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 91,
+            "name": "phv91",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 92,
+            "name": "phv92",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 93,
+            "name": "phv93",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 94,
+            "name": "phv94",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 95,
+            "name": "phv95",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 96,
+            "name": "phv96",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 97,
+            "name": "phv97",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 98,
+            "name": "phv98",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 99,
+            "name": "phv99",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 100,
+            "name": "phv100",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 101,
+            "name": "phv101",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 102,
+            "name": "phv102",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 103,
+            "name": "phv103",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 104,
+            "name": "phv104",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 105,
+            "name": "phv105",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 106,
+            "name": "phv106",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 107,
+            "name": "phv107",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 108,
+            "name": "phv108",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 109,
+            "name": "phv109",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 110,
+            "name": "phv110",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 111,
+            "name": "phv111",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 112,
+            "name": "phv112",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 113,
+            "name": "phv113",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 114,
+            "name": "phv114",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 115,
+            "name": "phv115",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 116,
+            "name": "phv116",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 117,
+            "name": "phv117",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 118,
+            "name": "phv118",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 119,
+            "name": "phv119",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 120,
+            "name": "phv120",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 121,
+            "name": "phv121",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 122,
+            "name": "phv122",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 123,
+            "name": "phv123",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 124,
+            "name": "phv124",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 125,
+            "name": "phv125",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 126,
+            "name": "phv126",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 127,
+            "name": "phv127",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 128,
+            "name": "phv128",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 129,
+            "name": "phv129",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 130,
+            "name": "phv130",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 131,
+            "name": "phv131",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 132,
+            "name": "phv132",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 133,
+            "name": "phv133",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 134,
+            "name": "phv134",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 135,
+            "name": "phv135",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 136,
+            "name": "phv136",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 137,
+            "name": "phv137",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 138,
+            "name": "phv138",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 139,
+            "name": "phv139",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 140,
+            "name": "phv140",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 141,
+            "name": "phv141",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 142,
+            "name": "phv142",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 143,
+            "name": "phv143",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 144,
+            "name": "phv144",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 145,
+            "name": "phv145",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 146,
+            "name": "phv146",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 147,
+            "name": "phv147",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 148,
+            "name": "phv148",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 149,
+            "name": "phv149",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 150,
+            "name": "phv150",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 151,
+            "name": "phv151",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 152,
+            "name": "phv152",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 153,
+            "name": "phv153",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 154,
+            "name": "phv154",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 155,
+            "name": "phv155",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 156,
+            "name": "phv156",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 157,
+            "name": "phv157",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 158,
+            "name": "phv158",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 159,
+            "name": "phv159",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 160,
+            "name": "phv160",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 161,
+            "name": "phv161",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 162,
+            "name": "phv162",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 163,
+            "name": "phv163",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 164,
+            "name": "phv164",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 165,
+            "name": "phv165",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 166,
+            "name": "phv166",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 167,
+            "name": "phv167",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 168,
+            "name": "phv168",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 169,
+            "name": "phv169",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 170,
+            "name": "phv170",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 171,
+            "name": "phv171",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 172,
+            "name": "phv172",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 173,
+            "name": "phv173",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 174,
+            "name": "phv174",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 175,
+            "name": "phv175",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 176,
+            "name": "phv176",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 177,
+            "name": "phv177",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 178,
+            "name": "phv178",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 179,
+            "name": "phv179",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 180,
+            "name": "phv180",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 181,
+            "name": "phv181",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 182,
+            "name": "phv182",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 183,
+            "name": "phv183",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 184,
+            "name": "phv184",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 185,
+            "name": "phv185",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 186,
+            "name": "phv186",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 187,
+            "name": "phv187",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 188,
+            "name": "phv188",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 189,
+            "name": "phv189",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 190,
+            "name": "phv190",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 191,
+            "name": "phv191",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 192,
+            "name": "phv192",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 193,
+            "name": "phv193",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 194,
+            "name": "phv194",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 195,
+            "name": "phv195",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 196,
+            "name": "phv196",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 197,
+            "name": "phv197",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 198,
+            "name": "phv198",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 199,
+            "name": "phv199",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 200,
+            "name": "phv200",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 201,
+            "name": "phv201",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 202,
+            "name": "phv202",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 203,
+            "name": "phv203",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 204,
+            "name": "phv204",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 205,
+            "name": "phv205",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 206,
+            "name": "phv206",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 207,
+            "name": "phv207",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 208,
+            "name": "phv208",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 209,
+            "name": "phv209",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 210,
+            "name": "phv210",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 211,
+            "name": "phv211",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 212,
+            "name": "phv212",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 213,
+            "name": "phv213",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 214,
+            "name": "phv214",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 215,
+            "name": "phv215",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 216,
+            "name": "phv216",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 217,
+            "name": "phv217",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 218,
+            "name": "phv218",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 219,
+            "name": "phv219",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 220,
+            "name": "phv220",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 221,
+            "name": "phv221",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 222,
+            "name": "phv222",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 223,
+            "name": "phv223",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 224,
+            "name": "phv224",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 225,
+            "name": "phv225",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 226,
+            "name": "phv226",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 227,
+            "name": "phv227",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 228,
+            "name": "phv228",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 229,
+            "name": "phv229",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 230,
+            "name": "phv230",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 231,
+            "name": "phv231",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 232,
+            "name": "phv232",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 233,
+            "name": "phv233",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 234,
+            "name": "phv234",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 235,
+            "name": "phv235",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 236,
+            "name": "phv236",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 237,
+            "name": "phv237",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 238,
+            "name": "phv238",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 239,
+            "name": "phv239",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 240,
+            "name": "phv240",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 241,
+            "name": "phv241",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 242,
+            "name": "phv242",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 243,
+            "name": "phv243",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 244,
+            "name": "phv244",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 245,
+            "name": "phv245",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 246,
+            "name": "phv246",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 247,
+            "name": "phv247",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 248,
+            "name": "phv248",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 249,
+            "name": "phv249",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 250,
+            "name": "phv250",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 251,
+            "name": "phv251",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 252,
+            "name": "phv252",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 253,
+            "name": "phv253",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 254,
+            "name": "phv254",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 255,
+            "name": "phv255",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 256,
+            "name": "phv256",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 257,
+            "name": "phv257",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 258,
+            "name": "phv258",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 259,
+            "name": "phv259",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 260,
+            "name": "phv260",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 261,
+            "name": "phv261",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 262,
+            "name": "phv262",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 263,
+            "name": "phv263",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 264,
+            "name": "phv264",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 265,
+            "name": "phv265",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 266,
+            "name": "phv266",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 267,
+            "name": "phv267",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 268,
+            "name": "phv268",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 269,
+            "name": "phv269",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 270,
+            "name": "phv270",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 271,
+            "name": "phv271",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 272,
+            "name": "phv272",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 273,
+            "name": "phv273",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 274,
+            "name": "phv274",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 275,
+            "name": "phv275",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 276,
+            "name": "phv276",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 277,
+            "name": "phv277",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 278,
+            "name": "phv278",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 279,
+            "name": "phv279",
+            "description": "Represents raw PHV value in the pipeline captured by snapshot.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves an entry identified by a stage number for all PHV values present in the pipeline."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves first valid entry in the table."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id"
+          ],
+          "description": "This API retrieves n valid entries from the table."
+        },
+        "tableUsageGet": {
+          "target_attributes": [],
+          "description": "This API returns table size as this is fixed table."
+        }
+      }
+    },
+    {
+      "name": "tf2.log_tbl_counter",
+      "id": 4278648836,
+      "table_type": "LogDbgCnt",
+      "size": 1280,
+      "depends_on": [],
+      "key": [
+        {
+          "id": 1,
+          "name": "stage",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32",
+            "default_value": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "log_tbl",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": false,
+          "match_type": "Exact",
+          "type": {
+            "type": "uint32",
+            "default_value": 0
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "type",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "string",
+              "choices": [
+                "DISABLED",
+                "TBL_MISS",
+                "TBL_HIT",
+                "GW_TBL_MISS",
+                "GW_TBL_HIT",
+                "GW_TBL_INHIBIT"
+              ],
+              "default_value": "TBL_HIT"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "value",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "description": "When called this function will ignore 'value' field value. When counter type is being changed it will always reset the counter value.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableEntryGet": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableEntryGetFirst": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableClear": {
+          "description": "When called this function will reset counter value to 0 for all tables, but it will not restore default counter type.",
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ]
+        },
+        "tableUsageGet": {
+          "description": "Returns table size.",
+          "target_attributes": [
+            "dev_id"
+          ]
+        }
+      }
+    }
+  ]
+}
