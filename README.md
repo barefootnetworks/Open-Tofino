@@ -13,7 +13,7 @@ text of the license can also be found in the LICENSE file.
 Contents
 ========
 
-This repository contains the files that describe the P4 target architecture for Intel&reg; Tofino&trade;.
+This repository contains the files that describe the P4 target architecture for Intel&reg; Tofino&trade; and Intel &reg; Tofino 2&trade;.
 These files are copies of the corresponding files in the corresponding Intel&reg; P4
 Studio SDE release (see VERSION file), explicitly licensed under CC BY-ND 4.0.
 
