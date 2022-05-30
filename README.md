@@ -38,16 +38,20 @@ FAQs
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/AES-tofino>AES-tofino</a>: AES encryption on Tofino switch</li>
   <li><a href=https://github.com/Princeton-Cabernet/BeauCoup>BeauCoup</a>: Run multiple distinct-counting queries on Tofino</li>
   <li><a href=https://github.com/harvard-cns/cheetah-release>Cheetah</a>: Use Tofino to accelerate Spark queries</li>
+  <li><a href=https://github.com/cheetahlb/cheetah-tcp-timestamp-tofino>Cheetah LB</a>: A high-speed load balancer with per-connection-consistency</li>
   <li><a href=https://github.com/chipmunk-project/chipmunk-tofino>Chipmunk</a>: Use program synthesis to generate P4 code</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/ConQuest-tofino>ConQuest-tofino</a>: ConQuest queue analysis on Tofino switch</li>
+  <li><a href=https://github.com/praveingk/DPTP>DPTP</a>: Data-Plane Time Synchronization Protocol on Tofino</li>
   <li><a href=https://github.com/eniac/Mantis>Mantis</a>: Generates reactive P4 program and C++ agent</li>
   <li><a href=https://github.com/cornell-netlab/MicroP4>MicroP4</a>: Modularized data-plane programming</li>
   <li><a href=https://github.com/netx-repo/NetLock>NetLock</a>: Using P4 switch for lock management</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/ONTAS>ONTAS</a>: Traffic anonymization on BMV2 / Tofino</li>
-  <li><a href=https://github.com/ralfkundel/p4-codel>P4-CoDel</a>: Implementation of CoDel AQM for BMV2 and Tofino</li>
+   <li><a href=https://github.com/ralfkundel/p4-codel>P4-CoDel</a>: Implementation of CoDel AQM for BMV2 and Tofino</li>
+  <li><a href=https://github.com/SIDN/p4-scion>P4-SCION</a>: Implementation of the SCION protocol for Tofino</li>
   <li><a href=https://github.com/ralfkundel/p4sta>P4STA</a>: Load generation and timestamping framework for Tofino/Netronome/BMV2</li>
+  <li><a href=https://github.com/ProbabilisticINT/Tofino-PINT>Tofino-PINT</a>: The PINT telemetry collection algorithm implementation for Tofino switches</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/PRECISION-tofino>PRECISION-tofino</a>: The PRECISION heavy-hitter algorithm on Tofino switch</li>
   <li><a href=https://github.com/Princeton-Cabernet/p4-projects/blob/master/RTT-tofino>RTT-tofino</a>: TCP Round-Trip Time measurement on Tofino switch</li>
+  <li><a href=https://github.com/p4lang/p4app-switchML>SwitchML</a>: Training acceleration for Machine Learning using Tofino</li>
 </ul>
-
 
