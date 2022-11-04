@@ -354,7 +354,11 @@ typedef bf_status_t (*bf_drv_port_speed_cb)(bf_dev_id_t dev_id,
 typedef bf_status_t (*bf_drv_port_mode_change_cb)(bf_dev_id_t dev_id,
                                                   bf_dev_port_t port,
                                                   uint32_t num_packet,
-                                                  uint32_t pkt_size);
+                                                  uint32_t pkt_size,
+                                                  void *user_cookie);
+typedef void (*bf_drv_port_mode_change_complete_cb)(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t port,
+                                                    void *user_cookie);
 
 /**
  * @brief Adds a port to a device.
@@ -448,6 +452,17 @@ bf_status_t bf_port_serdes_upgrade_notify(bf_dev_id_t dev_id,
 bf_dev_port_t bf_pcie_cpu_port_get(bf_dev_id_t dev_id);
 
 /**
+ * @brief Get second Pcie CPU port number on the device. Based on skew and
+ * asci-type the API will return appropriate port number to be used as CPU pcie
+ * port.
+ *
+ * @param[in] dev_id The ASIC id.
+ *
+ * @return Valid pcie port. In case of error returns -1.
+ */
+bf_dev_port_t bf_pcie_cpu_port2_get(bf_dev_id_t dev_id);
+
+/**
  * @brief Get ethernet CPU port number on the device. Based on skew and
  * asci-type the API will return appropriate port number to be used as CPU
  * ethernet port.
@@ -457,6 +472,17 @@ bf_dev_port_t bf_pcie_cpu_port_get(bf_dev_id_t dev_id);
  * @return Valid eth port. In case of error returns -1.
  */
 bf_dev_port_t bf_eth_cpu_port_get(bf_dev_id_t dev_id);
+
+/**
+ * @brief Get second ethernet CPU port number on the device. Based on skew and
+ * asci-type the API will return appropriate port number to be used as CPU
+ * ethernet port.
+ *
+ * @param[in] dev_id The ASIC id.
+ *
+ * @return Valid eth port. In case of error returns -1.
+ */
+bf_dev_port_t bf_eth_cpu_port2_get(bf_dev_id_t dev_id);
 
 /**
  * @brief Get maximum ethernet CPU port number on the device. Based on skew and
@@ -507,15 +533,26 @@ bf_status_t bf_port_client_register_speed_notif(bf_drv_port_speed_cb port_speed,
  * @brief Register port mode change callback.
  *
  * @param[in] dev_id The ASIC id.
- * @param[in] port_mode_change Port mode change callback.
- * @param[in] cookie Data to be given back in callback fn.
+ * @param[in] port_mode_change Port mode change callback to be invoked during
+ *                             port (re)configuration.
+ * @param[in] port_mode_change_cookie Data to be given back in callback fn.
+ * @param[in] port_mode_change_complete Callback to be issued once the mode
+ *                                      (re)configuration is complete.  The
+ *                                      client may use this CB to clean up any
+ *                                      forwarding path configuration which was
+ *                                      setup during the CB to get the packets
+ *                                      to the target port.
+ * @param[in] port_mode_change_complete_cookie Data to be given back in callback
+ *                                             fn.
  *
  * @return Status of the API call.
  */
 bf_status_t bf_port_client_register_mode_change_notif(
     bf_dev_id_t dev_id,
     bf_drv_port_mode_change_cb port_mode_change,
-    void *cookie);
+    void *port_mode_change_cookie,
+    bf_drv_port_mode_change_complete_cb port_mode_change_complete,
+    void *port_mode_change_complete_cookie);
 
 /**
  * @brief Configure the C2C (Copy-to-CPU) control.
@@ -593,7 +630,8 @@ typedef enum bf_error_block_e {
   BF_ERR_BLK_PKTGEN,
   BF_ERR_BLK_GFM,
   BF_ERR_BLK_DMA,
-  BF_ERR_BLK_LFLTR
+  BF_ERR_BLK_LFLTR,
+  BF_ERR_BLK_EBUF,
 } bf_error_block_t;
 
 typedef enum bf_error_block_location_e {
@@ -717,6 +755,7 @@ typedef enum bf_error_block_location_e {
   BF_ERR_LOC_LFLTR_LQT0,
   BF_ERR_LOC_LFLTR_LQT1,
   BF_ERR_LOC_LFLTR_LBUF,
+  BF_ERR_LOC_EBUF,
 } bf_error_block_location_t;
 
 /* Error event callback function prototype. */
@@ -880,7 +919,8 @@ typedef bf_status_t (*bf_drv_rcfg_step_cb)(bf_dev_id_t dev_id);
 
 typedef bf_status_t (*bf_drv_ha_complete_hitless_hw_read_cb)(
     bf_dev_id_t dev_id);
-typedef bf_status_t (*bf_drv_ha_compute_delta_changes_cb)(bf_dev_id_t dev_id);
+typedef bf_status_t (*bf_drv_ha_compute_delta_changes_cb)(
+    bf_dev_id_t dev_id, bool disable_input_pkts);
 typedef bf_status_t (*bf_drv_ha_push_delta_changes_cb)(bf_dev_id_t dev_id);
 typedef bf_status_t (*bf_drv_ha_set_dev_type_virtual_dev_slave_cb)(
     bf_dev_id_t dev_id);
@@ -1275,5 +1315,24 @@ typedef enum bf_show_tech_drv_module_e {
   BF_SHOW_TECH_DRV_MC,
   BF_SHOW_TECH_DRV_MAX,
 } bf_show_tech_drv_module_t;
+
+/**
+ * @brief Set error/state in dvm
+ *
+ * @param[in] dev_id The ASIC id.
+ * @param[in] state The error state of warm init
+ *
+ * @return None.
+ */
+void bf_warm_init_error_set(bf_dev_id_t dev_id, bool state);
+
+/**
+ * @brief Get error/state in dvm
+ *
+ * @param[in] dev_id The ASIC id.
+ *
+ * @return error/state.
+ */
+bool bf_warm_init_error_get(bf_dev_id_t dev_id);
 
 #endif  // BF_DRV_INTF_H_INCLUDED

@@ -236,20 +236,4 @@ typedef struct bf_pal_serdes_tx_eq_params_ {
   } tx_eq;
 } bf_pal_serdes_tx_eq_params_t;
 
-/**
- * Identifies the MAC lane to Serdes lanes static mappings based on the board
- * layout. This information is derived from the platforms modules. Use this from
- * Tofino3 and beyond
- */
-typedef struct bf_pal_mac_to_multi_serdes_lane_map_t {
-  uint32_t tx_lane[MAX_TF_SERDES_LANES_PER_CHAN];  // Indicates which TX serdes
-                                                   // slices this MAC lane is
-                                                   // connected to
-  uint32_t rx_lane[MAX_TF_SERDES_LANES_PER_CHAN];  // Indicates which RX serdes
-                                                   // slices this MAC lane is
-                                                   // connected to
-  uint32_t num_serdes_per_lane;
-  uint32_t log_mac_lane;
-} bf_pal_mac_to_multi_serdes_lane_map_t;
-
 #endif

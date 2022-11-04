@@ -281,6 +281,55 @@ bf_status_t bf_tm_pool_uc_cut_through_size_set(bf_dev_id_t dev, uint32_t cells);
  */
 bf_status_t bf_tm_pool_mc_cut_through_size_set(bf_dev_id_t dev, uint32_t cells);
 
+/**
+ * @brief Set Ingress global max limit threshold
+ * This threshold determines the max usage of ingress buffers.
+ * Supported only for Tofino-2 and above.
+ *
+ * Default: This is set to 256000
+ *
+ * Related APIs: bf_tm_global_max_limit_get()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] cells           Size in terms of cells.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_global_max_limit_set(bf_dev_id_t dev, uint32_t cells);
+
+/**
+ * @brief Enables Ingress global max limit.
+ * This state determines the usage of ingress max limit.
+ * Supported only for Tofino-2 and above.
+ *
+ * Default: Global cell limit is enabled by default.
+ *
+ * Related APIs: bf_tm_global_max_limit_disable()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_global_max_limit_enable(bf_dev_id_t dev);
+
+/**
+ * @brief Disables Ingress global limit.
+ * This state determines the usage of ingress max limit.
+ * Supported only for Tofino-2 and above.
+ *
+ * Default: Global cell limit is enabled by default.
+ *
+ * Related APIs: bf_tm_global_max_limit_enable()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_global_max_limit_disable(bf_dev_id_t dev);
+
 /* @} */
 
 #endif

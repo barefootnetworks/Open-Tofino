@@ -32,12 +32,26 @@ typedef bf_status_t (*port_status_chg_cb)(bf_dev_id_t dev_id,
  * @param dev_port Device port number
  * @param num_pkt Number of packets to be sent
  * @param pkt_size Size of the packets to be sent
+ * @param cookie Client provided data passed into the callback function
  * @return Status of the API call
  */
 typedef bf_status_t (*port_mode_chg_cb)(bf_dev_id_t dev_id,
                                         bf_dev_port_t dev_port,
                                         uint32_t num_pkt,
-                                        uint32_t pkt_size);
+                                        uint32_t pkt_size,
+                                        void *cookie);
+
+/**
+ * @brief Callback function pointer to be registered for port mode change
+ * notifications and is invoked after the port reconfiguration has completed
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param cookie Client provided data passed into the callback function
+ * @return None
+ */
+typedef void (*port_mode_chg_cmplt_cb)(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       void *cookie);
 
 /**
  * @brief Get the max number of ports on the target
@@ -182,6 +196,19 @@ bf_status_t bf_pal_port_add_all(bf_dev_id_t dev_id,
 bf_status_t bf_pal_port_del(bf_dev_id_t dev_id, bf_dev_port_t dev_port);
 
 /**
+ * @brief Port delete function
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param speed Port Speed
+ * @params n_lanes Number of lanes
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_del_with_lanes(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       bf_port_speed_t speed,
+                                       uint32_t n_lanes);
+
+/**
  * @brief All ports delete function
  * @param dev_id Device id
  * @return Status of the API call
@@ -223,6 +250,22 @@ bf_status_t bf_pal_port_disable(bf_dev_id_t dev_id, bf_dev_port_t dev_port);
 bf_status_t bf_pal_port_all_stats_get(bf_dev_id_t dev_id,
                                       bf_dev_port_t dev_port,
                                       uint64_t stats[BF_NUM_RMON_COUNTERS]);
+
+/**
+ * @brief Get a particular stat of a port
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param ctr_type Enum type to hold the id of the stats counter
+ * @param stat_val Counter value
+ * @param timestamp Time stamp of the stats update, sec and nsec
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_this_stat_get_with_timestamp(bf_dev_id_t dev_id,
+                                                     bf_dev_port_t dev_port,
+                                                     bf_rmon_counter_t ctr_type,
+                                                     uint64_t *stat_val,
+                                                     int64_t *timestamp_s,
+                                                     int64_t *timestamp_ns);
 
 /**
  * @brief Get a particular stat of a port
@@ -302,13 +345,22 @@ bf_status_t bf_pal_port_status_notif_reg(port_status_chg_cb cb_fn,
 /**
  * @brief Register for a port mode change callback
  * @param dev_id Device id
- * @param cb_fn Callback function which is called when the port mode changes
- * @param cookie Data to be given back in callback fn
+ * @param mode_chg_cb_fn Callback function which is called when the port mode
+ *                       changes
+ * @param mode_chg_cookie Data to be given back in callback fn
+ * @param cmplt_cb_fn Callback function which is called when when the port
+ *                    reconfiguration is complete.  Clients may use this
+ *                    callback to clean up any forwarding path configuration put
+ *                    in place by the mode_chg_cb_fn.
+ * @param cmplt_cookie Data to be given back in callback fn
  * @return Status of the API call
  */
-bf_status_t bf_pal_port_mode_change_notif_reg(bf_dev_id_t dev_id,
-                                              port_mode_chg_cb cb_fn,
-                                              void *cookie);
+bf_status_t bf_pal_port_mode_change_notif_reg(
+    bf_dev_id_t dev_id,
+    port_mode_chg_cb mode_chg_cb_fn,
+    void *mode_chg_cookie,
+    port_mode_chg_cmplt_cb cmplt_cb_fn,
+    void *cmplt_cookie);
 
 /**
  * @brief Set a port in loopback mode
@@ -377,6 +429,19 @@ bf_status_t bf_pal_port_autoneg_adv_speed_set(bf_dev_id_t dev_id,
                                               uint32_t adv_speed_cnt);
 
 /**
+ * @brief Query/Configure list of Advertised port FEC Mode
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[in] adv_fec_arr Array of advertised fecs for the port
+ * @param[in] adv_fec_cnt Number of advertised fect in array
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_autoneg_adv_fec_set(bf_dev_id_t dev_id,
+                                            bf_dev_port_t dev_port,
+                                            bf_fec_type_t *adv_fec_list,
+                                            uint32_t adv_fec_cnt);
+
+/**
  * @brief Get HCD speed value of the port
  * @param[in] dev_id Device id
  * @param[in] dev_port Device port number
@@ -398,9 +463,10 @@ bf_status_t bf_pal_port_autoneg_hcd_fec_get(bf_dev_id_t dev_id,
  * @param kr_policy KR mode policy for the port
  * @return Status of the API call
  */
-bf_status_t bf_pal_port_kr_mode_policy_set(bf_dev_id_t dev_id,
-                                           bf_dev_port_t dev_port,
-                                           int kr_policy);
+bf_status_t bf_pal_port_kr_mode_policy_set(
+    bf_dev_id_t dev_id,
+    bf_dev_port_t dev_port,
+    bf_pm_port_kr_mode_policy_e kr_policy);
 
 /**
  * @brief Get the KR mode policy of the port
@@ -420,9 +486,8 @@ bf_status_t bf_pal_port_kr_mode_policy_get(
  * @param kr_policy KR mode policy for the port
  * @return Status of the API call
  */
-bf_status_t bf_pal_port_kr_mode_policy_set_all(bf_dev_id_t dev_id,
-                                               int kr_policy);
-
+bf_status_t bf_pal_port_kr_mode_policy_set_all(
+    bf_dev_id_t dev_id, bf_pm_port_kr_mode_policy_e kr_policy);
 /**
  * @brief Set the termination mode for the port
  * @param dev_id Device id
@@ -574,7 +639,9 @@ bf_status_t bf_pal_port_mtu_get(bf_dev_id_t dev_id,
                                 uint32_t *rx_mtu);
 
 /**
- * @brief Enable or Disable Per-COS Tx/Rx pause on a port
+ * @brief Enable or Disable Per-COS Tx/Rx pause on a port(Note: Per Cos bitmap
+ * is not supported by all devices, check bf_port_flow_control_pfc_set for
+ * detailed  information)
  * @param dev_id Device id
  * @param dev_port Device port number
  * @param tx_en_map per-COS bitmap of state to set Tx (0=disable, 1=enable)
@@ -786,6 +853,17 @@ bf_status_t bf_pal_is_port_internal(bf_dev_id_t dev_id,
                                     bool *is_internal);
 
 /**
+ * @brief Check if the port is added
+ * @param dev_id Device id
+ * @param dev_port Corresponding dev port
+ * @param is_added Port is added
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_is_port_added(bf_dev_id_t dev_id,
+                                 bf_dev_port_t dev_port,
+                                 bool *is_added);
+
+/**
  * @brief Sets the port direction
  * @param dev_id Device id
  * @param dev_port Device port number
@@ -984,4 +1062,113 @@ bf_status_t bf_pal_interrupt_based_link_monitoring_get(bf_dev_id_t dev_id,
  */
 uint32_t bf_pal_recirc_devports_get(bf_dev_id_t dev_id,
                                     uint32_t *recirc_devport_list);
+
+/**
+ * @brief Set the Egress Timestamp delta for given port
+ * @param dev_id Device id
+ * @param dev_port device port number
+ * @return On success, returns BF_SUCCESS
+ */
+bf_status_t bf_pal_port_1588_timestamp_delta_tx_set(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t dev_port,
+                                                    uint16_t delta);
+
+/**
+ * @brief Get the Ingress Timestamp delta for given port
+ * @param dev_id Device id
+ * @param dev_port device port number
+ * @return On success, returns Timestamp Delta value
+ * @return On error, returns 0
+ */
+bf_status_t bf_pal_port_1588_timestamp_delta_tx_get(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t dev_port,
+                                                    uint16_t *delta);
+
+/**
+ * @brief Set the Egress Timestamp delta for given port
+ * @param dev_id Device id
+ * @param dev_port device port number
+ * @return On success, returns BF_SUCCESS
+ */
+bf_status_t bf_pal_port_1588_timestamp_delta_rx_set(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t dev_port,
+                                                    uint16_t delta);
+
+/**
+ * @brief Get the Egress Timestamp delta for given port
+ * @param dev_id Device id
+ * @param dev_port device port number
+ * @return On success, returns Timestamp Delta value
+ * @return On error, returns 0
+ */
+bf_status_t bf_pal_port_1588_timestamp_delta_rx_get(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t dev_port,
+                                                    uint16_t *delta);
+/**
+ * @brief Get the Timestamp Id , Value and Validity for given port
+ * @param dev_id Device id
+ * @param dev_port device port number
+ * @return On success, returns BF_SUCCESS
+ */
+bf_status_t bf_pal_port_1588_timestamp_get(bf_dev_id_t dev_id,
+                                           bf_dev_port_t dev_port,
+                                           uint64_t *ts,
+                                           bool *ts_valid,
+                                           int *ts_id);
+
+/**
+ * @brief Set the configured speed for the port
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[in] speed Configured speed for the port
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_speed_set(bf_dev_id_t dev_id,
+                                  bf_dev_port_t dev_port,
+                                  bf_port_speed_t speed);
+
+/**
+ * @brief Set the configured speed and lande number for the port
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[in] speed Configured speed for the port
+ * @param[in] n_lanes Lane number of the port
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_speed_with_lanes_set(bf_dev_id_t dev_id,
+                                             bf_dev_port_t dev_port,
+                                             bf_port_speed_t speed,
+                                             uint32_t n_lanes);
+
+/**
+
+ * @brief Get the serdes lane count for the port
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[out] serdes_count : Number of serdes
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_get_serdes_lane_count_per_mac(bf_dev_id_t dev_id,
+                                                 bf_dev_port_t dev_port,
+                                                 uint32_t *serdes_count);
+/**
+ * @brief Get the serdes mode for the port
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @param[out] mode : Serdes mode   example: 56G or 112G
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_get_serdes_mode(bf_dev_id_t dev_id,
+                                   bf_dev_port_t dev_port,
+                                   bf_port_serdes_mode_t *mode);
+/**
+ * @brief Get the packet rate of a port
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param pkt_rate Packet rate of the port
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_pkt_rate_get(bf_dev_id_t dev_id,
+                                     bf_dev_port_t dev_port,
+                                     bf_pkt_rate_t *pkt_rate);
 #endif

@@ -40,7 +40,12 @@ typedef enum bf_pkt_tx_ring_e {
   BF_PKT_TX_RING_1,
   BF_PKT_TX_RING_2,
   BF_PKT_TX_RING_3,
-  BF_PKT_TX_RING_MAX
+  BF_PKT_TX_RING_MAX,
+  BF_PKT_TX_RING_4 = BF_PKT_TX_RING_MAX,
+  BF_PKT_TX_RING_5,
+  BF_PKT_TX_RING_6,
+  BF_PKT_TX_RING_7,
+  BF_PKT_TX_RING_EXT_MAX
 } bf_pkt_tx_ring_t;
 
 /**
@@ -55,7 +60,16 @@ typedef enum bf_pkt_rx_ring_e {
   BF_PKT_RX_RING_5,
   BF_PKT_RX_RING_6,
   BF_PKT_RX_RING_7,
-  BF_PKT_RX_RING_MAX
+  BF_PKT_RX_RING_MAX,
+  BF_PKT_RX_RING_8 = BF_PKT_RX_RING_MAX,
+  BF_PKT_RX_RING_9,
+  BF_PKT_RX_RING_10,
+  BF_PKT_RX_RING_11,
+  BF_PKT_RX_RING_12,
+  BF_PKT_RX_RING_13,
+  BF_PKT_RX_RING_14,
+  BF_PKT_RX_RING_15,
+  BF_PKT_RX_RING_EXT_MAX
 } bf_pkt_rx_ring_t;
 
 /**

@@ -204,6 +204,20 @@
               "default_value": false
             }
           }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "selector_member_order",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
         }
       ],
       "supported_operations": [],

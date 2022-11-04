@@ -324,8 +324,11 @@ class BfRtTable {
     KEY_GET = 13,
     /** Get entry handle from key. */
     HANDLE_GET = 14,
+    /** If entry does not exist, perform entry Add otherwise perform entry
+       Mod.*/
+    ADD_OR_MOD = 15,
     /** Invalid not supported API. */
-    INVALID_API = 15
+    INVALID_API = 16
   };
 
   /**
@@ -676,6 +679,26 @@ class BfRtTable {
                                     const uint64_t &flags,
                                     const BfRtTableKey &key,
                                     const BfRtTableData &data) const = 0;
+
+  /**
+   * @brief Add an entry to the table, if the entry already exist
+   * modify that entry
+   *
+   * @param[in] session Session Object
+   * @param[in] dev_tgt Device target
+   * @param[in] flags Call flags
+   * @param[in] key Entry Key
+   * @param[in] data Entry Data
+   * @param[out] is_added Parameter that nonifies if entry has been added
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t tableEntryAddOrMod(const BfRtSession &session,
+                                         const bf_rt_target_t &dev_tgt,
+                                         const uint64_t &flags,
+                                         const BfRtTableKey &key,
+                                         const BfRtTableData &data,
+                                         bool *is_added) const = 0;
 
   /**
    * @brief Modify only a part of an existing entry of the table.

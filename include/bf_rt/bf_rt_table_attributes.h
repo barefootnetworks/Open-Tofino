@@ -79,10 +79,13 @@ typedef enum table_entry_scope {
  * @param[in] dev_tgt Device target
  * @param[in] key Table Key
  * @param[in] cookie User provided cookie during cb registration
+ * Do not deallocate/free bf_rt_table_key_hdl *key, this is taken care
+ * by bfrt internal_callback function.
  */
 typedef bf_status_t (*bf_rt_idle_tmo_expiry_cb)(bf_rt_target_t *dev_tgt,
-                                                bf_rt_table_key_hdl *key,
+                                                const bf_rt_table_key_hdl *key,
                                                 void *cookie);
+typedef bf_rt_idle_tmo_expiry_cb bf_rt_idle_tmo_active_cb;
 
 /**
  * @brief PortStatusChange Callback
@@ -90,9 +93,11 @@ typedef bf_status_t (*bf_rt_idle_tmo_expiry_cb)(bf_rt_target_t *dev_tgt,
  * @param[in] key Port Table Key hdl
  * @param[in] port_up If port is up
  * @param[in] cookie User provided cookie during cb registration
+ * Do not deallocate/free bf_rt_table_key_hdl *key, this is taken care
+ * by bfrt internal_callback function.
  */
 typedef bf_status_t (*bf_rt_port_status_chg_cb)(bf_rt_target_t *dev_tgt,
-                                                bf_rt_table_key_hdl *key,
+                                                const bf_rt_table_key_hdl *key,
                                                 bool port_up,
                                                 void *cookie);
 
@@ -172,13 +177,38 @@ bf_status_t bf_rt_attributes_idle_table_notify_mode_set(
     const void *cookie);
 
 /**
+ * @brief Set IdleTable Notify Mode options in the Attributes Object
+ * Allows to set callback pointer for entry activation.
+ *
+ * @param[in] tbl_attr            Table attribute object handle
+ * @param[in] enable              Enable IdleTimeout table
+ * @param[in] idle_cb             Will be called when entry expires
+ * @param[in] active_cb           Will be called when entry activates
+ * @param[in] ttl_query_interval  Inverval for querying entry TTL
+ * @param[in] max_ttl             Max. allowed entry TTL value - not used
+ * @param[in] min_ttl             Min. allowed entry TTL value - not used
+ * @param[in] cookie              Used with callbacks
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_attributes_idle_table_notify_mode_2way_set(
+    bf_rt_table_attributes_hdl *tbl_attr,
+    const bool enable,
+    const bf_rt_idle_tmo_expiry_cb idle_cb,
+    const bf_rt_idle_tmo_active_cb active_cb,
+    const uint32_t ttl_query_interval,
+    const uint32_t max_ttl,
+    const uint32_t min_ttl,
+    const void *cookie);
+
+/**
  * @brief Get IdleTable configuration options in the Attributes Object
  * Only mode and enable params apply to poll mode.
  *
  * @param[in] tbl_attr             Table attribute object handle
  * @param[out] mode                IdleTable mode
  * @param[out] enable              IdleTimeout table enable
- * @param[out] callback            Will be called when entry expires
+ * @param[out] idle_cb             Will be called when entry expires
  * @param[out] ttl_query_interval  Inverval for querying entry TTL
  * @param[out] max_ttl             Max. allowed entry TTL value - not used
  * @param[out] min_ttl             Min. allowed entry TTL value - not used
@@ -190,7 +220,35 @@ bf_status_t bf_rt_attributes_idle_table_get(
     const bf_rt_table_attributes_hdl *tbl_attr,
     bf_rt_attributes_idle_table_mode_t *mode,
     bool *enable,
-    bf_rt_idle_tmo_expiry_cb *callback,
+    bf_rt_idle_tmo_expiry_cb *idle_cb,
+    uint32_t *ttl_query_interval,
+    uint32_t *max_ttl,
+    uint32_t *min_ttl,
+    void **cookie);
+
+/**
+ * @brief Get IdleTable configuration options in the Attributes Object
+ * Only mode and enable params apply to poll mode.
+ * Allows to get callback pointers in 2 way notify mode.
+ *
+ * @param[in] tbl_attr             Table attribute object handle
+ * @param[out] mode                IdleTable mode
+ * @param[out] enable              IdleTimeout table enable
+ * @param[out] idle_cb             Will be called when entry expires
+ * @param[out] active_cb           Will be called when entry activates
+ * @param[out] ttl_query_interval  Inverval for querying entry TTL
+ * @param[out] max_ttl             Max. allowed entry TTL value - not used
+ * @param[out] min_ttl             Min. allowed entry TTL value - not used
+ * @param[out] cookie              Used with callbacks
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_attributes_idle_table_2way_get(
+    const bf_rt_table_attributes_hdl *tbl_attr,
+    bf_rt_attributes_idle_table_mode_t *mode,
+    bool *enable,
+    bf_rt_idle_tmo_expiry_cb *idle_cb,
+    bf_rt_idle_tmo_active_cb *active_cb,
     uint32_t *ttl_query_interval,
     uint32_t *max_ttl,
     uint32_t *min_ttl,

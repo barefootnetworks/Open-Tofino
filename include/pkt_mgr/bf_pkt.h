@@ -46,8 +46,10 @@ typedef struct bf_pkt_s {
   bf_sys_dma_pool_handle_t
       hndl;  // handle of the DMA pool of the bf_pkt payload
   // fields for pkt_mgr?s internal house keeping
-  int ref_cnt;           // for multi consumer of bf_pkt (future use)
-  bf_dev_id_t dev;       // device the packet is allocated for
+  int ref_cnt;      // for multi consumer of bf_pkt (future use)
+  bf_dev_id_t dev;  // device the packet is allocated for
+  bf_subdev_id_t
+      subdev;  // subdevice (within device) the packet is allocated for
   bf_dma_type_t src_dr;  // DR pool to which its buffer belongs to
   bool bypass_padding;   // TRUE to indicate to pkt mgr to bypass padding
 } bf_pkt;
@@ -83,31 +85,6 @@ int bf_pkt_alloc(bf_dev_id_t id, bf_pkt **pkt, size_t size, bf_dma_type_t dr);
 int bf_pkt_data_copy(bf_pkt *pkt, const uint8_t *pkt_buf, uint16_t size);
 
 /**
- * allocate a packet and attach an already available buffer to it
- *
- * @param id
- *   chip id
- * @param pkt
- *   bf packet pointer
- * @param size
- *   buffer size
- * @param dr
- *   DR pool to use to allocate buffer (bf dma type)
- * @param buf
- *   buffer to be attached to allocated packet
- * @param hndl
- *   handle of the dma memory pool
- * @return
- *   0 on success, -1 on failure
- */
-int bf_pkt_alloc_ext_buf(bf_dev_id_t id,
-                         bf_pkt **pkt,
-                         size_t size,
-                         bf_dma_type_t dr,
-                         uint8_t *buf,
-                         bf_sys_dma_pool_handle_t hndl);
-
-/**
  * free a packet
  *
  * @param id
@@ -128,18 +105,6 @@ int bf_pkt_free(bf_dev_id_t id, bf_pkt *pkt);
  *   0 on success, -1 on failure
  */
 int pkt_mgr_free_dev_pkts(bf_dev_id_t id);
-
-/**
- * free a packet without freeing its buffer
- *
- * @param id
- *   chip id
- * @param pkt
- *   bf packet
- * @return
- *   0 on success, -1 on failure
- */
-int bf_pkt_free_ext_buf(bf_dev_id_t id, bf_pkt *pkt);
 
 /**
  * Get the pkt data size of the bf packet.
@@ -265,6 +230,32 @@ static inline int bf_pkt_get_pkt_dr(bf_pkt *p) { return (p->src_dr); }
  *   none
  */
 static inline void bf_pkt_set_pkt_dev(bf_pkt *p, int id) { p->dev = id; }
+
+/**
+ * Set the subdev_id associated with the bf packet.
+ *
+ * @param p
+ *   bf packet.
+ * @param subdev_id
+ *   subdev_id associated with the bf packet.
+ * @return
+ *   none
+ */
+static inline void bf_pkt_set_pkt_subdev(bf_pkt *p, int subdev_id) {
+  p->subdev = subdev_id;
+}
+
+/**
+ * Get the subdev_id associated with the bf packet.
+ *
+ * @param p
+ *   bf packet.
+ * @return
+ *   none
+ */
+static inline bf_subdev_id_t bf_pkt_get_pkt_subdev(bf_pkt *p) {
+  return (p->subdev);
+}
 
 /**
  * Get the pkt dev of the bf packet.

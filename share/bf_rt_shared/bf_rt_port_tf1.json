@@ -321,8 +321,8 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "uint32",
-              "default_value": 0
+              "type": "string",
+              "default_value": "0"
             }
           }
         },
@@ -335,8 +335,8 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "uint32",
-              "default_value": 0
+              "type": "string",
+              "default_value": "0"
             }
           }
         },
@@ -349,8 +349,8 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "uint32",
-              "default_value": 0
+              "type": "string",
+              "default_value": "0"
             }
           }
         },
@@ -363,8 +363,8 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "uint32",
-              "default_value": 0
+              "type": "string",
+              "default_value": "0"
             }
           }
         },
@@ -484,6 +484,71 @@
           "singleton": {
             "id": 27,
             "name": "$RX_PRSR_PRI_THRESH",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 28,
+            "name": "$TIMESTAMP_1588_DELTA_TX",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 29,
+            "name": "$TIMESTAMP_1588_DELTA_RX",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint16"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 30,
+            "name": "$TIMESTAMP_1588_VALID",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 31,
+            "name": "$TIMESTAMP_1588_VALUE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 32,
+            "name": "$TIMESTAMP_1588_ID",
             "repeated": false,
             "annotations": [],
             "type": {
@@ -1779,6 +1844,90 @@
           "singleton": {
             "id": 89,
             "name": "$FramesTruncated",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 90,
+            "name": "$TimeInSec",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 91,
+            "name": "$TimeinNSec",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 92,
+            "name": "$TX_PPS",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 93,
+            "name": "$RX_PPS",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 94,
+            "name": "$TX_RATE",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint64",
+              "default_value": 0
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 95,
+            "name": "$RX_RATE",
             "repeated": false,
             "annotations": [],
             "type": {

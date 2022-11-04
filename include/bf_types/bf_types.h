@@ -77,9 +77,19 @@ typedef enum bf_port_speed_e {
   BF_SPEED_400G = (1 << 8),
   BF_SPEED_40G_R2 = (1 << 9),    /* 40G 2x20G NRZ, Non-standard speed */
   BF_SPEED_50G_CONS = (1 << 10), /* 50G 2x25G NRZ, Consortium mode */
+  BF_SPEED_800G = (1 << 11),
 
 } bf_port_speed_t;
 typedef uint32_t bf_port_speeds_t;
+
+/* Type definition for serdes mode */
+typedef enum bf_port_serdes_mode_e {
+  BF_SERDES_MODE_56G = 0,
+  BF_SERDES_MODE_112G,
+  BF_SERDES_MODE_MAX
+} bf_port_serdes_mode_t;
+
+typedef uint32_t bf_port_serdes_modes_t;
 
 #define BF_ADV_SPEEDS_SET(x, speed) (x |= speed)
 #define BF_ADV_SPEED_CLR(x, speed) (x &= ~speed)
@@ -154,7 +164,8 @@ typedef int bf_status_t;
       BF_STATUS_(BF_INTERNAL_ERROR, "Internal error"),                      \
       BF_STATUS_(BF_TABLE_NOT_FOUND, "Table not found"),                    \
       BF_STATUS_(BF_IN_USE, "In use"),                                      \
-      BF_STATUS_(BF_NOT_IMPLEMENTED, "Object not implemented")
+      BF_STATUS_(BF_NOT_IMPLEMENTED, "Object not implemented"),             \
+      BF_STATUS_(BF_NO_HW_ENTRY, "Hardware entry not found")
 enum bf_status_enum {
 #define BF_STATUS_(x, y) x
   BF_STATUS_VALUES,
@@ -215,6 +226,7 @@ typedef enum bf_dev_type_t {
   BF_DEV_BFNT10064Q,  // TOF1
   BF_DEV_BFNT10032Q,
   BF_DEV_BFNT10032D,
+  BF_DEV_BFNT10032D012,
   BF_DEV_BFNT10032D018,
   BF_DEV_BFNT10032D020,
   BF_DEV_BFNT20128Q,  // TOF2
@@ -223,15 +235,12 @@ typedef enum bf_dev_type_t {
   BF_DEV_BFNT20080TM,
   BF_DEV_BFNT20064Q,
   BF_DEV_BFNT20064D,
-  BF_DEV_BFNT3_25512O,  // T3-25.6-8-512
-  BF_DEV_BFNT3_16320F,  // T3-16.0-5-320
-  BF_DEV_BFNT3_25256O,  // T3-25.6-8-256
-  BF_DEV_BFNT3_16160F,  // T3-16.0-5-160
-  BF_DEV_BFNT3_12256Q,  // T3-12.8-4-256
-  BF_DEV_BFNT3_09192T,  // T3-9.6-3-192
-  BF_DEV_BFNT3_08160T,  // T3-8.0-3-192
-  BF_DEV_BFNT3_06064Q,  // T3-6.4-4.128
-  BF_DEV_BFNT3_06064D,  // T3-6.4-2.128
+  BF_DEV_BFNT31_12Q,  // TOF3
+  BF_DEV_BFNT31_112_12Q,
+  BF_DEV_BFNT31_12QH,
+  BF_DEV_BFNT32_25Q,
+  BF_DEV_BFNT32_112_25Q,
+  BF_DEV_BFNT32_25QH,
 
 
 
@@ -250,6 +259,8 @@ static inline const char *pipe_mgr_dev_type2str(bf_dev_type_t dev_type) {
       return "BFN-T10-032D-018";
     case BF_DEV_BFNT10032D020:
       return "BFN-T10-032D-020";
+    case BF_DEV_BFNT10032D012:
+      return "BFN-T10-032D-012";
     case BF_DEV_BFNT20128Q:
       return "BFN-T20-128Q";
     case BF_DEV_BFNT20128QM:
@@ -262,24 +273,18 @@ static inline const char *pipe_mgr_dev_type2str(bf_dev_type_t dev_type) {
       return "BFN-T20-064Q";
     case BF_DEV_BFNT20064D:
       return "BFN-T20-064D";
-    case BF_DEV_BFNT3_25512O:
-      return "BFN-T30-25512O";
-    case BF_DEV_BFNT3_16320F:
-      return "BFN-T30-16320F";
-    case BF_DEV_BFNT3_25256O:
-      return "BFN-T30-25256O";
-    case BF_DEV_BFNT3_16160F:
-      return "BFN-T30-16160F";
-    case BF_DEV_BFNT3_12256Q:
-      return "BFN-T30-12256Q";
-    case BF_DEV_BFNT3_09192T:
-      return "BFN-T30-09192T";
-    case BF_DEV_BFNT3_08160T:
-      return "BFN-T30-08160T";
-    case BF_DEV_BFNT3_06064Q:
-      return "BFN-T30-06064Q";
-    case BF_DEV_BFNT3_06064D:
-      return "BFN-T30-06064D";
+    case BF_DEV_BFNT31_12Q:
+      return "BFN-T31-12Q";
+    case BF_DEV_BFNT31_112_12Q:
+      return "BFN-T31-112-12Q";
+    case BF_DEV_BFNT31_12QH:
+      return "BFN-T31-12QH";
+    case BF_DEV_BFNT32_25Q:
+      return "BFN-T32-25Q";
+    case BF_DEV_BFNT32_112_25Q:
+      return "BFN-T32-112-25Q";
+    case BF_DEV_BFNT32_25QH:
+      return "BFN-T32-25QH";
 
 
 
@@ -292,7 +297,6 @@ static inline const char *pipe_mgr_dev_type2str(bf_dev_type_t dev_type) {
 typedef enum bf_dev_family_t {
   BF_DEV_FAMILY_TOFINO,
   BF_DEV_FAMILY_TOFINO2,
-  BF_DEV_FAMILY_TOFINO3,
 
   BF_DEV_FAMILY_UNKNOWN,
 } bf_dev_family_t;
@@ -303,9 +307,6 @@ static inline const char *bf_dev_family_str(bf_dev_family_t fam) {
       return "Tofino";
     case BF_DEV_FAMILY_TOFINO2:
       return "Tofino2";
-    case BF_DEV_FAMILY_TOFINO3:
-      return "Tofino3";
-
 
     case BF_DEV_FAMILY_UNKNOWN:
       return "Unknown";
@@ -321,10 +322,6 @@ static inline bool bf_is_dev_type_family_tofino2(bf_dev_type_t t) {
   return t >= BF_DEV_BFNT20128Q && t <= BF_DEV_BFNT20064D;
 }
 
-static inline bool bf_is_dev_type_family_tofino3(bf_dev_type_t t) {
-  return t >= BF_DEV_BFNT3_25512O && t <= BF_DEV_BFNT3_06064D;
-}
-
 
 
 
@@ -332,7 +329,6 @@ static inline bool bf_is_dev_type_family_tofino3(bf_dev_type_t t) {
 static inline bf_dev_family_t bf_dev_type_to_family(bf_dev_type_t t) {
   if (bf_is_dev_type_family_tofino(t)) return BF_DEV_FAMILY_TOFINO;
   if (bf_is_dev_type_family_tofino2(t)) return BF_DEV_FAMILY_TOFINO2;
-  if (bf_is_dev_type_family_tofino3(t)) return BF_DEV_FAMILY_TOFINO3;
 
   return BF_DEV_FAMILY_UNKNOWN;
 }

@@ -45,6 +45,7 @@ typedef struct serdes_fw_profile {
   char *tof2_serdes_grp_8_fw;
   char *tof3_serdes_1_32_fw;
   char *tof3_serdes_0_fw;
+  char *tof3_serdes_0_pcie_fw;
 } serdes_fw_profile_t;
 
 typedef struct microp_fw_profile {

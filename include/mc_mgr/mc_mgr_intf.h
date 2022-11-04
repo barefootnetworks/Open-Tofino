@@ -130,6 +130,18 @@ bf_status_t bf_mc_mgrp_get_count(bf_mc_session_hdl_t shdl,
                                  uint32_t *count);
 
 /**
+ * Retreive the size of LAG table available to the user. In Tofino, one entry
+ * at idx 255 is reserved, so the size is smaller for that chip
+ * @param shdl Session handle.
+ * @param dev The ASIC id.
+ * @param count Size of LAG table.
+ * @return Status of the API call.
+ */
+bf_status_t bf_mc_lag_get_size(bf_mc_session_hdl_t shdl,
+                               bf_dev_id_t dev,
+                               uint32_t *count);
+
+/**
  * Get next i multicast group ids. If there is at least 1 but not i ids, the
  * remaining space in the array will be filled with -1.
  * @param shdl Session handle.
@@ -735,6 +747,16 @@ bf_status_t bf_mc_get_port_prune_table(bf_mc_session_hdl_t shdl,
                                        bf_mc_l2_xid_t l2_exclusion_id,
                                        bf_mc_port_map_t *pruned_ports,
                                        bool from_hw);
+
+/**
+ * @param shdl Session handle.
+ * @param dev The ASIC id.
+ * @param count Table size
+ * @return Status of the API call.
+ */
+bf_status_t bf_mc_get_port_prune_table_size(bf_mc_session_hdl_t shdl,
+                                            bf_dev_id_t dev,
+                                            uint32_t *count);
 
 /**
  * Update the LAG membership table.

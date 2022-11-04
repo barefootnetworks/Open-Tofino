@@ -126,6 +126,7 @@ enum class GressTarget {
 typedef std::function<void(
     const bf_rt_target_t &dev_tgt, const BfRtTableKey *key, void *cookie)>
     BfRtIdleTmoExpiryCb;
+typedef BfRtIdleTmoExpiryCb BfRtIdleTmoActiveCb;
 
 /**
  * @brief PortStatusChange Callback
@@ -162,17 +163,17 @@ typedef std::function<void(const std::shared_ptr<BfRtSession> session,
     selUpdateCb;
 /**
  * @brief Class to expose APIs to set/get the entry scope arguments with
- * std::bitset.The absolute scope val is a 32 bit unsigned int which can be set
- * using a 32-bit std::bitset object or can be set on a per byte basis using an
- * array of size 4 of 8-bit std::bitset objects. The 32-bit bitset looks like
- * 0x00 0x00 0x0c 0x03 if we want pipes 2,3 to be in scope 1 and pipes 0,1 to
- * be in scope 0. Each "byte" of the bitset is a scope. There can be a max of 4
- * scopes. No pipe can belong to more than 1 scope at once. The bf_rt_dev_target
- * should contain the lowest pipe of the scope the entry of the table is wished
- * to be programmed in. So in the above example, if we want an entry to be
- * programmed in scope 1, then pipe_id should contain 2 and then pipe 3 will
- * also
- * be programmed with the entry.
+ * std::bitset.The absolute scope val is a 64 bit unsigned int which can be set
+ * using a 64-bit std::bitset object or can be set on a per byte basis using an
+ * array of size 8 of 8-bit std::bitset objects. The 64-bit bitset looks like
+ * 0x00 0x00 0x00 0x00 0x00 0x00 0x0c 0x03 if we want pipes 2,3 to be in
+ * scope 1 and pipes 0,1 to be in scope 0. Each "byte" of the bitset is a scope.
+ * There can be a max of 8 scopes, but number of supported scopes depends on
+ * the Tofino version. No pipe can belong to more than 1 scope at once.
+ * The bf_rt_dev_target should contain the lowest pipe in the scope for
+ * the entry programming. So in the above example, if one wants add an entry to
+ * scope 1, then pipe_id in the target should be equal to 2, and then both pipes
+ * will be programmed accordingly.
  * <B>Creation: </B> Can only be created using \ref
  * bfrt::BfRtTableAttributes::entryScopeArgumentsAllocate()
  */
@@ -180,45 +181,45 @@ class BfRtTableEntryScopeArguments {
  public:
   virtual ~BfRtTableEntryScopeArguments() = default;
   /**
-   * @brief Set entry scope as a 32-bit bitset
+   * @brief Set entry scope as a 64-bit bitset
    *
    * @param[in] val 32-bit bitset
    *
    * @return Status of the API call
    */
-  virtual bf_status_t setValue(const std::bitset<32> &val) = 0;
+  virtual bf_status_t setValue(const std::bitset<64> &val) = 0;
   /**
    * @brief Set entry scope as a 4-length array of 8-bit bitsets
    * <B>Note: </B>The least significant byte of the
    * scope, i.e. byte 0, corresponds to std::bitset array[0], byte 1 = array[1],
-   * byte 2 = array[2] and byte 3 = array[3]<br>
+   * byte 2 = array[2], byte 3 = array[3] etc.<br>
    *
    * @param[in] val_arr 4-length array of 8-bit bitset
    *
    * @return Status of the API call
    */
   virtual bf_status_t setValue(
-      const std::array<std::bitset<8>, 4> &val_arr) = 0;
+      const std::array<std::bitset<8>, 8> &val_arr) = 0;
   /**
-   * @brief Get entry scope as a 32-bit bitset
+   * @brief Get entry scope as a 64-bit bitset
    *
-   * @param[in] val 32-bit bitset
+   * @param[in] val 64-bit bitset
    *
    * @return Status of the API call
    */
-  virtual bf_status_t getValue(std::bitset<32> *val) const = 0;
+  virtual bf_status_t getValue(std::bitset<64> *val) const = 0;
   /**
-   * @brief Get entry scope as a 4-length array of 8-bit bitsets
+   * @brief Get entry scope as a 8-length array of 8-bit bitsets
    * <B>Note: </B>The least significant byte of the
    * scope val (byte 0) corresponds to std::bitset array[0], byte 1 = array[1],
-   * byte 2 = array[2] and byte 3 = array[3]<br>
+   * byte 2 = array[2], byte 3 = array[3] etc.<br>
    *
    * @param[in] val_arr 4-length array of 8-bit bitset
    *
    * @return Status of the API call
    */
   virtual bf_status_t getValue(
-      std::array<std::bitset<8>, 4> *val_arr) const = 0;
+      std::array<std::bitset<8>, 8> *val_arr) const = 0;
 };
 
 /**
@@ -242,16 +243,40 @@ class BfRtTableAttributes {
    * @return Status of the API call
    */
   virtual bf_status_t idleTablePollModeSet(const bool &enable) = 0;
+
   /**
-   * @brief Set IdleTable Poll Mode options. This is only valid if the
-   *Attributes Object
-   * was allocated using the correct
+   * @brief Set IdleTable Notify Mode options. This is only valid if the
+   * Attributes Object was allocated using the correct
    * \ref bfrt::BfRtTable::attributeAllocate(const TableAttributesType &, const
    *TableAttributesIdleTableMode &,std::unique_ptr<BfRtTableAttributes>
    **attr)const "attributeAllocate()"
    *
    * @param[in] enable Flag to enable IdleTable
-   * @param[in] callback Callback on IdleTime Timeout
+   * @param[in] idle Callback on IdleTime Timeout
+   * @param[in] ttl_query_interval Ttl query interval
+   * @param[in] max_ttl Max ttl value that an entry can have
+   * @param[in] min_ttl Min ttl value that an entry can have
+   * @param[in] cookie User cookie
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t idleTableNotifyModeSet(const bool &enable,
+                                             const BfRtIdleTmoExpiryCb &idle_cb,
+                                             const uint32_t &ttl_query_interval,
+                                             const uint32_t &max_ttl,
+                                             const uint32_t &min_ttl,
+                                             const void *cookie) = 0;
+
+  /**
+   * @brief Set IdleTable Notify 2 Way Mode options. This is only valid if the
+   * Attributes Object was allocated using the correct
+   * \ref bfrt::BfRtTable::attributeAllocate(const TableAttributesType &, const
+   *TableAttributesIdleTableMode &,std::unique_ptr<BfRtTableAttributes>
+   **attr)const "attributeAllocate()"
+   *
+   * @param[in] enable Flag to enable IdleTable
+   * @param[in] idle Callback on IdleTime Timeout
+   * @param[in] active_cb Callback on IdleTime Activation
    * @param[in] ttl_query_interval Ttl query interval
    * @param[in] max_ttl Max ttl value that an entry can have
    * @param[in] min_ttl Min ttl value that an entry can have
@@ -261,7 +286,8 @@ class BfRtTableAttributes {
    */
   virtual bf_status_t idleTableNotifyModeSet(
       const bool &enable,
-      const BfRtIdleTmoExpiryCb &callback,
+      const BfRtIdleTmoExpiryCb &idle_cb,
+      const BfRtIdleTmoActiveCb &active_cb,
       const uint32_t &ttl_query_interval,
       const uint32_t &max_ttl,
       const uint32_t &min_ttl,
@@ -272,7 +298,7 @@ class BfRtTableAttributes {
    *
    * @param[out] mode Mode of IdleTable (POLL/NOTIFY)
    * @param[out] enable Enable flag
-   * @param[out] callback Calbback on IdleTimeout
+   * @param[out] idle_cb Calbback on Idle Timeout
    * @param[out] ttl_query_interval Ttl query interval
    * @param[out] max_ttl Max ttl value that an entry can have
    * @param[out] min_ttl Min ttl value that an entry can have
@@ -282,7 +308,30 @@ class BfRtTableAttributes {
    */
   virtual bf_status_t idleTableGet(TableAttributesIdleTableMode *mode,
                                    bool *enable,
-                                   BfRtIdleTmoExpiryCb *callback,
+                                   BfRtIdleTmoExpiryCb *idle_cb,
+                                   uint32_t *ttl_query_interval,
+                                   uint32_t *max_ttl,
+                                   uint32_t *min_ttl,
+                                   void **cookie) const = 0;
+
+  /**
+   * @brief Get Idle Table params for 2 way notifications
+   *
+   * @param[out] mode Mode of IdleTable (POLL/NOTIFY)
+   * @param[out] enable Enable flag
+   * @param[out] idle_cb Calbback on Idle Timeout
+   * @param[out] active_cb Calbback on Idle Activation
+   * @param[out] ttl_query_interval Ttl query interval
+   * @param[out] max_ttl Max ttl value that an entry can have
+   * @param[out] min_ttl Min ttl value that an entry can have
+   * @param[out] cookie User cookie
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t idleTableGet(TableAttributesIdleTableMode *mode,
+                                   bool *enable,
+                                   BfRtIdleTmoExpiryCb *idle_cb,
+                                   BfRtIdleTmoActiveCb *active_cb,
                                    uint32_t *ttl_query_interval,
                                    uint32_t *max_ttl,
                                    uint32_t *min_ttl,

@@ -82,12 +82,6 @@
       "supported_operations": [],
       "attributes": [],
       "supported_apis": {
-        "tableEntryAdd": {
-          "target_attributes": [
-            "dev_id"
-          ],
-          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
-        },
         "tableEntryMod": {
           "target_attributes": [
             "dev_id"
@@ -595,14 +589,6 @@
       "supported_operations": [],
       "attributes": [],
       "supported_apis": {
-        "tableEntryAdd": {
-          "target_attributes": [
-            "dev_id",
-            "pipe_id",
-            "pipe_all"
-          ],
-          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
-        },
         "tableEntryMod": {
           "target_attributes": [
             "dev_id",
@@ -657,14 +643,6 @@
       "supported_operations": [],
       "attributes": [],
       "supported_apis": {
-        "tableEntryAdd": {
-          "target_attributes": [
-            "dev_id",
-            "pipe_id",
-            "pipe_all"
-          ],
-          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
-        },
         "tableEntryMod": {
           "target_attributes": [
             "dev_id",
@@ -711,14 +689,6 @@
       "supported_operations": [],
       "attributes": [],
       "supported_apis": {
-        "tableEntryAdd": {
-          "target_attributes": [
-            "dev_id",
-            "pipe_id",
-            "pipe_all"
-          ],
-          "description": "Allocates a new Pktgen object and a unique key chosen by the caller."
-        },
         "tableEntryMod": {
           "target_attributes": [
             "dev_id",

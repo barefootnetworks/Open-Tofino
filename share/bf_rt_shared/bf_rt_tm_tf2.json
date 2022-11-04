@@ -1521,8 +1521,8 @@
           "read_only": false,
           "singleton": {
             "id": 4,
-            "name": "ig_hysteresis_cells",
-            "description": "The port hysteresis limit. When usage of cells goes below the hysteresis value, then the port pause or drop condition will be cleared.",
+            "name": "eg_limit_cells",
+            "description": "When buffer usage accounted on this port crosses the limit, traffic will be dropped on egress (QAC) stage.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -1534,6 +1534,19 @@
           "read_only": false,
           "singleton": {
             "id": 5,
+            "name": "eg_hysteresis_cells",
+            "description": "The port egress hysteresis limit. When usage of cells goes below the hysteresis value, then the port drop condition will be cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 6,
             "name": "skid_limit_cells",
             "description": "The port skid limit. Cannot be increased beyond the size of the skid pool. If set to zero, in transit traffic from all lossless PPGs of the port will be dropped once pause/pfc is asserted.",
             "repeated": false,
@@ -2209,6 +2222,19 @@
               "type": "uint8"
             }
           }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "depth_report_enable",
+            "description": "QSTAT feature: the queue will report its depth changes to ingress MAU either for all enqueue/dequeue updates, or for color thresholds crosses only, depending on the reporting mode set at the queue's egress pipe, see tm.pipe.cfg.queue_depth_report_mode.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
         }
       ],
       "supported_operations": [],
@@ -2514,19 +2540,6 @@
             "repeated": false,
             "type": {
               "type": "uint32"
-            }
-          }
-        },
-        {
-          "mandatory": false,
-          "read_only": false,
-          "singleton": {
-            "id": 6,
-            "name": "drop_visible",
-            "description": "On Tofino2 visible queues will be reported to ingress MAU for Queue length cross any color threshold.",
-            "repeated": false,
-            "type": {
-              "type": "bool"
             }
           }
         }
@@ -3040,7 +3053,7 @@
           "singleton": {
             "id": 1,
             "name": "unit",
-            "description": "Unit of shaping rate and burst size: PPS - in Packets/s; BPS - Kbit/s for rate, Bytes/s for burst.",
+            "description": "Unit of shaping rate and burst size: PPS - in Packets/s for rate, Packets for burst; BPS - Kbit/s for rate, Bytes for burst.",
             "repeated": false,
             "type": {
               "type": "string",
@@ -3057,7 +3070,7 @@
           "singleton": {
             "id": 2,
             "name": "provisioning",
-            "description": "Shaper provisioning mode: how mantissa/exponent values are rounded from the values given.",
+            "description": "Shaper provisioning mode: how values are translated to mantissa/exponent HW representation.",
             "repeated": false,
             "type": {
               "type": "string",
@@ -3075,7 +3088,7 @@
           "singleton": {
             "id": 3,
             "name": "min_rate",
-            "description": "Guaranteed shaping rate in units (Packets/s or Kbit/s)",
+            "description": "Guaranteed shaping rate in units: Packets/s for 'PPS', or Kbit/s for 'BPS'. Read value is approximate 'provisioning mode' calculation to HW representation.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3088,7 +3101,7 @@
           "singleton": {
             "id": 4,
             "name": "min_burst_size",
-            "description": "Guaranteed shaping burst size in units (Packets/s or Bytes/s)",
+            "description": "Guaranteed shaping burst size in units: Packets for 'PPS', or Bytes for 'BPS'.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3101,7 +3114,7 @@
           "singleton": {
             "id": 5,
             "name": "max_rate",
-            "description": "Remaining shaping rate in units (Packets/s or Kbit/s)",
+            "description": "Remaining shaping rate in units: Packets/s for 'PPS', or Kbit/s for 'BPS'. Read value is approximate 'provisioning mode' calculation to HW representation.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3114,7 +3127,7 @@
           "singleton": {
             "id": 6,
             "name": "max_burst_size",
-            "description": "Remaining shaping burst size in units (Packets/s or Bytes/s)",
+            "description": "Remaining shaping burst size in units: Packets for 'PPS', or Bytes for 'BPS'.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3338,7 +3351,7 @@
           "singleton": {
             "id": 1,
             "name": "unit",
-            "description": "Unit of shaping rate and burst size: PPS - in Packets/s; BPS - Kbit/s for rate, Bytes/s for burst.",
+            "description": "Unit of shaping rate and burst size: PPS - in Packets/s for rate, Packets for burst; BPS - Kbit/s for rate, Bytes for burst.",
             "repeated": false,
             "type": {
               "type": "string",
@@ -3355,7 +3368,7 @@
           "singleton": {
             "id": 2,
             "name": "provisioning",
-            "description": "Shaper provisioning mode: how mantissa/exponent values are rounded from the values given.",
+            "description": "Shaper provisioning mode: how values are translated to mantissa/exponent HW representation.",
             "repeated": false,
             "type": {
               "type": "string",
@@ -3373,7 +3386,7 @@
           "singleton": {
             "id": 3,
             "name": "max_rate",
-            "description": "Port Shaping rate in units (Packets/s or Kbit/s)",
+            "description": "Port Shaping rate in units: Packets/s for 'PPS', or Kbit/s for 'BPS'. Read value is approximate 'provisioning mode' calculation to HW representation.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3386,7 +3399,7 @@
           "singleton": {
             "id": 4,
             "name": "max_burst_size",
-            "description": "Port Shaping burst size in units (Packets/s or Bytes/s)",
+            "description": "Port Shaping burst size in units: Packets for 'PPS', or Bytes for 'BPS'.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3738,7 +3751,7 @@
           "singleton": {
             "id": 1,
             "name": "unit",
-            "description": "Unit of shaping rate and burst size: PPS - in Packets/s; BPS - Kbit/s for rate, Bytes/s for burst.",
+            "description": "Unit of shaping rate and burst size: PPS - in Packets/s for rate, Packets for burst; BPS - Kbit/s for rate, Bytes for burst.",
             "repeated": false,
             "type": {
               "type": "string",
@@ -3755,7 +3768,7 @@
           "singleton": {
             "id": 2,
             "name": "min_rate",
-            "description": "Guaranteed shaping rate in units (Packets/s or Kbit/s)",
+            "description": "Guaranteed shaping rate in units: Packets/s for 'PPS', or Kbit/s for 'BPS'. Read value is approximate 'provisioning mode' calculation to HW representation.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3768,7 +3781,7 @@
           "singleton": {
             "id": 3,
             "name": "min_burst_size",
-            "description": "Guaranteed shaping burst size in units (Packets/s or Bytes/s)",
+            "description": "Guaranteed shaping burst size in units: Packets for 'PPS', or Bytes for 'BPS'.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3781,7 +3794,7 @@
           "singleton": {
             "id": 4,
             "name": "max_rate",
-            "description": "Remaining shaping rate in units (Packets/s or Kbit/s)",
+            "description": "Remaining shaping rate in units: Packets/s for 'PPS', or Kbit/s for 'BPS'. Read value is approximate 'provisioning mode' calculation to HW representation.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3794,7 +3807,7 @@
           "singleton": {
             "id": 5,
             "name": "max_burst_size",
-            "description": "Remaining shaping burst size in units (Packets/s or Bytes/s)",
+            "description": "Remaining shaping burst size in units: Packets for 'PPS', or Bytes for 'BPS'.",
             "repeated": false,
             "type": {
               "type": "uint32"
@@ -3885,12 +3898,6 @@
             "name": "drop_count_packets",
             "description": "Per port drop count in terms of number of packets.",
             "repeated": false,
-            "annotations": [
-              {
-                "name": "clear_only",
-                "value": "true"
-              }
-            ],
             "type": {
               "type": "uint64"
             }
@@ -4002,12 +4009,6 @@
             "name": "drop_count_packets",
             "description": "Per port drop count in terms of number of packets.",
             "repeated": false,
-            "annotations": [
-              {
-                "name": "clear_only",
-                "value": "true"
-              }
-            ],
             "type": {
               "type": "uint64"
             }
@@ -4126,12 +4127,6 @@
             "name": "drop_count_packets",
             "description": "Per queue drop count in terms of number of packets.",
             "repeated": false,
-            "annotations": [
-              {
-                "name": "clear_only",
-                "value": "true"
-              }
-            ],
             "type": {
               "type": "uint64"
             }
@@ -4676,12 +4671,6 @@
             "name": "drop_count_packets",
             "description": "The drop count in terms of number of packets.",
             "repeated": false,
-            "annotations": [
-              {
-                "name": "clear_only",
-                "value": "true"
-              }
-            ],
             "type": {
               "type": "uint64"
             }
@@ -4715,22 +4704,9 @@
         },
         {
           "mandatory": false,
-          "read_only": true,
-          "singleton": {
-            "id": 4,
-            "name": "skid_pool_usage_cells",
-            "description": "The skid pool usage count in terms of number of cells.",
-            "repeated": false,
-            "type": {
-              "type": "uint64"
-            }
-          }
-        },
-        {
-          "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 5,
+            "id": 4,
             "name": "watermark_cells",
             "description": "The watermark value in terms of number of cells.",
             "repeated": false,
@@ -4801,12 +4777,6 @@
             "name": "drop_count_packets",
             "description": "The drop count in terms of number of packets.",
             "repeated": false,
-            "annotations": [
-              {
-                "name": "clear_only",
-                "value": "true"
-              }
-            ],
             "type": {
               "type": "uint64"
             }
@@ -4840,22 +4810,9 @@
         },
         {
           "mandatory": false,
-          "read_only": true,
-          "singleton": {
-            "id": 4,
-            "name": "skid_pool_usage_cells",
-            "description": "The skid pool usage count in terms of number of cells.",
-            "repeated": false,
-            "type": {
-              "type": "uint64"
-            }
-          }
-        },
-        {
-          "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 5,
+            "id": 4,
             "name": "watermark_cells",
             "description": "The watermark value in terms of number of cells.",
             "repeated": false,
@@ -4950,12 +4907,6 @@
             "name": "drop_count_packets",
             "description": "The drop count in terms of number of packets.",
             "repeated": false,
-            "annotations": [
-              {
-                "name": "clear_only",
-                "value": "true"
-              }
-            ],
             "type": {
               "type": "uint64"
             }
@@ -5348,11 +5299,15 @@
           "read_only": false,
           "singleton": {
             "id": 8,
-            "name": "queue_color_drop_visible",
-            "description": "Egress Pipe 'Queue Stats Reporting' mode on Tofino2. True for color threshold update, False for any update. Each Queue is participating in updates if its tm.queue.color.drop_visible = True",
+            "name": "queue_depth_report_mode",
+            "description": "Egress Pipe 'Queue Stats Reporting' (QSTAT) mode: 'ANY' - for any enqueue/dequeue depth change; 'COLOR' - for color threshold crosses only. A queue is participating in QSTAT reporting if it has tm.queue.cfg.depth_report_enable = True",
             "repeated": false,
             "type": {
-              "type": "bool"
+              "type": "string",
+              "choices": [
+                "ANY",
+                "COLOR"
+              ]
             }
           }
         }

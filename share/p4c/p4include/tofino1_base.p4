@@ -63,11 +63,14 @@ enum SelectorMode_t { FAIR, RESILIENT }
 enum HashAlgorithm_t {
     IDENTITY,
     RANDOM,
+    XOR8,
+    XOR16,
+    XOR32,
     CRC8,
     CRC16,
     CRC32,
     CRC64,
-    CUSTOM
+    CUSTOM  /*< custom CRC polynomial - see the CRCPolynomial extern */
 }
 
 match_kind {
@@ -197,7 +200,7 @@ struct ingress_intrinsic_metadata_for_deparser_t {
                                         //    - bit 0 disables unicast,
                                         //      multicast, and resubmit
                                         //    - bit 1 disables copy-to-cpu
-                                        //    - bit 2 disables mirroring
+                                        //    - bit 2 reserved
     DigestType_t digest_type;
 
     ResubmitType_t resubmit_type;
@@ -529,6 +532,8 @@ extern T min<T>(in T t1, in T t2);
 extern void funnel_shift_right<T>(inout T dst, in T src1, in T src2, int shift_amount);
 
 extern void invalidate<T>(in T field);
+
+extern bool is_validated<T>(in T field);
 
 /// Phase0
 extern T port_metadata_unpack<T>(packet_in pkt);

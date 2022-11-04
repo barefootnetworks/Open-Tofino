@@ -89,7 +89,6 @@ typedef enum {
   // tof3-specific loopback modes
   BF_LPBK_SERDES_NEAR_PARALLEL,
   BF_LPBK_SERDES_FAR_PARALLEL,
-  BF_LPBK_SERDES_FAR_RMT,
 
 } bf_loopback_mode_e;
 
@@ -121,7 +120,9 @@ typedef enum {
   BF_ADV_SPD_50GBASE_KR1_CR1 = (1 << 13),
   BF_ADV_SPD_100GBASE_KR2_CR2 = (1 << 14),
   BF_ADV_SPD_200GBASE_KR4_CR4 = (1 << 15),
-  BF_ADV_SPD_400GBASE_KR8_CR8 = (1 << 16),  // FIXME guess, not defined yet
+  BF_ADV_SPD_100GBASE_KR1_CR1 = (1 << 16),
+  BF_ADV_SPD_200GBASE_KR2_CR2 = (1 << 17),
+  BF_ADV_SPD_400GBASE_KR4_CR4 = (1 << 18),
 
   // Consortium Extended Tech Ability Field options
   BF_ADV_SPD_25GBASE_KR1_CONSORTIUM = (1 << 24),
@@ -129,7 +130,9 @@ typedef enum {
   BF_ADV_SPD_50GBASE_KR2_CONSORTIUM = (1 << 28),
   BF_ADV_SPD_50GBASE_CR2_CONSORTIUM = (1 << 29),
   BF_ADV_SPD_400GBASE_CR8_CONSORTIUM = (1 << 30),
-} bf_an_adv_speeds_t;
+} bf_an_adv_speed_t;
+
+typedef uint32_t bf_an_adv_speeds_t;
 
 typedef enum {
   // IEEE base-pg FEC bits (F0 and F1)
@@ -143,6 +146,8 @@ typedef enum {
   BF_ADV_FEC_RS_REQUEST_CONSORTIUM = (1 << 6),  // clause 91
   BF_ADV_FEC_FC_REQUEST_CONSORTIUM = (1 << 7),  // clause 74
 } bf_an_fec_t;
+
+typedef uint32_t bf_an_fecs_t;
 
 typedef enum {
   // IEEE base-pg pause bits (C1 and C0)
@@ -242,6 +247,11 @@ typedef struct bf_tof3_pcs_status_ {
   bool up;
 } bf_tof3_pcs_status_t;
 
+// FEC tail counters
+typedef struct bf_tof3_fec_status_ {
+  uint32_t cnt[16];
+} bf_tof3_fec_status_t;
+
 /** \brief CLK-OBS Pad Clock Source
  */
 typedef enum {
@@ -271,6 +281,16 @@ typedef enum {
   BF_SIGOVRD_FORCE_LO,
   BF_SIGOVRD_FORCE_HI,
 } bf_sigovrd_fld_t;
+
+/** \brief AN page selector
+ */
+typedef enum {
+  BF_AN_PAGE_BASE = 0,
+  BF_AN_PAGE_NEXT_1,
+  BF_AN_PAGE_NEXT_2,
+  BF_AN_PAGE_NEXT_3,
+  BF_AN_PAGE_MAX
+} bf_an_page_sel_t;
 
 /*****************************************************************
 * bf_an_advertisement_set
@@ -576,6 +596,16 @@ typedef struct bf_rmon_counter_array_t {
   } format;
 } bf_rmon_counter_array_t;
 
+#define BF_NUM_PKT_RATE_COUNTERS 4
+#define BF_NUM_TIME_STAMP_COUNTERS 2
+
+typedef struct bf_pkt_rate_t {
+  long rx_rate;     // latest data rate for rate display
+  long tx_rate;     // latest data rate for rate display
+  uint32_t rx_pps;  // latest pps for rate display
+  uint32_t tx_pps;  // latest pps for rate display
+} bf_pkt_rate_t;
+
 typedef void (*bf_port_mac_stat_callback_t)(bf_dev_id_t dev_id,
                                             bf_dev_port_t dev_port,
                                             bf_rmon_counter_array_t *ctrs,
@@ -682,6 +712,15 @@ bf_status_t bf_port_autoneg_hcd_fec_resolve(bf_dev_id_t dev_id,
                                             bf_port_speed_t *hcd_speed,
                                             int *hcd_lanes,
                                             bf_fec_type_t *fec);
+bf_status_t bf_port_autoneg_hcd_fec_resolve_nxt_pg(bf_dev_id_t dev_id,
+                                                   bf_dev_port_t dev_port,
+                                                   uint64_t tx_base_page,
+                                                   uint64_t rx_base_page,
+                                                   uint64_t tx_nxt_pg2,
+                                                   uint64_t rx_nxt_pg2,
+                                                   bf_port_speed_t *hcd_speed,
+                                                   int *hcd_lanes,
+                                                   bf_fec_type_t *fec);
 bf_status_t bf_port_autoneg_complete_get(bf_dev_id_t dev_id,
                                          bf_dev_port_t dev_port,
                                          bool *an_cmplt);
@@ -772,6 +811,9 @@ bf_status_t bf_port_xon_pause_time_set(bf_dev_id_t dev_id,
 bf_status_t bf_port_loopback_mode_set(bf_dev_id_t dev_id,
                                       bf_dev_port_t port,
                                       bf_loopback_mode_e mode);
+bf_status_t bf_port_mac_interrupt_ena_get(bf_dev_id_t dev_id,
+                                          bf_dev_port_t dev_port,
+                                          bool *ena_ints);
 bf_status_t bf_port_direction_mode_set(bf_dev_id_t dev_id,
                                        bf_dev_port_t dev_port,
                                        bf_port_dir_e mode);
@@ -838,7 +880,11 @@ bf_status_t bf_port_rs_fec_status_and_counters_get(bf_dev_id_t dev_id,
                                                    uint32_t *fec_ser_lane_0,
                                                    uint32_t *fec_ser_lane_1,
                                                    uint32_t *fec_ser_lane_2,
-                                                   uint32_t *fec_ser_lane_3);
+                                                   uint32_t *fec_ser_lane_3,
+                                                   uint32_t *fec_ser_lane_4,
+                                                   uint32_t *fec_ser_lane_5,
+                                                   uint32_t *fec_ser_lane_6,
+                                                   uint32_t *fec_ser_lane_7);
 bf_status_t bf_port_fc_fec_control_set(bf_dev_id_t dev_id,
                                        bf_dev_port_t port,
                                        bool byp_corr_en,
@@ -1030,6 +1076,15 @@ bf_status_t bf_serdes_encoding_mode_get(uint32_t speed,
 bf_status_t bf_serdes_an_lp_base_page_get(bf_dev_id_t dev_id,
                                           bf_dev_port_t dev_port,
                                           uint64_t *base_page);
+bf_status_t bf_serdes_an_lp_pages_get(bf_dev_id_t dev_id,
+                                      bf_dev_port_t dev_port,
+                                      uint64_t *lp_base_page,
+                                      uint64_t *lp_next_page1,
+                                      uint64_t *lp_next_page2);
+bf_status_t bf_serdes_an_lp_pages_save(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       bf_an_page_sel_t page_selector,
+                                       uint64_t lp_link_codeword);
 bf_status_t bf_port_encoding_mode_get(bf_dev_id_t dev_id,
                                       bf_dev_port_t dev_port,
                                       bf_serdes_encoding_mode_t *enc_mode);
@@ -1112,6 +1167,32 @@ bf_status_t bf_port_debounce_set(bf_dev_id_t dev_id,
 bf_status_t bf_port_tof3_pcs_status_get(bf_dev_id_t dev_id,
                                         bf_dev_port_t dev_port,
                                         bf_tof3_pcs_status_t *pcs);
+bf_status_t bf_port_tof3_fec_status_get(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        bf_tof3_fec_status_t *fec);
+bf_status_t bf_port_tof3_tmac_reset_set(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        uint32_t val);
+bf_status_t bf_port_tof3_fec_lane_symb_err_counter_get(bf_dev_id_t dev_id,
+                                                       bf_dev_port_t dev_port,
+                                                       uint32_t n_ctrs,
+                                                       uint64_t symb_err[16]);
+bf_status_t bf_port_speed_to_an_speed_map(bf_dev_id_t dev_id,
+                                          bf_port_speed_t p_speed,
+                                          uint32_t n_lanes,
+                                          bool adv_kr_mode,
+                                          bf_port_speeds_t *adv_speeds);
+bf_status_t bf_port_fec_to_an_fec_map(bf_fec_type_t p_fec,
+                                      bf_port_speed_t p_speed,
+                                      bf_fec_types_t *fec_adv);
+bf_status_t bf_port_construct_an_advertisement(bf_dev_id_t dev_id,
+                                               bf_dev_port_t dev_port,
+                                               uint64_t *base_pg,
+                                               uint64_t *cons_np);
+bf_status_t bf_port_tof_serdes_temperature_get(bf_dev_id_t dev_id,
+                                               uint8_t max_size,
+                                               float *arr_temp,
+                                               uint8_t *list_size);
 #ifdef __cplusplus
 }
 #endif /* C++ */

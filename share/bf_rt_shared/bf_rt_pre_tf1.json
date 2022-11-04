@@ -209,7 +209,7 @@
       "name": "$pre.lag",
       "id": 4278321156,
       "table_type": "PreLag",
-      "size": 256,
+      "size": 255,
       "key": [
         {
           "id": 1,

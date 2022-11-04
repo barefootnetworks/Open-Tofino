@@ -63,13 +63,11 @@ typedef enum p4_pd_idle_time_mode {
   PD_INVALID_MODE
 } p4_pd_idle_time_mode_e;
 
-typedef enum p4_pd_idle_time_hit_state {
-  PD_ENTRY_IDLE,
-  PD_ENTRY_ACTIVE
-} p4_pd_idle_time_hit_state_e;
+typedef pipe_idle_time_hit_state_e p4_pd_idle_time_hit_state_e;
 
 typedef void (*p4_pd_idle_tmo_expiry_cb)(bf_dev_id_t dev_id,
                                          p4_pd_entry_hdl_t entry_hdl,
+                                         p4_pd_idle_time_hit_state_e hs,
                                          void *cookie);
 
 typedef void (*p4_pd_idle_time_update_complete_cb)(bf_dev_id_t dev_id,
