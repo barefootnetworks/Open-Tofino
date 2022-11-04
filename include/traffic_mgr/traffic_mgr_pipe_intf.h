@@ -47,17 +47,18 @@ bf_status_t bf_tm_pipe_egress_limit_set(bf_dev_id_t dev,
                                         uint32_t cells);
 
 /**
- * @brief Set Egress Pipe Queue States Reporting Mode
- * False: Trigger Qstat reporting from Q color threshold
- * True: Trigger Qstat reporting from Q any updates
+ * @brief Set Egress Pipe Queue Stats Reporting (QSTAT) mode
+ * Only QSTAT visible queues at the pipe are participating in reporting.
+ * False: Trigger QSTAT reporting on Q color threshold crosses.
+ * True: Trigger QSTAT reporting on any Q depth updates.
  *
  * Default: 0
  *
- * Related APIs: bf_tm_pipe_egress_hysteresis_set()
+ * Related APIs: bf_tm_q_visible_set()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[in] mode       Queue states reporting mode.
+ * @param[in] mode       Queue statistics reporting mode.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -67,17 +68,16 @@ bf_status_t bf_tm_qstat_report_mode_set(bf_dev_id_t dev,
                                         bool mode);
 
 /**
- * @brief Get Egress Pipe Queue States default Reporting Mode
- * False: Trigger Qstat reporting from Q color threshold
- * True: Trigger Qstat reporting from Q any updates
+ * @brief Get Egress Pipe Queue Stats Reporting (QSTAT) default mode
+ * Only QSTAT visible queues at the pipe are participating in reporting.
+ * False: Trigger QSTAT reporting of Q color threshold crosses.
+ * True: Trigger QSTAT reporting of any Q depth updates.
  *
- * Default: 0
- *
- * Related APIs: bf_tm_pipe_egress_hysteresis_set()
+ * Related APIs: bf_tm_qstat_report_mode_get()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[out] mode      Queue states default reporting mode.
+ * @param[out] mode      Queue statistics default reporting mode.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -87,17 +87,18 @@ bf_status_t bf_tm_qstat_report_mode_get_default(bf_dev_id_t dev,
                                                 bool *mode);
 
 /**
- * @brief Get Egress Pipe Queue States Reporting Mode
- * False: Trigger Qstat reporting from Q color threshold
- * True: Trigger Qstat reporting from Q any updates
+ * @brief Get Egress Pipe Queue Stats Reporting (QSTAT) mode
+ * Only QSTAT visible queues at the pipe are participating in reporting.
+ * False: Trigger QSTAT reporting of Q color threshold crosses.
+ * True: Trigger QSTAT reporting of any Q depth updates.
  *
  * Default: 0
  *
- * Related APIs: bf_tm_pipe_egress_hysteresis_set()
+ * Related APIs: bf_tm_q_visible_get()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[out] mode      Queue states reporting mode.
+ * @param[out] mode      Queue statistics reporting mode.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error

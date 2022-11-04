@@ -83,9 +83,9 @@ bf_status_t bf_tm_sched_q_dwrr_weight_set(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -109,9 +109,9 @@ bf_status_t bf_tm_sched_q_shaping_rate_set(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @param[in] prov_type       Shaper provisioning type {UPPER, LOWER, MIN_ERR}
  * @return                    Status of API call.
@@ -173,9 +173,9 @@ bf_status_t bf_tm_sched_q_max_shaping_rate_disable(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -252,13 +252,13 @@ bf_status_t bf_tm_sched_q_guaranteed_rate_disable(bf_dev_id_t dev,
  *
  * Related APIs: bf_tm_sched_port_shaping_rate_get()
  *
- * @param[in] dev             ASIC device identifier.
- * @param[in] port            Port
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
- * @param[in] shaper          Shaper value in pps or kbps.
- * @return                    Status of API call.
+ * @param[in] dev           ASIC device identifier.
+ * @param[in] port          Port
+ * @param[in] pps           If set to true, values are in terms of pps
+ *                          and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size    Burst size in packets or bytes.
+ * @param[in] rate          Shaper value in pps or kbps.
+ * @return                  Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
  */
@@ -276,10 +276,10 @@ bf_status_t bf_tm_sched_port_shaping_rate_set(bf_dev_id_t dev,
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
- * @param[in] shaper          Shaper value in pps or kbps.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
+ * @param[in] rate            Shaper value in pps or kbps.
  * @param[in] prov_type       Shaper provisioning type {UPPER, LOWER, MIN_ERR}
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -447,9 +447,9 @@ bf_status_t bf_tm_sched_l1_dwrr_weight_set(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] l1_node         L1 node
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -545,9 +545,9 @@ bf_status_t bf_tm_sched_l1_priority_prop_disable(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] l1_node         L1 node
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -719,6 +719,9 @@ bf_status_t bf_tm_sched_port_shaping_disable(bf_dev_id_t dev,
  * @brief Enable port into scheduler.
  * When enabled, the port will participate
  * in scheduling and also port shaping is enabled.
+ * The scheduling speed will be set on all channels (TM Ports)
+ * starting from the port given depending on how many channels
+ * are needed to participate.
  *
  * Default: By deafult, port is enabled to schedule its traffic
  *          towards egress pipe/MAC.
@@ -730,7 +733,8 @@ bf_status_t bf_tm_sched_port_shaping_disable(bf_dev_id_t dev,
  * @param[in] speed           Speed (10G/25G/40G/50G/100G/200G/400G)
  * @return                    Status of API call.
  *  BF_SUCCESS on success
- *  Non-Zero on error
+ *  BF_IN_USE if the port is not the first one in a group of channels
+ *    needed for the given port_speed.
  */
 bf_status_t bf_tm_sched_port_enable(bf_dev_id_t dev,
                                     bf_dev_port_t port,
@@ -967,8 +971,8 @@ bf_status_t bf_tm_sched_q_shaping_enable_get_default(
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
  * @param[out] burst_size     Burst size packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @return                    Status of API call.
@@ -991,12 +995,12 @@ bf_status_t bf_tm_sched_q_shaping_rate_get(bf_dev_id_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
  * @param[out] burst_size     Burst size packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @param[out] prov_type      The rate provisioning type (OVER, UNDER,
- *MIN_ERROR)
+ *                            MIN_ERROR)
  * @return                    Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -1019,8 +1023,8 @@ bf_status_t bf_tm_sched_q_shaping_rate_get_provisioning(
  * @param[in] dev           ASIC device identifier.
  * @param[in] port          Port
  * @param[in] queue         Queue
- * @param[out] pps          If set to true, rates are applied in terms of pps
- *                          else in terms of kbps.
+ * @param[out] pps          If set to true, values are in terms of pps
+ *                          and packets, else in terms of kbps and bytes.
  * @param[out] burst_size   Burst size packets or bytes.
  * @param[out] rate         Shaper value in pps or kbps.
  * @param[out] prov_type    The rate provisioning type (OVER, UNDER, MIN_ERROR)
@@ -1045,8 +1049,8 @@ bf_status_t bf_tm_sched_q_shaping_rate_get_default(
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
  * @param[out] burst_size     Burst size packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @return                    Status of API call.
@@ -1109,8 +1113,8 @@ bf_status_t bf_tm_sched_q_guaranteed_enable_get_default(
  * @param[in] dev           ASIC device identifier.
  * @param[in] port          Port
  * @param[in] queue         Queue
- * @param[out] pps          If set to true, rates are applied in terms of pps
- *                          else in terms of kbps.
+ * @param[out] pps          If set to true, values are in terms of pps
+ *                          and packets, else in terms of kbps and bytes.
  * @param[out] burst_size   Burst size packets or bytes.
  * @param[out] rate         Shaper value in pps or kbps.
  * @param[out] prov_type    The rate provisioning type (OVER, UNDER, MIN_ERROR)
@@ -1188,8 +1192,8 @@ bf_status_t bf_tm_sched_port_shaping_enable_get(bf_dev_id_t dev,
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
  * @param[out] burst_size     Burst size packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @return                    Status of API call.
@@ -1212,8 +1216,8 @@ bf_status_t bf_tm_sched_port_shaping_rate_get(bf_dev_id_t dev,
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets else in terms of kbps and bytes.
  * @param[out] burst_size     Burst size packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @param[out] prov_type      The rate provisioning type (OVER, UNDER,
@@ -1238,7 +1242,7 @@ bf_status_t bf_tm_sched_port_shaping_rate_get_default(
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[out] pps            If set to true, rates are applied in terms of pps
+ * @param[out] pps            If set to true, values are in terms of pps
  *                            else in terms of kbps.
  * @param[out] burst_size     Burst size packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.

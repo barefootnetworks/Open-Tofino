@@ -53,6 +53,27 @@ bf_status_t bf_pal_device_warm_init_end(bf_dev_id_t dev_id);
 
 bf_status_t bf_pal_pltfm_reset_config(bf_dev_id_t dev_id);
 
+/**
+ * @brief Set error state to dvm
+ *
+ * @param[in] dev_id Device identifier (0..BF_MAX_DEV_COUNT-1)
+ * @param[in] state The error state of warm init
+ *
+ * @return BF_SUCCESS if success
+ *
+ */
+bf_status_t bf_pal_warm_init_error_set(bf_dev_id_t dev_id, bool state);
+
+/**
+ * @brief Get error state from dvm
+ *
+ * @param[in] dev_id Device identifier (0..BF_MAX_DEV_COUNT-1)
+ * @param[out] state The error state of warm init
+ *
+ * @return BF_SUCCESS if success
+ */
+bf_status_t bf_pal_warm_init_error_get(bf_dev_id_t dev_id, bool *state);
+
 // Below callbacks are local to bf-switchd
 typedef bf_status_t (*bf_pal_device_warm_init_begin_fn)(
     bf_dev_id_t dev_id,
@@ -78,6 +99,12 @@ typedef bf_status_t (*bf_pal_device_cpuif_10g_netdev_name_get_fn)(
 typedef bf_status_t (*bf_pal_device_pltfm_type_get_fn)(bf_dev_id_t dev_id,
                                                        bool *is_sw_model);
 
+typedef bf_status_t (*bf_pal_warm_init_error_set_fn)(bf_dev_id_t dev_id,
+                                                     bool state);
+
+typedef bf_status_t (*bf_pal_warm_init_error_get_fn)(bf_dev_id_t dev_id,
+                                                     bool *state);
+
 typedef struct bf_pal_dev_callbacks_s {
   bf_pal_device_warm_init_begin_fn warm_init_begin;
   bf_pal_device_add_fn device_add;
@@ -86,6 +113,8 @@ typedef struct bf_pal_dev_callbacks_s {
   bf_pal_device_cpuif_10g_netdev_name_get_fn cpuif_10g_netdev_name_get;
   bf_pal_device_pltfm_type_get_fn pltfm_type_get;
   bf_pal_device_reset_config_fn reset_config;
+  bf_pal_warm_init_error_set_fn warm_init_error_set;
+  bf_pal_warm_init_error_get_fn warm_init_error_get;
 } bf_pal_dev_callbacks_t;
 
 bf_status_t bf_pal_device_callbacks_register(bf_pal_dev_callbacks_t *callbacks);

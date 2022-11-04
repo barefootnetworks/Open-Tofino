@@ -352,7 +352,6 @@ bf_status_t bf_ts_baresync_increment_set(bf_dev_id_t dev_id,
  *   baresync increment value (baresync_ts_inc_value: 28-bit fractional ns in
  *units of 2^-28 ns)
  *
- * @return status
  *   BF_SUCCESS on success
  *   BF ERROR code on failure
  *
@@ -361,6 +360,66 @@ bf_status_t bf_ts_baresync_increment_set(bf_dev_id_t dev_id,
 bf_status_t bf_ts_baresync_increment_get(bf_dev_id_t dev_id,
                                          uint32_t *baresync_inc_time_ns,
                                          uint32_t *baresync_inc_time_fract_ns);
+
+/**
+ * @brief bf_tof2_ts_baresync_increment_set
+ *  Set the baresync increment value
+ *
+ * @param dev_id: int
+ *  chip id
+ *
+ * @param baresync_inc_time_ns:  int32
+ *   baresync increment value (baresync_ts_inc_value: 20-bit ns)
+ *
+ * @param baresync_inc_time_fract_ns:  int32
+ *   baresync increment value (baresync_ts_inc_value: 28-bit fractional ns in
+ *units of 2^-28 ns)
+ *
+ * @param baresync_inc_time_fract_den:  int32
+ *   baresync increment value (baresync_ts_inc_value: 28-bit fractional ns in
+ *units of 2^-28 ns)
+ *
+ * @return status
+ *   BF_SUCCESS on success
+ *   BF ERROR code on failure
+ *
+ */
+
+bf_status_t bf_tof2_ts_baresync_increment_set(
+    bf_dev_id_t dev_id,
+    uint32_t baresync_inc_time_ns,
+    uint32_t baresync_inc_time_fract_ns,
+    uint32_t baresync_inc_time_fract_den);
+
+/**
+ * @brief bf_tof2_ts_baresync_increment_get
+ *  Get the baresync increment value
+ *
+ * @param dev_id: int
+ *  chip id
+ *
+ * @param baresync_inc_time_ns:  int32
+ *   baresync increment value (baresync_ts_inc_value: 20-bit ns)
+ *
+ * @param baresync_inc_time_fract_ns:  int32
+ *   baresync increment value (baresync_ts_inc_value: 28-bit fractional ns in
+ *units of 2^-28 ns)
+ *
+ * @param baresync_inc_time_fract_den:  int32
+ *   baresync increment value (baresync_ts_inc_value: 28-bit fractional ns in
+ *units of 2^-28 ns)
+ *
+ * @return status
+ *   BF_SUCCESS on success
+ *   BF ERROR code on failure
+ *
+ */
+
+bf_status_t bf_tof2_ts_baresync_increment_get(
+    bf_dev_id_t dev_id,
+    uint32_t *baresync_inc_time_ns,
+    uint32_t *baresync_inc_time_fract_ns,
+    uint32_t *baresync_inc_time_fract_den);
 /**
  * @}
  */

@@ -1042,6 +1042,62 @@ p4_pd_status_t p4_pd_tm_set_mc_cut_through_pool_size(p4_pd_tm_dev_t dev,
                                                      uint32_t cells);
 
 /**
+ * @brief Set ingress global cell limit threshold
+ * This size determines total cells usage in ingress.
+ *
+ * Default: The default value of 256000 would be set for
+ *          global cell limit for Tofino 2.
+ *          This API is not applicable for Tofino 1.
+ *
+ * Related APIs:  p4_pd_tm_get_ingress_buffer_limit(),
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] cells           Size in terms of cells.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_set_ingress_buffer_limit(p4_pd_tm_dev_t dev,
+                                                 uint32_t cells);
+
+/**
+ * @brief Enables the global buffer limit threshold
+ * This state determines the usage of ingress buffer limit
+ *
+ * Default: Ingress global limit threshold is enabled by default for
+ *          Tofino 2 . This API is not applicable for Tofino 1.
+ *
+ * Related APIs:  p4_pd_tm_get_ingress_buffer_limit_state(),
+ *                p4_pd_tm_disable_ingress_buffer_limit()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_enable_ingress_buffer_limit(p4_pd_tm_dev_t dev);
+
+/**
+ * @brief Disables the global buffer limit threshold
+ * This state determines the usage of ingress buffer limit
+ *
+ * Default: Ingress global limit threshold is enabled by default for
+ *          Tofino 2 . This API is not applicable for Tofino 1.
+ *
+ * Related APIs:  p4_pd_tm_get_ingress_buffer_limit_state(),
+ *                p4_pd_tm_enable_ingress_buffer_limit().
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_disable_ingress_buffer_limit(p4_pd_tm_dev_t dev);
+
+/**
  * @brief Set egress pipe limit.
  * Default value of the pipe limit is set to maximum buffering capability
  * of the traffic manager. When admitting packet into Traffic manager,
@@ -1372,9 +1428,9 @@ p4_pd_status_t p4_pd_tm_set_q_dwrr_weight(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burstsize       Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -1399,9 +1455,9 @@ p4_pd_status_t p4_pd_tm_set_q_shaping_rate(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burstsize       Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @param[in] pd_prov_type    Shaper provisioning type {UPPER, LOWER, MIN_ERR}
  * @return                    Status of API call.
@@ -1428,9 +1484,9 @@ p4_pd_status_t p4_pd_tm_set_q_shaping_rate_provisioning(
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burstsize       Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -1590,9 +1646,9 @@ p4_pd_status_t p4_pd_tm_sched_l1_dwrr_weight_get(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] l1_node         L1 node
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -1688,9 +1744,9 @@ p4_pd_status_t p4_pd_tm_sched_l1_priority_prop_disable(
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] l1_node         L1 node
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burst_size      Burst size in packets or bytes.
  * @param[in] rate            Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -1838,9 +1894,9 @@ p4_pd_status_t p4_pd_tm_sched_l1_free(p4_pd_tm_dev_t dev,
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[in] pps             If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[in] burst_size      Burst size in pps or bytes.
+ * @param[in] pps             If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[in] burstsize       Burst size in packets or bytes.
  * @param[in] shaper          Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -1860,10 +1916,9 @@ p4_pd_status_t p4_pd_tm_set_port_shaping_rate(p4_pd_tm_dev_t dev,
  *
  * @param[in] dev               ASIC device identifier.
  * @param[in] port              Port
- * @param[in] pps               If set to true, rates are applied in terms of
- *pps
- *                              else in terms of kbps.
- * @param[in] burst_size        Burst size in pps or bytes.
+ * @param[in] pps               If set to true, values are in terms of pps
+ *                              and packets, else in terms of kbps and bytes.
+ * @param[in] burstsize         Burst size in packets or bytes.
  * @param[in] rate              Shaper value in pps or kbps.
  * @param[in] provisioning_type Shaper provisioning type {UPPER, LOWER, MIN_ERR}
  * @return                      Status of API call.
@@ -1978,6 +2033,9 @@ p4_pd_status_t p4_pd_tm_disable_port_shaping(p4_pd_tm_dev_t dev,
  * @brief Enable port into scheduler.
  * When enabled, the port will participate
  * in scheduling and also port shaping is enabled.
+ * The scheduling speed will be set on all channels (TM Ports)
+ * starting from the port given depending on how many channels
+ * are needed to participate.
  *
  * Default: By deafult, port is enabled to schedule its traffic
  *          towards egress pipe/MAC.
@@ -1989,7 +2047,8 @@ p4_pd_status_t p4_pd_tm_disable_port_shaping(p4_pd_tm_dev_t dev,
  * @param[in] port_speed      Speed (10G/25G/40G/50G/100G/200G/400G)
  * @return                    Status of API call.
  *  BF_SUCCESS on success
- *  Non-Zero on error
+ *  BF_IN_USE if the port is not the first one in a group of channels
+ *    needed for the given port_speed.
  */
 
 p4_pd_status_t p4_pd_tm_enable_port_sched(p4_pd_tm_dev_t dev,
@@ -2075,9 +2134,9 @@ p4_pd_status_t p4_pd_tm_get_q_dwrr_weight(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[out] burst_size     Burst size packets or bytes.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[out] burstsize      Burst size in packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -2100,12 +2159,12 @@ p4_pd_status_t p4_pd_tm_get_q_shaping_rate(p4_pd_tm_dev_t dev,
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[out] burst_size     Burst size packets or bytes.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[out] burstsize      Burst size in packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @param[out] pd_prov_type   The rate provisioning type (OVER, UNDER,
- *MIN_ERROR)
+ *                            MIN_ERROR)
  * @return                    Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -2128,9 +2187,9 @@ p4_pd_status_t p4_pd_tm_get_q_shaping_rate_provisioning(
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
  * @param[in] queue           Queue
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[out] burst_size     Burst size packets or bytes.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[out] burstsize      Burst size in packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -2172,9 +2231,9 @@ p4_pd_status_t p4_pd_tm_get_q_remaining_bw_sched_priority(
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[out] burst_size     Burst size packets or bytes.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[out] burstsize      Burst size in packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @return                    Status of API call.
  *  BF_SUCCESS on success
@@ -2194,9 +2253,9 @@ p4_pd_status_t p4_pd_tm_get_port_shaping_rate(p4_pd_tm_dev_t dev,
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port
- * @param[out] pps            If set to true, rates are applied in terms of pps
- *                            else in terms of kbps.
- * @param[out] burst_size     Burst size packets or bytes.
+ * @param[out] pps            If set to true, values are in terms of pps
+ *                            and packets, else in terms of kbps and bytes.
+ * @param[out] burstsize      Burst size in packets or bytes.
  * @param[out] rate           Shaper value in pps or kbps.
  * @param[out] pd_prov_type   The rate provisioning type (OVER, UNDER,
  *                            MIN_ERROR)
@@ -2758,6 +2817,41 @@ p4_pd_status_t p4_pd_tm_get_uc_cut_through_pool_size(p4_pd_tm_dev_t dev,
 p4_pd_status_t p4_pd_tm_get_mc_cut_through_pool_size(p4_pd_tm_dev_t dev,
                                                      p4_pd_pool_id_t pool_id,
                                                      uint32_t *cells);
+
+/**
+ * @brief Get ingress global cell limit threshold.
+ * This size determines total cells usage in ingress.
+ *
+ *
+ * Related APIs:  p4_pd_tm_set_ingress_buffer_limit()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] cells           Size in terms of cells.
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_get_ingress_buffer_limit(p4_pd_tm_dev_t dev,
+                                                 uint32_t *cells);
+
+/**
+ * @brief Get status of ingress global threshold usage
+ * This determines the usage of global threshold limit.
+ *
+ *
+ * Related APIs:  p4_pd_tm_enable_ingress_buffer_limit(),
+ *		  p4_pd_tm_disable_ingress_buffer_limit()
+ *
+ * @param[in] dev             ASIC device identifier.
+ * @param[in] state           enable/disble
+ * @return                    Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+
+p4_pd_status_t p4_pd_tm_get_ingress_buffer_limit_state(p4_pd_tm_dev_t dev,
+                                                       bool *state);
 
 /**
  * @brief Get Ingress port limit.
@@ -3358,21 +3452,23 @@ p4_pd_status_t p4_pd_tm_stop_cache_counters_timer(p4_pd_tm_dev_t dev);
 
 p4_pd_status_t p4_pd_tm_start_cache_counters_timer(p4_pd_tm_dev_t dev);
 
-// TM Visibility QStat API
+// TM Queue Stats reporting (QSTAT) API
 
 /**
- * @brief Set Queue visible condition.
- * Visible queues will be reported to ingress
- * MAU for Queue length cross any color threshold. (TM Visibility feature)
+ * @brief Set Queue Stats reporting visibility.
+ * "Queue Stats Reporting" (QSTAT) feature: Visible queues report its depth
+ * changes to ingress MAU depending on what reporting mode is set at the queue's
+ * egress pipe.
  *
  * Default : False
  *
  * Related APIs: bf_tm_q_visible_get()
+ *               bf_tm_qstat_report_mode_get()
  *
  * param[in] dev        ASIC device identifier.
  * param[in] port       Port handle.
  * param[in] queue      Queue for port.
- * param[in] visible    Desired visiblity state.
+ * param[in] visible    QSTAT reporting visibility of the queue.
  * return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -3384,18 +3480,20 @@ p4_pd_status_t p4_pd_tm_q_visible_set(p4_pd_tm_dev_t dev,
                                       bool visible);
 
 /**
- * @brief Get queue visible condition.
- * Visible queues will be reported to ingress
- * MAU for Queue length cross any color threshold. (TM Visibility feature)
+ * @brief Get Queue Stats reporting visibility.
+ * "Queue Stats Reporting" (QSTAT) feature: Visible queues report its depth
+ * changes to ingress MAU depending on what reporting mode is set at the queue's
+ * egress pipe.
  *
  * Default : False
  *
  * Related APIs: bf_tm_q_visible_set()
+ *               bf_tm_qstat_report_mode_set()
  *
  * param[in] dev            ASIC device identifier.
  * param[in] port           Port handle.
  * param[in] queue          Queue for port.
- * param[out] visible       Visible Status in Driver HW.
+ * param[out] visible       QSTAT reporting visibility of the queue.
  * return                   Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -3407,17 +3505,18 @@ p4_pd_status_t p4_pd_tm_q_visible_get(p4_pd_tm_dev_t dev,
                                       bool *visible);
 
 /**
- * @brief Egress Pipe Queue States Reporting Mode
- * False: Trigger Qstat reporting from Q color threshold
- * True: Trigger Qstat reporting from Q any updates
+ * @brief Set Egress Pipe Queue Stats Reporting (QSTAT) mode
+ * Only QSTAT visible queues at the pipe are participating in reporting.
+ * False: Trigger QSTAT reporting on Q color threshold crosses.
+ * True: Trigger QSTAT reporting on any Q depth updates.
  *
  * Default: 0
  *
- * Related APIs: bf_tm_pipe_egress_hysteresis_set()
+ * Related APIs: bf_tm_q_visible_set()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[in] mode       Queue states reporting mode.
+ * @param[in] mode       Queue statistics reporting mode.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -3428,17 +3527,18 @@ p4_pd_status_t p4_pd_tm_qstat_report_mode_set(p4_pd_tm_dev_t dev,
                                               bool mode);
 
 /**
- * @brief Get Egress Pipe Queue States Reporting Mode
- * False: Trigger Qstat reporting from Q color threshold
- * True: Trigger Qstat reporting from Q any updates
+ * @brief Get Egress Pipe Queue Stats Reporting (QSTAT) mode
+ * Only QSTAT visible queues at the pipe are participating in reporting.
+ * False: Trigger QSTAT reporting of Q color threshold crosses.
+ * True: Trigger QSTAT reporting of any Q depth updates.
  *
  * Default: 0
  *
- * Related APIs: bf_tm_pipe_egress_hysteresis_set()
+ * Related APIs: bf_tm_q_visible_get()
  *
  * @param[in] dev        ASIC device identifier.
  * @param[in] pipe       Pipe Identifier.
- * @param[out] mode      Queue states reporting mode.
+ * @param[out] mode      Queue statistics reporting mode.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error

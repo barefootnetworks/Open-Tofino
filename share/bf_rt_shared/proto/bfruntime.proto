@@ -9,6 +9,7 @@ syntax = "proto3";
 import "google/rpc/status.proto";
 
 package bfrt_proto;
+option go_package = "./bfrt_proto";
 
 service BfRuntime {
   // Update one or more P4 entities on the target.
@@ -104,6 +105,7 @@ message Update {
     // existing table entry incrementally.
     MODIFY_INC = 3;
     DELETE = 4;
+    INSERT_OR_MODIFY = 5;
   }
 
   Type type = 1;
@@ -306,9 +308,9 @@ message Mode {
   }
   oneof scope {
     PredefinedMode predef = 1;
-    uint32 user_defined = 2;
+    uint64 user_defined = 2;
   }
-  uint32 args = 3;
+  uint64 args = 3;
 }
 
 message PreGlobalRid { uint32 global_rid = 1; }
@@ -394,6 +396,10 @@ message Subscribe {
         3; // Enable port status change notifications. These notifications are
            // device based and so they will be triggered whether a client is
            // bound to a program or not.
+    bool enable_entry_active_notifications =
+        4; // Enable entry active notifications. These are on per table basis and
+           // hence (device, P4-Program) based so these will be triggered only
+           // after a client binds to a program.
   }
   Notifications notifications = 3; // Contains which notifications need to be
                                    // enabled for this client. Default value of
@@ -441,6 +447,11 @@ message IdleTimeoutNotification {
   // Only "key" fields are required to be set in each TableEntry.
   TargetDevice target = 1;
   TableEntry table_entry = 2;
+  enum NotificationType {
+    ENTRY_ACTIVE = 0; // Entry changed from idle to active
+    ENTRY_IDLE = 1; // Entry changed from active to idle
+  }
+  NotificationType type = 3;
 }
 
 message PortStatusChgNotification {

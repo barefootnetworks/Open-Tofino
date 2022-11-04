@@ -76,6 +76,20 @@ p4_pd_status_t p4_devport_mgr_add_port_with_lanes(uint32_t dev_id,
  */
 p4_pd_status_t p4_devport_mgr_remove_port(uint32_t dev_id, uint32_t port_id);
 
+/**
+ * @brief Enable or Disable a device port.
+ *
+ * @param[in] dev_id The ASIC id.
+ * @param[in] port_id The ASIC port id.
+ * @param[in] enable True for enable of False for disable the port.
+ *
+ * @return Status of the API call.
+ *
+ */
+p4_pd_status_t p4_devport_mgr_enable_port(uint32_t dev_id,
+                                          uint32_t port_id,
+                                          bool enable);
+
 /** This is an internal function used for testing only */
 int p4_devport_mgr_port_ca_get(const int32_t dev_id, const int32_t port_id);
 

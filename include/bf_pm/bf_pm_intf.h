@@ -10,6 +10,7 @@
 // File includes
 #include <tofino/bf_pal/bf_pal_types.h>
 #include <port_mgr/bf_port_if.h>
+#include <dvm/bf_drv_intf.h>
 
 // Public Functions
 
@@ -327,6 +328,21 @@ bf_status_t bf_pm_port_adv_speed_set(const bf_dev_id_t dev_id,
                                      bf_pal_front_port_handle_t *port_hdl,
                                      const bf_port_speed_t *adv_speed_arr,
                                      const uint32_t adv_speed_cnt);
+
+/**
+ * @brief Set array of the advertised fecs for a port
+ *
+ * @param[in] dev_id Device id
+ * @param[in] port_hdl Front panel port number
+ * @param[in] adv_fec_arr Array of advertised fecs for the port
+ * @param[in] adv_fec_cnt Number of advertised fecs in array
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_adv_fec_set(const bf_dev_id_t dev_id,
+                                   bf_pal_front_port_handle_t *port_hdl,
+                                   const bf_fec_type_t *adv_fec_arr,
+                                   const uint32_t adv_fec_cnt);
 
 /**
  * @brief Enable/Disable KR Mode for a port
@@ -675,6 +691,25 @@ bf_status_t bf_pm_port_this_stat_get(bf_dev_id_t dev_id,
                                      uint64_t *stat_val);
 
 /**
+ * @brief Get a particular stat counter for a port
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ * @param ctr_type Counter id
+ * @param stat_val Value of the counter
+ * @param timestamp Time stamp of the last stats update, struct timespec:sec and
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_this_stat_get_with_timestamp(
+    bf_dev_id_t dev_id,
+    bf_pal_front_port_handle_t *port_hdl,
+    bf_rmon_counter_t ctr_type,
+    uint64_t *stat_val,
+    int64_t *timestamp_s,
+    int64_t *timestamp_ns);
+
+/**
  * @brief Get all stat counters for a port
  *
  * @param dev_id Device id
@@ -933,8 +968,8 @@ bf_status_t bf_pm_port_serdes_tx_eq_main_get(
  *
  * @return Status of the API call
  */
-bf_status_t bf_pm_port_fsm_init(bf_dev_id_t dev_id,
-                                bf_pal_front_port_handle_t *port_hdl);
+bf_status_t bf_pm_port_fsm_init_in_down_state(
+    bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl);
 
 /**
  * @brief Add a port FSM as a scheduled tasklet to bring up the port and
@@ -1013,6 +1048,19 @@ bf_status_t bf_pm_internal_ports_init(bf_dev_id_t dev_id);
 bf_status_t bf_pm_is_port_internal(bf_dev_id_t dev_id,
                                    bf_pal_front_port_handle_t *port_hdl,
                                    bool *is_internal);
+
+/**
+ * @brief Return if a particular port is added
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ * @param is_added Indicates if the port is added
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_is_port_added(bf_dev_id_t dev_id,
+                                bf_pal_front_port_handle_t *port_hdl,
+                                bool *is_added);
 
 /**
  * @brief Set default configuration (passed in by the platforms module) for a
@@ -1101,10 +1149,10 @@ bf_status_t bf_pm_port_get_rs_fec_counters(bf_dev_id_t dev_id,
  *
  * @return Status of the API call
  */
-bf_status_t bf_pm_port_get_rs_fec_ser_lane_cnt_tof1(bf_dev_id_t dev_id,
-                                                    bf_dev_port_t dev_port,
-                                                    uint32_t lane_id,
-                                                    uint32_t *fec_ser_lane);
+bf_status_t bf_pm_port_get_rs_fec_ser_lane_cnt(bf_dev_id_t dev_id,
+                                               bf_dev_port_t dev_port,
+                                               uint32_t lane_id,
+                                               uint32_t *fec_ser_lane);
 /**
  * @brief Gets cumulative FC fec counters
  *
@@ -1284,15 +1332,6 @@ bool bf_pm_intf_is_device_family_tofino2(bf_dev_id_t dev_id);
  * @return True if device-family is tofino
  */
 bool bf_pm_intf_is_device_family_tofino(bf_dev_id_t dev_id);
-
-/**
- * @brief Given a dev id, return true if it tofino3
- *
- * @param dev_id Device id
- *
- * @return True if device-family is tofino3
- */
-bool bf_pm_intf_is_device_family_tofino3(bf_dev_id_t dev_id);
 
 /**
  * @brief Sets the serdes rx and tx polarity
@@ -1590,7 +1629,7 @@ bf_status_t bf_pm_port_debounce_thresh_get(bf_dev_id_t dev_id,
                                            bf_pal_front_port_handle_t *port_hdl,
                                            uint32_t *debounce_value);
 
-bf_status_t bf_pm_init_platform(void);
+bf_status_t bf_pm_init_platform(bf_dev_init_mode_t warm_init_mode);
 
 /**
  * @brief Get the AN advertisement speed for the port
@@ -1606,4 +1645,105 @@ bf_an_adv_speeds_t bf_pm_get_an_adv_speed(bf_dev_id_t dev_id,
                                           bf_dev_port_t dev_port,
                                           bf_port_speed_t speed,
                                           uint32_t n_lanes);
+
+/**
+ * @brief Initialise the Port and Mac Map mutex.
+ */
+void bf_pm_port_mac_map_mtx_init(void);
+
+/**
+ * @brief Delete the Port and Mac Map mutex.
+ */
+void bf_pm_port_mac_map_mtx_del(void);
+
+/**
+ * @brief Set the 1588 Ingress timestamp delta value for the port
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param Ingress timestamp delta value (nanosec) for the given port
+ *
+ * @return Status of the API call
+ */
+
+bf_status_t bf_pm_port_1588_timestamp_delta_rx_set(
+    bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl, uint16_t delta);
+
+/**
+ * @brief Get the 1588 Ingress timestamp delta value for the port
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ *
+ * @param Ingress timestamp delta value (nanosec) for the port
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_1588_timestamp_delta_rx_get(
+    bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl, uint16_t *delta);
+/**
+ * @brief Get the 1588 Egress timestamp delta value for the port
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param Egress timestamp delta value the port
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_1588_timestamp_delta_tx_set(
+    bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl, uint16_t delta);
+/**
+ * @brief Get the 1588 Egress timestamp delta value for the port
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ *
+ * @param Ingress timestamp delta value pointer
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_1588_timestamp_delta_tx_get(
+    bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl, uint16_t *delta);
+/**
+ * @brief Get the 1588 timestamp value for the port
+ *
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ *
+ * @param timestamp value validity pointer,
+ *        if validity = false then ts value and ts id is not valid
+ * @param timestamp value pointer
+ * @param timestamp id  pointer
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_1588_timestamp_get(bf_dev_id_t dev_id,
+                                          bf_pal_front_port_handle_t *port_hdl,
+                                          uint64_t *ts,
+                                          bool *ts_valid,
+                                          int *ts_id);
+
+/**
+ * @brief Get the packet rate for a port
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ * @param pkt_rate Packet rate of a port
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_pm_port_pkt_rate_get(bf_dev_id_t dev_id,
+                                    bf_pal_front_port_handle_t *port_hdl,
+                                    bf_pkt_rate_t *pkt_rate);
+
+/**
+ * @brief Set polarity setting for the specified port.
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ *
+ * @return Status of the API call
+ */
+
+bf_status_t bf_pm_port_multi_serdes_polarity_set(
+    bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl);
+
+void bf_pm_fsm_queues_init(void);
 #endif

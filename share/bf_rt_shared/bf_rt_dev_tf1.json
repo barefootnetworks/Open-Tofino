@@ -25,7 +25,8 @@
                 "BFN-T10-032Q",
                 "BFN-T10-032D",
                 "BFN-T10-032D-020",
-                "BFN-T10-032D-018"
+                "BFN-T10-032D-018",
+                "BFN-T10-032D-012"
               ],
               "default_value": "UNKNOWN"
             }
@@ -196,6 +197,20 @@
           "singleton": {
             "id": 14,
             "name": "inactive_node_delete",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "bool",
+              "default_value": false
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 15,
+            "name": "selector_member_order",
             "repeated": false,
             "annotations": [],
             "type": {

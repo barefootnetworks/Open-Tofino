@@ -404,18 +404,20 @@ bf_status_t bf_tm_q_shadow_drop_state_clear(bf_dev_id_t dev,
                                             bf_tm_queue_t queue);
 
 /**
- * @brief Set Queue visible condition.
- * Visible queues will be reported to ingress
- * MAU for Queue length cross any color threshold. (TM Visibility feature)
+ * @brief Set Queue Stats reporting visibility.
+ * "Queue Stats Reporting" (QSTAT) feature: Visible queues report its depth
+ * changes to ingress MAU depending on what reporting mode is set at the queue's
+ * egress pipe.
  *
  * Default : False
  *
  * Related APIs: bf_tm_q_visible_get()
+ *               bf_tm_qstat_report_mode_get()
  *
  * param[in] dev        ASIC device identifier.
  * param[in] port       Port handle.
  * param[in] queue      Queue for port.
- * param[in] visible    Desired visiblity state.
+ * param[in] visible    QSTAT reporting visibility of the queue.
  * return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -426,19 +428,21 @@ bf_status_t bf_tm_q_visible_set(bf_dev_id_t dev,
                                 bool visible);
 
 /**
- * @brief Get queue visible condition.
- * Visible queues will be reported to ingress
- * MAU for Queue length cross any color threshold. (TM Visibility feature)
+ * @brief Get Queue Stats reporting visibility.
+ * "Queue Stats Reporting" (QSTAT) feature: Visible queues report its depth
+ * changes to ingress MAU depending on what reporting mode is set at the queue's
+ * egress pipe.
  *
  * Default : False
  *
  * Related APIs: bf_tm_q_visible_set()
+ *               bf_tm_qstat_report_mode_set()
  *
  * param[in] dev            ASIC device identifier.
  * param[in] port           Port handle.
  * param[in] queue          Queue for port.
- * param[out] visible_sw    Visible Status in Driver SW.
- * param[out] visible_hw    Visible Status in HW.
+ * param[out] visible_sw    QSTAT reporting visibility of the queue in sW.
+ * param[out] visible_hw    QSTAT reporting visibility of the queue in HW.
  * return                   Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
@@ -450,15 +454,18 @@ bf_status_t bf_tm_q_visible_get(bf_dev_id_t dev,
                                 bool *visible_hw);
 
 /**
- * @brief bf_tm_q_visible_get_default
- * Default visible condition. Visible queues will be reported to ingress
- * MAU for Queue length cross any color threshold. (TM Visibility feature)
+ * @brief Get Queue Stats default reporting visibility.
+ * "Queue Stats Reporting" (QSTAT) feature: Visible queues report its depth
+ * changes to ingress MAU depending on what reporting mode is set at the queue's
+ * egress pipe.
+ *
+ * Default : False
  *
  * Related APIs: bf_tm_q_visible_get()
  *
- * param[in] dev       ASIC device identifier.
- * param[out] visible  Default visiblity state.
- * return              Status of API call.
+ * param[in] dev            ASIC device identifier.
+ * param[out] visible       QSTAT default reporting visibility of a queue.
+ * return                   Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
  */

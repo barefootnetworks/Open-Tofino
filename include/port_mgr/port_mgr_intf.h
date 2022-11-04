@@ -40,4 +40,6 @@ bf_status_t bf_bind_mac_stats_cb(bf_dev_id_t dev_id,
                                  bf_mac_stats_callback_t fn);
 
 void port_mgr_init(void);
+bf_status_t port_mgr_stats_persistent_get(bf_dev_id_t dev_id, bool *enable);
+bf_status_t port_mgr_stats_persistent_set(bf_dev_id_t dev_id, bool enable);
 #endif  // port_mgr_intf_included

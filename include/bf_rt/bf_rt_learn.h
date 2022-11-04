@@ -22,8 +22,9 @@ extern "C" {
  * @brief C Learn Callback Function. This gets called upon receiving
  * learn digests from the device.
  * Only one cb can be associated with a Learn object at a time.
- * If a session already has registered, then another session cannot overwrite
- *
+ * If a session already has registered, then another session cannot overwrite.
+ * Do not deallocate/free bf_rt_table_key_hdl *key, this is taken care
+ * by bfrt internal_callback function.
  * @param[in] bf_rt_tgt Bf Rt target associated with the learn data
  * @param[in] session Session object
  * @param[in] learnData Array of learn data objects
@@ -34,7 +35,7 @@ extern "C" {
 typedef bf_status_t (*bf_rt_cb_function)(
     const bf_rt_target_t *bf_rt_tgt,
     const bf_rt_session_hdl *session,
-    bf_rt_learn_data_hdl **learnData,
+    const bf_rt_learn_data_hdl **learnData,
     uint32_t num,
     bf_rt_learn_msg_hdl *const learn_msg_hdl,
     const void *cookie);
