@@ -57,19 +57,31 @@
  *                         :
  *
  * NOTE: If this API gets called for changing the queue carving (queue count),
- * then application should
+ * then application must consider the following:
  *   - always call queue mapping APIs strictly in increasing order of ports
- *      within a port group
+ *     within a port group.
  *   - if queue count gets changed for a port/channel in a port group,
- *      then application should call the queue mapping APIs
- *      for rest of the ports after it (if present) in that port group in
- *      increasing order
- *   - if queue count gets changed, then calling this API while traffic
- *      running on any port within the port group is not recommended as
- *      traffic would be disrupted for a short period of time and buffer
- *      accounting would be inconsistent
- * The above restrictions are not applicable if just queue mapping gets changed
- *
+ *     then application must call the queue mapping APIs
+ *     for rest of the ports after it (if present) in that port group in
+ *     increasing order.
+ *   - when several TM ports are configured for a single PM port as 'channels'
+ *     with the same scheduling speed (e.g. 2 TM ports for 100Gb port,
+ *     or 4 TM ports for 200Gb etc.), then only the first of TM ports will
+ *     get HW resources allocated for its queues. Other TM ports may
+ *     have empty map with zero q_count.
+ *   - port scheduling speed affects amount of hardware resources which is
+ *     needed per each queue to serve at the scheduling speed, so it might
+ *     happen that the total number of queues requested is too large to
+ *     allocate from the port's group common HW resources.
+ *   - when a PM port is added, then its related TM ports (channels) become
+ *     enabled for TM scheduling and their queue carving is applied to
+ *     assign TM hardware resources to queues, so it is recommended to add
+ *     PM ports following ascending order in each port group; PM port delete
+ *     releases HW queue resources in the port group scope.
+ *   - if port scheduling speed, or queue count gets changed, then calling
+ *     this API while traffic is running on any port within the port group
+ *     may cause traffic disrupted for a short period of time and buffer
+ *     accounting would be inconsistent.
  *
  * Related APIs: bf_tm_port_q_mapping_get()
  *
@@ -154,6 +166,7 @@ bf_status_t bf_tm_port_q_mapping_speed_set(bf_dev_id_t dev,
  * Default: Queues are not assigned to any application pool.
  *
  * Related APIs: bf_tm_q_app_pool_usage_get()
+ *               bf_tm_sched_port_enable()
  *
  * @param[in] dev             ASIC device identifier.
  * @param[in] port            Port handle.

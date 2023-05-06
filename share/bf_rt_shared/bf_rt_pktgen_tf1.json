@@ -95,6 +95,14 @@
             "pipe_id"
           ],
           "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset writable datafields to default values."
         }
       }
     },
@@ -405,6 +413,14 @@
         "tableUsageGet": {
           "target_attributes": [],
           "description": "This API returns table size as this is fixed table."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset writable datafields to default values."
         }
       }
     },
@@ -470,6 +486,14 @@
             "pipe_id"
           ],
           "description": "Retrieves an existing Pktgen object specified in the key fields and populates all the corresponding data fields."
+        },
+        "tableClear": {
+          "target_attributes": [
+            "dev_id",
+            "pipe_id",
+            "pipe_all"
+          ],
+          "description": "This API is used to reset writable datafields to default values."
         }
       }
     }

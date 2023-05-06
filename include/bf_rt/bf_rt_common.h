@@ -73,6 +73,8 @@ typedef enum bf_rt_flag_offset_t {
   BF_RT_INC_DEL = 1,
   /** Flag used to skip TTL reset when modifying entry. */
   BF_RT_SKIP_TTL_RESET = 2,
+  /** Flag used to skip direct stats reset when modifying entry. */
+  BF_RT_SKIP_STAT_RESET = 3,
 } bf_rt_flag_offset_t;
 
 // C frontend typedefs

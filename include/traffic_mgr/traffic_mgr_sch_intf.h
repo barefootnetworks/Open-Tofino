@@ -793,10 +793,46 @@ bf_status_t bf_tm_sched_q_adv_fc_mode_set(bf_dev_id_t dev,
  *  BF_SUCCESS on success
  *  Non-Zero on error
  */
-
 bf_status_t bf_tm_sched_adv_fc_mode_enable_set(bf_dev_id_t dev,
                                                bf_dev_pipe_t pipe,
                                                bool enable);
+
+/**
+ * @brief Set queue PFC status
+ *
+ * Related APIs: bf_tm_sched_q_egress_pfc_status_get(),
+ *               bf_tm_sched_q_egress_pfc_status_clear()
+ *
+ * @param[in] dev       ASIC device identifier.
+ * @param[in] port      port
+ * @param[in] queue     queue
+ * @param[in] status    Egress Queue PFC Status - True or False value of
+ *                      pfc_pause
+ * @return              Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_egress_pfc_status_set(bf_dev_id_t dev,
+                                                bf_dev_port_t port,
+                                                bf_tm_queue_t queue,
+                                                bool status);
+
+/**
+ * @brief Clear queue PFC status
+ *
+ * Related APIs: bf_tm_sched_q_egress_pfc_status_get(),
+ *               bf_tm_sched_q_egress_pfc_status_set()
+ *
+ * @param[in] dev       ASIC device identifier.
+ * @param[in] port      port
+ * @param[in] queue     queue
+ * @return              Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_egress_pfc_status_clear(bf_dev_id_t dev,
+                                                  bf_dev_port_t port,
+                                                  bf_tm_queue_t queue);
 
 /* @} */
 
@@ -863,7 +899,29 @@ bf_status_t bf_tm_sched_q_dwrr_weight_get(bf_dev_id_t dev,
                                           bf_dev_port_t port,
                                           bf_tm_queue_t queue,
                                           uint16_t *weight);
-
+/*
+ * Get queue scheduling speed capability.
+ * When a queue is carved on its port configured at some line rate
+ * and port scheduling speed, then the queue becomes assigned to
+ * appropriate HW scheduling capacity not worse than the port's
+ * scheduling speed.
+ *
+ * Related APIs: bf_tm_sched_port_enable(),
+ *               bf_tm_port_q_mapping_set()
+ *
+ * @param[in]  dev    ASIC device identifier.
+ * @param[in]  port   Port
+ * @param[in]  queue  Queue
+ * @param[out] speed  Current scheduling speed capability of the queue.
+ *                    BF_SPEED_NONE if not assigned to HW resources.
+ * @return            Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_sched_q_speed_get(bf_dev_id_t dev,
+                                    bf_dev_port_t port,
+                                    bf_tm_queue_t queue,
+                                    bf_port_speeds_t *speed);
 /*
  * Get queue shaping guaranteed rate enable status.
  *

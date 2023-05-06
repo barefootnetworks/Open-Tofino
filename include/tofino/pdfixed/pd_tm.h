@@ -52,10 +52,34 @@ typedef enum {
   PD_INGRESS_POOL_1,
   PD_INGRESS_POOL_2,
   PD_INGRESS_POOL_3,
+
+
+
+
+
+
+
+
+
+
+
+
   PD_EGRESS_POOL_0,
   PD_EGRESS_POOL_1,
   PD_EGRESS_POOL_2,
   PD_EGRESS_POOL_3,
+
+
+
+
+
+
+
+
+
+
+
+
 } p4_pd_pool_id_t;
 
 typedef enum {
@@ -447,19 +471,31 @@ p4_pd_status_t p4_pd_tm_set_guaranteed_min_skid_hysteresis(p4_pd_tm_dev_t dev,
  *                         :
  *
  * NOTE: If this API gets called for changing the queue carving (queue count),
- * then application should
+ * then application must consider the following:
  *   - always call queue mapping APIs strictly in increasing order of ports
- *      within a port group
+ *     within a port group.
  *   - if queue count gets changed for a port/channel in a port group,
- *      then application should call the queue mapping APIs
- *      for rest of the ports after it (if present) in that port group in
- *      increasing order
- *   - if queue count gets changed, then calling this API while traffic
- *      running on any port within the port group is not recommended as
- *      traffic would be disrupted for a short period of time and buffer
- *      accounting would be inconsistent
- * The above restrictions are not applicable if just queue mapping gets changed
- *
+ *     then application must call the queue mapping APIs
+ *     for rest of the ports after it (if present) in that port group in
+ *     increasing order.
+ *   - when several TM ports are configured for a single PM port as 'channels'
+ *     with the same scheduling speed (e.g. 2 TM ports for 100Gb port,
+ *     or 4 TM ports for 200Gb etc.), then only the first of TM ports will
+ *     get HW resources allocated for its queues. Other TM ports may
+ *     have empty map with zero q_count.
+ *   - port scheduling speed affects amount of hardware resources which is
+ *     needed per each queue to serve at the scheduling speed, so it might
+ *     happen that the total number of queues requested is too large to
+ *     allocate from the port's group common HW resources.
+ *   - when a PM port is added, then its related TM ports (channels) become
+ *     enabled for TM scheduling and their queue carving is applied to
+ *     assign TM hardware resources to queues, so it is recommended to add
+ *     PM ports following ascending order in each port group; PM port delete
+ *     releases HW queue resources in the port group scope.
+ *   - if port scheduling speed, or queue count gets changed, then calling
+ *     this API while traffic is running on any port within the port group
+ *     may cause traffic disrupted for a short period of time and buffer
+ *     accounting would be inconsistent.
  *
  * Related APIs: p4_pd_tm_get_port_q_mapping()
  *
@@ -1046,7 +1082,7 @@ p4_pd_status_t p4_pd_tm_set_mc_cut_through_pool_size(p4_pd_tm_dev_t dev,
  * This size determines total cells usage in ingress.
  *
  * Default: The default value of 256000 would be set for
- *          global cell limit for Tofino 2.
+ *          global cell limit for Tofino 2 and Tofino 3.
  *          This API is not applicable for Tofino 1.
  *
  * Related APIs:  p4_pd_tm_get_ingress_buffer_limit(),
@@ -1066,7 +1102,7 @@ p4_pd_status_t p4_pd_tm_set_ingress_buffer_limit(p4_pd_tm_dev_t dev,
  * This state determines the usage of ingress buffer limit
  *
  * Default: Ingress global limit threshold is enabled by default for
- *          Tofino 2 . This API is not applicable for Tofino 1.
+ *          Tofino 2 and Tofino 3. This API is not applicable for Tofino 1.
  *
  * Related APIs:  p4_pd_tm_get_ingress_buffer_limit_state(),
  *                p4_pd_tm_disable_ingress_buffer_limit()
@@ -1084,7 +1120,7 @@ p4_pd_status_t p4_pd_tm_enable_ingress_buffer_limit(p4_pd_tm_dev_t dev);
  * This state determines the usage of ingress buffer limit
  *
  * Default: Ingress global limit threshold is enabled by default for
- *          Tofino 2 . This API is not applicable for Tofino 1.
+ *          Tofino 2 and Tofino 3. This API is not applicable for Tofino 1.
  *
  * Related APIs:  p4_pd_tm_get_ingress_buffer_limit_state(),
  *                p4_pd_tm_enable_ingress_buffer_limit().

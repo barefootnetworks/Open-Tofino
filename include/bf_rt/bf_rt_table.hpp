@@ -327,8 +327,10 @@ class BfRtTable {
     /** If entry does not exist, perform entry Add otherwise perform entry
        Mod.*/
     ADD_OR_MOD = 15,
+    /** Entry Reset.*/
+    RESET = 16,
     /** Invalid not supported API. */
-    INVALID_API = 16
+    INVALID_API = 17
   };
 
   /**
@@ -749,6 +751,21 @@ class BfRtTable {
   virtual bf_status_t tableClear(const BfRtSession &session,
                                  const bf_rt_target_t &dev_tgt,
                                  const uint64_t &flags) const = 0;
+
+  /**
+   * @brief Reset an entry to default value
+   *
+   * @param[in] session Session Object
+   * @param[in] dev_tgt Device target
+   * @param[in] flags Call flags
+   * @param[in] key Entry Key
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t tableEntryReset(const BfRtSession &session,
+                                      const bf_rt_target_t &dev_tgt,
+                                      const uint64_t &flags,
+                                      const BfRtTableKey &key) const = 0;
 
   /**
    * @brief Set the default Entry of the table

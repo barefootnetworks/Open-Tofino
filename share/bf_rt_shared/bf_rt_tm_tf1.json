@@ -1028,7 +1028,7 @@
               "id": 1,
               "name": "green_limit_cells",
               "repeated": false,
-              "mandatory": true,
+              "mandatory": false,
               "annotations": [],
               "type": {
                 "type": "uint32"
@@ -1038,7 +1038,7 @@
               "id": 2,
               "name": "yellow_limit_cells",
               "repeated": false,
-              "mandatory": true,
+              "mandatory": false,
               "annotations": [],
               "type": {
                 "type": "uint32"
@@ -1048,7 +1048,7 @@
               "id": 3,
               "name": "red_limit_cells",
               "repeated": false,
-              "mandatory": true,
+              "mandatory": false,
               "annotations": [],
               "type": {
                 "type": "uint32"

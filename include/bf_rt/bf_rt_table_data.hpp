@@ -41,6 +41,7 @@ enum class DataType {
   STRING = 6,
   BOOL = 7,
   STRING_ARR = 8,
+  INT64 = 9,
 };
 
 /**
@@ -131,6 +132,17 @@ class BfRtTableData {
    */
   virtual bf_status_t setValue(const bf_rt_id_t &field_id,
                                const float &value) = 0;
+
+  /**
+   * @brief Set value. Valid only on fields with int type
+   *
+   * @param[in] field_id Field ID
+   * @param[in] value int value
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t setValue(const bf_rt_id_t &field_id,
+                               const int64_t &value) = 0;
 
   /**
    * @brief Set value. Valid only on fields with bool type
@@ -242,6 +254,17 @@ class BfRtTableData {
    */
   virtual bf_status_t getValue(const bf_rt_id_t &field_id,
                                std::vector<std::string> *arr) const = 0;
+
+  /**
+   * @brief Get value. Valid on fields of int type
+   *
+   * @param[in] field_id Field ID
+   * @param[out] value Pointer to the int value to be filled in.
+   *
+   * @return Status of the API call
+   */
+  virtual bf_status_t getValue(const bf_rt_id_t &field_id,
+                               int64_t *value) const = 0;
 
   /**
    * @brief Get value. Valid on fields of float type

@@ -30,6 +30,7 @@ typedef enum bf_rt_data_field_type_ {
   STRING = 6,
   BOOL = 7,
   STRING_ARR = 8,
+  INT64 = 9,
 } bf_rt_data_type_t;
 
 /**
@@ -48,6 +49,19 @@ typedef enum bf_rt_data_field_type_ {
 bf_status_t bf_rt_data_field_set_value(bf_rt_table_data_hdl *data_hdl,
                                        const bf_rt_id_t field_id,
                                        const uint64_t val);
+
+/**
+ * @brief Set value. Valid only on fields with int type
+ *
+ * @param[in] data_hdl  Data object handle
+ * @param[in] field_id  Field ID
+ * @param[in] val       int value
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_data_field_set_int64(bf_rt_table_data_hdl *data_hdl,
+                                       const bf_rt_id_t field_id,
+                                       const int64_t val);
 
 /**
  * @brief Set value. Valid only on fields with float type
@@ -254,6 +268,19 @@ bf_status_t bf_rt_data_field_get_value_bool_array_size(
  */
 bf_status_t bf_rt_data_field_get_value_bool_array(
     const bf_rt_table_data_hdl *data_hdl, const bf_rt_id_t field_id, bool *val);
+
+/**
+ * @brief Get value. Valid on fields of int type
+ *
+ * @param[in] data_hdl          Data object handle
+ * @param[in] field_id          Field ID
+ * @param[out] val              Pointer to the int value to be filled in.
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_data_field_get_int64(const bf_rt_table_data_hdl *data_hdl,
+                                       const bf_rt_id_t field_id,
+                                       int64_t *val);
 
 /**
  * @brief Get value. Valid on fields of float type

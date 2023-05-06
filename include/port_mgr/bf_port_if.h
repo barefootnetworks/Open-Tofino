@@ -609,9 +609,11 @@ typedef struct bf_pkt_rate_t {
 typedef void (*bf_port_mac_stat_callback_t)(bf_dev_id_t dev_id,
                                             bf_dev_port_t dev_port,
                                             bf_rmon_counter_array_t *ctrs,
+                                            uint64_t dma_timestamp_nsec,
                                             void *userdata);
 
 bf_status_t bf_port_mgr_init(void);
+bf_status_t bf_port_mgr_intbh_init(void);
 bf_status_t bf_port_rmon_counter_to_str(bf_rmon_counter_t ctr, char **str);
 
 // callback for customer notifications
@@ -705,6 +707,9 @@ bf_status_t bf_port_autoneg_config_set(bf_dev_id_t dev_id,
 bf_status_t bf_port_autoneg_state_get(bf_dev_id_t dev_id,
                                       bf_dev_port_t dev_port,
                                       bf_an_state_e *an_st);
+bf_status_t bf_port_autoneg_ext_log_ena(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        bool an_log_ena);
 bf_status_t bf_port_autoneg_hcd_fec_resolve(bf_dev_id_t dev_id,
                                             bf_dev_port_t dev_port,
                                             uint64_t tx_base_page,
@@ -754,6 +759,8 @@ bf_status_t bf_port_mtu_get(bf_dev_id_t dev_id,
                             bf_dev_port_t dev_port,
                             uint32_t *tx_mtu,
                             uint32_t *rx_mtu);
+bf_status_t bf_port_max_mtu_get(bf_dev_id_t dev_id, uint32_t *max_mtu);
+
 bf_status_t bf_port_txff_truncation_set(bf_dev_id_t dev_id,
                                         bf_dev_port_t port,
                                         uint32_t size,
@@ -1059,6 +1066,8 @@ bf_status_t bf_port_oper_state_get_skip_intr_check(bf_dev_id_t dev_id,
                                                    int *state);
 bf_status_t bf_port_oper_state_callbacks_issue_with_intr_check(
     bf_dev_id_t dev_id, bf_dev_port_t dev_port);
+bf_status_t bf_port_intr_oper_state_callbacks_issue(bf_dev_id_t dev_id,
+                                                    bf_dev_port_t dev_port);
 bf_status_t bf_port_serdes_los_get(bf_dev_id_t dev_id,
                                    bf_dev_port_t dev_port,
                                    int *state);
@@ -1081,6 +1090,17 @@ bf_status_t bf_serdes_an_lp_pages_get(bf_dev_id_t dev_id,
                                       uint64_t *lp_base_page,
                                       uint64_t *lp_next_page1,
                                       uint64_t *lp_next_page2);
+bf_status_t bf_serdes_an_rcv_pages_get(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       bf_an_page_sel_t page_selector,
+                                       uint64_t *link_codeword_p);
+bf_status_t bf_serdes_an_hcd_index_get(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       int *hcd_ndx);
+bf_status_t bf_serdes_an_loc_pages_get(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       bf_an_page_sel_t page_selector,
+                                       uint64_t *link_codeword_p);
 bf_status_t bf_serdes_an_lp_pages_save(bf_dev_id_t dev_id,
                                        bf_dev_port_t dev_port,
                                        bf_an_page_sel_t page_selector,
@@ -1173,6 +1193,17 @@ bf_status_t bf_port_tof3_fec_status_get(bf_dev_id_t dev_id,
 bf_status_t bf_port_tof3_tmac_reset_set(bf_dev_id_t dev_id,
                                         bf_dev_port_t dev_port,
                                         uint32_t val);
+bf_status_t bf_port_an_lt_start_time_set(bf_dev_id_t dev_id,
+                                         bf_dev_port_t dev_port);
+bf_status_t bf_port_an_lt_dur_set(bf_dev_id_t dev_id, bf_dev_port_t dev_port);
+bf_status_t bf_port_an_lt_stats_get(bf_dev_id_t dev_id,
+                                    bf_dev_port_t dev_port,
+                                    uint64_t *an_lt_dur_us,
+                                    uint32_t *an_try_cnt);
+bf_status_t bf_port_an_try_inc(bf_dev_id_t dev_id, bf_dev_port_t dev_port);
+bf_status_t bf_port_an_lt_stats_init(bf_dev_id_t dev_id,
+                                     bf_dev_port_t dev_port,
+                                     bool init_all);
 bf_status_t bf_port_tof3_fec_lane_symb_err_counter_get(bf_dev_id_t dev_id,
                                                        bf_dev_port_t dev_port,
                                                        uint32_t n_ctrs,
@@ -1185,14 +1216,21 @@ bf_status_t bf_port_speed_to_an_speed_map(bf_dev_id_t dev_id,
 bf_status_t bf_port_fec_to_an_fec_map(bf_fec_type_t p_fec,
                                       bf_port_speed_t p_speed,
                                       bf_fec_types_t *fec_adv);
-bf_status_t bf_port_construct_an_advertisement(bf_dev_id_t dev_id,
-                                               bf_dev_port_t dev_port,
-                                               uint64_t *base_pg,
-                                               uint64_t *cons_np);
 bf_status_t bf_port_tof_serdes_temperature_get(bf_dev_id_t dev_id,
                                                uint8_t max_size,
                                                float *arr_temp,
                                                uint8_t *list_size);
+bf_status_t bf_port_check_port_int(void);
+bf_status_t bf_port_handle_port_int_notif(bf_dev_id_t dev_id);
+bf_status_t bf_port_hw_mac_stats_clear(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port);
+bf_status_t bf_port_serdes_sig_sts_get(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       bool *srds_sts);
+bf_status_t bf_port_oper_state_set_force_callbacks(bf_dev_id_t dev_id,
+                                                   bf_dev_port_t dev_port,
+                                                   int en);
+
 #ifdef __cplusplus
 }
 #endif /* C++ */

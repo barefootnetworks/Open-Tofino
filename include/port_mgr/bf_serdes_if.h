@@ -3545,6 +3545,82 @@ bf_status_t bf_serdes_calibration_status_get(bf_dev_id_t dev_id,
                                              int lane,
                                              bool *failed);
 
+/** @brief Get PLL Divider value for a given speed
+ *
+ * @param[in]  speed   : Port Speed
+ *
+ * @return PLL Divider value for the given speed
+ *
+ */
+uint8_t bf_serdes_pll_divider_get(bf_port_speed_t speed);
+
+/** @brief Get Data width for a given speed
+ *
+ * @param[in]  speed   : Port Speed
+ *
+ * @return Data Width for the given speed
+ *
+ */
+uint8_t bf_serdes_data_width_get(bf_port_speed_t speed);
+
+/** @brief Get PLL Divider based on PLL overclock config
+ *
+ * @param[in]  dev_id   : Device identifier
+ * @param[in]  dev_port : Port identifier
+ * @param[in]  pll_ovrclk  : PLL overlock percent
+ *
+ * @return Status of the API call
+ *
+ */
+uint32_t bf_serdes_get_pll_div(bf_dev_id_t dev_id,
+                               bf_dev_port_t dev_port,
+                               float pll_ovrclk);
+
+/** @brief Get PLL Overclocking config from HW
+ *
+ * @param[in]  dev_id   : Device identifier
+ * @param[in]  dev_port : Port identifier
+ * @param[in]  lane  : Logical lane (within port) 0-3, depending upon mode
+ * @param[out]  pll_ovrclk  : return pll overlock percent
+ *
+ * @return Status of the API call
+ *
+ */
+bf_status_t bf_serdes_pll_ovrclk_get_hw(bf_dev_id_t dev_id,
+                                        bf_dev_port_t dev_port,
+                                        int lane,
+                                        float *pll_ovrclk);
+
+/** @brief Get PLL Overclocking config
+ *
+ * @param[in]  dev_id   : Device identifier
+ * @param[in]  dev_port : Port identifier
+ * @param[in]  lane  : Logical lane (within port) 0-3, depending upon mode
+ * @param[out]  pll_ovrclk  : return pll overlock percent
+ *
+ * @return Status of the API call
+ *
+ */
+bf_status_t bf_serdes_pll_ovrclk_get(bf_dev_id_t dev_id,
+                                     bf_dev_port_t dev_port,
+                                     int lane,
+                                     float *pll_ovrclk);
+
+/** @brief Set PLL Overclocking config
+ *
+ * @param[in]  dev_id   : Device identifier
+ * @param[in]  dev_port : Port identifier
+ * @param[in]  lane  : Logical lane (within port) 0-3, depending upon mode
+ * @param[in]  pll_ovrclk  : pll overlock percent
+ *
+ * @return Status of the API call
+ *
+ */
+bf_status_t bf_serdes_pll_ovrclk_set(bf_dev_id_t dev_id,
+                                     bf_dev_port_t dev_port,
+                                     int lane,
+                                     float pll_ovrclk);
+
 #ifdef __cplusplus
 }
 #endif /* C++ */

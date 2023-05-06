@@ -256,6 +256,22 @@ bf_status_t bf_tm_port_flowcontrol_rx_set(bf_dev_id_t dev,
 bf_status_t bf_tm_port_pfc_cos_mapping_set(bf_dev_id_t dev,
                                            bf_dev_port_t port,
                                            uint8_t *cos_to_icos);
+/**
+ * @brief Set PFC state register for Port
+ *
+ * @param[in] dev        ASIC device identifier.
+ * @param[in] port       Port id
+ * @param[in] icos       iCOS (priority) PFC state bit number (0..7)
+ * @param[in] state      iCOS (priority) PFC state bit value (true - 1, false -
+ * 0)
+ * @return               Status of API call.
+ *  BF_SUCCESS on success
+ *  Non-Zero on error
+ */
+bf_status_t bf_tm_port_pfc_state_set(bf_dev_id_t dev,
+                                     bf_dev_port_t port,
+                                     bf_tm_icos_t icos,
+                                     bool state);
 
 /**
  * @brief Clear PFC state register for Port

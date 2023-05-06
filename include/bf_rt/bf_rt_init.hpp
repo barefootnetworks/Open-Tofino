@@ -112,6 +112,11 @@ class BfRtDevMgr {
   const BfRtDevMgrImpl *devMgrImpl() const { return dev_mgr_impl_.get(); }
   BfRtDevMgrImpl *devMgrImpl() { return dev_mgr_impl_.get(); }
 
+  friend bf_status_t bf_rt_virtual_device_add(
+      bf_dev_id_t dev_id,
+      bf_dev_type_t dev_type,
+      bf_device_profile_t *dev_profile,
+      bf_dev_init_mode_t warm_init_mode);
   friend bf_status_t bf_rt_device_add(bf_dev_id_t dev_id,
                                       bf_dev_family_t dev_family,
                                       bf_device_profile_t *dev_profile,

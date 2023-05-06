@@ -65,6 +65,7 @@ typedef struct bf_device_profile {
   serdes_fw_profile_t sds_prof;
   microp_fw_profile_t microp_prof;
   char *bfrt_non_p4_json_dir_path;  // bfrt fixed feature info json files path
+  char *tdi_non_p4_json_dir_path;   //  tdi fixed feature info json files path
 } bf_device_profile_t;
 
 /* @} */

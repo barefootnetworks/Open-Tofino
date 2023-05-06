@@ -1028,7 +1028,7 @@
               "id": 1,
               "name": "green_limit_cells",
               "repeated": false,
-              "mandatory": true,
+              "mandatory": false,
               "annotations": [],
               "type": {
                 "type": "uint32"
@@ -1038,7 +1038,7 @@
               "id": 2,
               "name": "yellow_limit_cells",
               "repeated": false,
-              "mandatory": true,
+              "mandatory": false,
               "annotations": [],
               "type": {
                 "type": "uint32"
@@ -1048,7 +1048,7 @@
               "id": 3,
               "name": "red_limit_cells",
               "repeated": false,
-              "mandatory": true,
+              "mandatory": false,
               "annotations": [],
               "type": {
                 "type": "uint32"
@@ -2953,9 +2953,29 @@
         },
         {
           "mandatory": false,
-          "read_only": false,
+          "read_only": true,
           "singleton": {
             "id": 8,
+            "name": "scheduling_speed",
+            "description": "The queue scheduling speed capability. 'BF_SPEED_NONE' while the queue's port is not serving for PM port or the queue is not mapped.",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices": [
+                "BF_SPEED_NONE",
+                "BF_SPEED_50G",
+                "BF_SPEED_100G",
+                "BF_SPEED_200G",
+                "BF_SPEED_400G"
+              ]
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 9,
             "name": "pg_l1_node",
             "description": "L1 Node this Queeue is associated to as a child node. The L1 Node must be already assigned to a Port at the same Port Group as the Queue, and it remains in use while it has at least one scheduled child Queue. This value to be used together with this queue port group id (pg_id) as a key field for TM L1 Node object to access its parameters.",
             "repeated": false,
@@ -5061,6 +5081,32 @@
             "repeated": false,
             "type": {
               "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "ig_buffer_limit_cells",
+            "description": "Global ingress buffer limit (in cells) if it is enabled with ig_buffer_limit_enable.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 5,
+            "name": "ig_buffer_limit_enable",
+            "description": "Enables or disables the global ingress buffer limit ig_buffer_limit_cells.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
             }
           }
         }

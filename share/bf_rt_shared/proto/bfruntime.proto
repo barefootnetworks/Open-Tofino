@@ -106,6 +106,7 @@ message Update {
     MODIFY_INC = 3;
     DELETE = 4;
     INSERT_OR_MODIFY = 5;
+    RESET = 6;
   }
 
   Type type = 1;
@@ -253,6 +254,7 @@ message TableFlags {
  bool key_only = 2;
  bool mod_del = 3;
  bool reset_ttl = 4;
+ bool reset_stats = 5;
 }
 
 // Deprecated, please use TableFlags
