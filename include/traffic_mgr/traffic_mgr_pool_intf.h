@@ -201,17 +201,22 @@ bf_status_t bf_tm_pool_skid_hysteresis_set(bf_dev_id_t dev, uint32_t cells);
 
 /**
  * @brief bf_tm_pre_fifo_limit_set
- * Set pre fifo limit in units of cells.
+ * Set per pipe per FIFO limit in units of cells.
  *
  * Default : 0xc0
  *
  * @param[in] dev        ASIC device identifier.
+ * @param[in] pipe       Pipe identifier.
+ * @param[in] fifo       FIFO identifier.
  * @param[in] cells      New size.
  * @return               Status of API call.
  *  BF_SUCCESS on success
  *  Non-Zero on error
  */
-bf_status_t bf_tm_pre_fifo_limit_set(bf_dev_id_t dev, uint32_t cells);
+bf_status_t bf_tm_pre_fifo_limit_set(bf_dev_id_t dev,
+                                     bf_dev_pipe_t pipe,
+                                     uint8_t fifo,
+                                     uint32_t cells);
 
 /**
  * @brief bf_tm_global_min_limit_set

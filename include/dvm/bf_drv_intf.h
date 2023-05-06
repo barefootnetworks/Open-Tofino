@@ -410,6 +410,21 @@ bf_status_t bf_port_get_default_lane_numb(bf_dev_id_t dev_id,
                                           uint32_t *lane_numb);
 
 /**
+ * @brief Get the number of lanes and speed configured on a port.
+ *
+ * @param[in] dev_id The ASIC id.
+ * @param[in] dev_port The ASIC port id.
+ * @param[out] speed configured on the port
+ * @param[out] lane_numb configured
+ *
+ * @return Status of the API call.
+ */
+bf_status_t bf_port_info_get(bf_dev_id_t dev_id,
+                             bf_dev_port_t port,
+                             bf_port_speed_t *speed,
+                             uint32_t *lane_numb);
+
+/**
  * @brief Remove a port from a device.
  *
  * @param[in] dev_id The ASIC id.
@@ -948,6 +963,7 @@ typedef struct bf_drv_client_callbacks_s {
 
   /* Fast reconfig callbacks */
   bf_drv_rcfg_step_cb lock;
+  bf_drv_rcfg_step_cb wait_for_swcfg_replay_end;
   bf_drv_rcfg_step_cb create_dma;
   bf_drv_rcfg_step_cb disable_input_pkts;
   bf_drv_rcfg_step_cb wait_for_flush;
@@ -960,6 +976,7 @@ typedef struct bf_drv_client_callbacks_s {
 
   /* Hitless Restart */
   bf_drv_ha_complete_hitless_hw_read_cb complete_hitless_hw_read;
+  bf_drv_rcfg_step_cb complete_hitless_swcfg_replay;
   bf_drv_ha_compute_delta_changes_cb compute_delta_changes;
   bf_drv_ha_push_delta_changes_cb push_delta_changes;
   bf_drv_ha_set_dev_type_virtual_dev_slave_cb device_mode_virtual_dev_slave;
@@ -1277,6 +1294,32 @@ bf_status_t bf_drv_lrt_dr_timeout_set(bf_dev_id_t dev_id, uint32_t timeout_ms);
  * @return Status of the API call
  */
 bf_status_t bf_drv_lrt_dr_timeout_get(bf_dev_id_t dev_id, uint32_t *timeout_ms);
+/*
+ * @brief Set the timeout (us) for the LRT descriptor ring timer
+ * This is amount of time hardware waits for before shipping the buffer to sw,
+ * hence this increases the utilization of these buffers by allowing hardware
+ * pack in more messages per buffer
+ *
+ * @param[in] dev_id The device id
+ * @param[in] timeout_us The timeout in microseconds for the timer
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_drv_lrt_dr_timeout_set_us(bf_dev_id_t dev_id,
+                                         uint32_t timeout_us);
+
+/*
+ * @brief Get the timeout (us) for the LRT descriptor ring
+ * timer
+ *
+ * This is amount of time hardware waits for before shipping the buffer to sw
+ * @param[in] dev_id The device id
+ * @param[out] timeout_us Pointer to return the timeout in microseconds
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_drv_lrt_dr_timeout_get_us(bf_dev_id_t dev_id,
+                                         uint32_t *timeout_us);
 
 /*
  * @brief This function is used to complete the port mode transition workaround

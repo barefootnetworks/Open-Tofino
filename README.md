@@ -51,5 +51,5 @@ FAQs
 </ul>
 
 **Q: How often is Open Tofino updated?** <br>
-*A: Open Tofino is updated every six months along with the LTS release of Intel Tofino SDE.* 
+*A: Next update of Open Tofino is expected to be a year from now along with next dot zero LTS SDE release* 
 

@@ -639,6 +639,36 @@ bf_status_t bf_pal_port_mtu_get(bf_dev_id_t dev_id,
                                 uint32_t *rx_mtu);
 
 /**
+ * @brief Get max supported MTU of device
+ * @param dev_id Device id
+ * @param max_mtu Maximum supported MTU
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_max_mtu_get(bf_dev_id_t dev_id, uint32_t *max_mtu);
+
+/**
+ * @brief Set PLL Overclock on a port
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param pll_ovrclk PLL Overclock config
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_pll_ovrclk_set(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       float pll_ovrclk);
+
+/**
+ * @brief Get PLL Overclocking config of a port
+ * @param dev_id Device id
+ * @param dev_port Device port number
+ * @param pll_ovrclk PLL Overclock config
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_pll_ovrclk_get(bf_dev_id_t dev_id,
+                                       bf_dev_port_t dev_port,
+                                       float *pll_ovrclk);
+
+/**
  * @brief Enable or Disable Per-COS Tx/Rx pause on a port(Note: Per Cos bitmap
  * is not supported by all devices, check bf_port_flow_control_pfc_set for
  * detailed  information)
@@ -698,7 +728,7 @@ bf_status_t bf_pal_port_flow_control_link_pause_get(bf_dev_id_t dev_id,
  */
 bf_status_t bf_pal_port_oper_state_get(bf_dev_id_t dev_id,
                                        bf_dev_port_t dev_port,
-                                       int *state);
+                                       bool *state);
 
 /**
  * @brief Check if port is valid
@@ -1139,6 +1169,29 @@ bf_status_t bf_pal_port_speed_with_lanes_set(bf_dev_id_t dev_id,
                                              bf_dev_port_t dev_port,
                                              bf_port_speed_t speed,
                                              uint32_t n_lanes);
+/**
+ * @brief Get the front panel port number
+ * @param dev_id Device id
+ * @param dev_port Corresponding dev port
+ * @param speed  Speed for the front port
+ * @return Status of the API call
+ */
+bool bf_pal_dev_port_speed_validate(bf_dev_id_t dev_id,
+                                    bf_dev_port_t dev_port,
+                                    bf_port_speed_t speed,
+                                    uint32_t n_lane,
+                                    bf_fec_type_t fec);
+
+/**
+ * @brief Get the default lane number
+ * @param dev_id Device id
+ * @param Speed Speed of the port
+ * @param lane_number Number of lanes
+ * @return Status of the API call
+ */
+bf_status_t bf_pal_port_get_default_lane_numb(bf_dev_id_t dev_id,
+                                              bf_port_speed_t speed,
+                                              uint32_t *lane_numb);
 
 /**
 
@@ -1171,4 +1224,13 @@ bf_status_t bf_pal_get_serdes_mode(bf_dev_id_t dev_id,
 bf_status_t bf_pal_port_pkt_rate_get(bf_dev_id_t dev_id,
                                      bf_dev_port_t dev_port,
                                      bf_pkt_rate_t *pkt_rate);
+/**
+ * @brief Check the given port is a special port or not
+ * @param[in] dev_id Device id
+ * @param[in] dev_port Device port number
+ * @return Status of the API call
+ */
+
+bf_status_t bf_pal_is_special_port(bf_dev_id_t dev_id, bf_dev_port_t dev_port);
+
 #endif

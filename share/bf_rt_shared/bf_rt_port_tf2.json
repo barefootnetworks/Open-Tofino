@@ -159,7 +159,8 @@
                 "BF_LPBK_MAC_FAR",
                 "BF_LPBK_PCS_NEAR",
                 "BF_LPBK_SERDES_NEAR",
-                "BF_LPBK_SERDES_FAR"
+                "BF_LPBK_SERDES_FAR",
+                "BF_LPBK_PIPE"
               ]
             }
           }
@@ -321,7 +322,7 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "string",
+              "type": "int32",
               "default_value": "0"
             }
           }
@@ -335,7 +336,7 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "string",
+              "type": "int32",
               "default_value": "0"
             }
           }
@@ -349,7 +350,7 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "string",
+              "type": "int32",
               "default_value": "0"
             }
           }
@@ -363,7 +364,7 @@
             "repeated": false,
             "annotations": [],
             "type": {
-              "type": "string",
+              "type": "int32",
               "default_value": "0"
             }
           }
@@ -540,6 +541,20 @@
             "annotations": [],
             "type": {
               "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 33,
+            "name": "$PLL_OVRCLK",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "float",
+              "default_value": 0
             }
           }
         }

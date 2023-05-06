@@ -50,7 +50,7 @@
           "read_only": true,
           "singleton": {
             "id": 3,
-            "name": "num_max_ports",
+            "name": "num_stages",
             "repeated": false,
             "annotations": [],
             "type": {
@@ -63,7 +63,7 @@
           "read_only": true,
           "singleton": {
             "id": 4,
-            "name": "num_front_ports",
+            "name": "num_max_ports",
             "repeated": false,
             "annotations": [],
             "type": {
@@ -76,7 +76,7 @@
           "read_only": true,
           "singleton": {
             "id": 5,
-            "name": "pcie_cpu_port",
+            "name": "num_front_ports",
             "repeated": false,
             "annotations": [],
             "type": {
@@ -89,6 +89,19 @@
           "read_only": true,
           "singleton": {
             "id": 6,
+            "name": "pcie_cpu_port",
+            "repeated": false,
+            "annotations": [],
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": true,
+          "singleton": {
+            "id": 7,
             "name": "eth_cpu_port_list",
             "repeated": true,
             "annotations": [],
@@ -101,7 +114,7 @@
           "mandatory": false,
           "read_only": true,
           "singleton": {
-            "id": 7,
+            "id": 8,
             "name": "internal_port_list",
             "repeated": true,
             "annotations": [],
@@ -114,7 +127,7 @@
           "mandatory": false,
           "read_only": true,
           "singleton": {
-            "id": 8,
+            "id": 9,
             "name": "external_port_list",
             "repeated": true,
             "annotations": [],
@@ -127,7 +140,7 @@
           "mandatory": false,
           "read_only": true,
           "singleton": {
-            "id": 9,
+            "id": 10,
             "name": "recirc_port_list",
             "repeated": true,
             "annotations": [],
@@ -140,7 +153,7 @@
           "mandatory": false,
           "read_only": true,
           "singleton": {
-            "id": 10,
+            "id": 11,
             "name": "intr_based_link_monitoring",
             "repeated": false,
             "annotations": [],
@@ -153,7 +166,7 @@
           "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 11,
+            "id": 12,
             "name": "flow_learn_intr_mode",
             "repeated": false,
             "annotations": [],
@@ -167,8 +180,8 @@
           "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 12,
-            "name": "lrt_dr_timeout_msec",
+            "id": 13,
+            "name": "lrt_dr_timeout_usec",
             "repeated": false,
             "annotations": [],
             "type": {
@@ -181,7 +194,7 @@
           "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 13,
+            "id": 14,
             "name": "flow_learn_timeout_usec",
             "repeated": false,
             "annotations": [],
@@ -195,7 +208,7 @@
           "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 14,
+            "id": 15,
             "name": "inactive_node_delete",
             "repeated": false,
             "annotations": [],
@@ -209,7 +222,7 @@
           "mandatory": false,
           "read_only": false,
           "singleton": {
-            "id": 15,
+            "id": 16,
             "name": "selector_member_order",
             "repeated": false,
             "annotations": [],

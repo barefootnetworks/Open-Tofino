@@ -78,8 +78,36 @@ typedef enum bf_port_speed_e {
   BF_SPEED_40G_R2 = (1 << 9),    /* 40G 2x20G NRZ, Non-standard speed */
   BF_SPEED_50G_CONS = (1 << 10), /* 50G 2x25G NRZ, Consortium mode */
   BF_SPEED_800G = (1 << 11),
-
 } bf_port_speed_t;
+static inline const char *bf_port_speed_str(bf_port_speed_t e) {
+  switch (e) {
+    case BF_SPEED_NONE:
+      return "None";
+    case BF_SPEED_1G:
+      return "1G";
+    case BF_SPEED_10G:
+      return "10G";
+    case BF_SPEED_25G:
+      return "25G";
+    case BF_SPEED_40G:
+      return "40G";
+    case BF_SPEED_50G:
+      return "50G";
+    case BF_SPEED_100G:
+      return "100G";
+    case BF_SPEED_200G:
+      return "200G";
+    case BF_SPEED_400G:
+      return "400G";
+    case BF_SPEED_40G_R2:
+      return "40G-R2";
+    case BF_SPEED_50G_CONS:
+      return "50G-Cons";
+    case BF_SPEED_800G:
+      return "800G";
+  }
+  return "Unknown";
+}
 typedef uint32_t bf_port_speeds_t;
 
 /* Type definition for serdes mode */
@@ -297,6 +325,7 @@ static inline const char *pipe_mgr_dev_type2str(bf_dev_type_t dev_type) {
 typedef enum bf_dev_family_t {
   BF_DEV_FAMILY_TOFINO,
   BF_DEV_FAMILY_TOFINO2,
+  BF_DEV_FAMILY_TOFINO3,
 
   BF_DEV_FAMILY_UNKNOWN,
 } bf_dev_family_t;
@@ -307,6 +336,9 @@ static inline const char *bf_dev_family_str(bf_dev_family_t fam) {
       return "Tofino";
     case BF_DEV_FAMILY_TOFINO2:
       return "Tofino2";
+    case BF_DEV_FAMILY_TOFINO3:
+      return "Tofino3";
+
 
     case BF_DEV_FAMILY_UNKNOWN:
       return "Unknown";
@@ -322,6 +354,10 @@ static inline bool bf_is_dev_type_family_tofino2(bf_dev_type_t t) {
   return t >= BF_DEV_BFNT20128Q && t <= BF_DEV_BFNT20064D;
 }
 
+static inline bool bf_is_dev_type_family_tofino3(bf_dev_type_t t) {
+  return t >= BF_DEV_BFNT31_12Q && t <= BF_DEV_BFNT32_25QH;
+}
+
 
 
 
@@ -329,6 +365,7 @@ static inline bool bf_is_dev_type_family_tofino2(bf_dev_type_t t) {
 static inline bf_dev_family_t bf_dev_type_to_family(bf_dev_type_t t) {
   if (bf_is_dev_type_family_tofino(t)) return BF_DEV_FAMILY_TOFINO;
   if (bf_is_dev_type_family_tofino2(t)) return BF_DEV_FAMILY_TOFINO2;
+  if (bf_is_dev_type_family_tofino3(t)) return BF_DEV_FAMILY_TOFINO3;
 
   return BF_DEV_FAMILY_UNKNOWN;
 }

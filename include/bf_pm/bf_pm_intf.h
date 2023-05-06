@@ -1334,6 +1334,15 @@ bool bf_pm_intf_is_device_family_tofino2(bf_dev_id_t dev_id);
 bool bf_pm_intf_is_device_family_tofino(bf_dev_id_t dev_id);
 
 /**
+ * @brief Given a dev id, return true if it tofino3
+ *
+ * @param dev_id Device id
+ *
+ * @return True if device-family is tofino3
+ */
+bool bf_pm_intf_is_device_family_tofino3(bf_dev_id_t dev_id);
+
+/**
  * @brief Sets the serdes rx and tx polarity
  *
  * @param dev_id Device id
@@ -1367,6 +1376,28 @@ bf_status_t bf_pm_port_serdes_polarity_set(
  * @return Status of the API call
  */
 bf_status_t bf_pm_port_serdes_tx_eq_params_set(
+    bf_dev_id_t dev_id,
+    bf_pal_front_port_handle_t *port_hdl,
+    uint32_t num_entries,
+    bf_pal_serdes_tx_eq_params_t *serdes_tx_eq);
+
+/**
+ * @brief Gets the serdes TX params
+ *
+ * @param dev_id Device id
+ * @param port_hdl Front panel port number
+ * @param num_entries Sizeof serdes_tx_eq
+ * @param serdes_tx_eq Pointer to bf_pal_serdes_tx_params_t array
+ *
+ * @note  bf_pal_serdes_tx_params_t is a Union and is chip dependant
+ *        See bf_pal_serdes_tx_eq_params_t for chips supported.
+ *
+ * @note  API not valid for Tofino
+ *
+ * @return Status of the API call
+ */
+
+bf_status_t bf_pm_port_serdes_tx_eq_params_get(
     bf_dev_id_t dev_id,
     bf_pal_front_port_handle_t *port_hdl,
     uint32_t num_entries,
@@ -1746,4 +1777,13 @@ bf_status_t bf_pm_port_multi_serdes_polarity_set(
     bf_dev_id_t dev_id, bf_pal_front_port_handle_t *port_hdl);
 
 void bf_pm_fsm_queues_init(void);
+
+bf_status_t bf_pm_port_pll_ovrclk_get(bf_dev_id_t dev_id,
+                                      bf_pal_front_port_handle_t *port_hdl,
+                                      float *pll_ovrclk);
+bf_status_t bf_pm_port_pll_ovrclk_set(bf_dev_id_t dev_id,
+                                      bf_pal_front_port_handle_t *port_hdl,
+                                      float pll_ovrclk);
+void bf_pm_set_dfe_retry_time(uint32_t wait_ms);
+uint32_t bf_pm_get_dfe_retry_time(void);
 #endif

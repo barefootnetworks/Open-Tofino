@@ -351,6 +351,23 @@ bf_status_t bf_rt_table_entry_del(const bf_rt_table_hdl *table_hdl,
                                   const bf_rt_table_key_hdl *key);
 
 /**
+ * @brief Reset an entry of the table to default value
+ *
+ * @param[in] table_hdl Table object
+ * @param[in] session Session Object
+ * @param[in] dev_tgt Device target
+ * @param[in] flags Call flags
+ * @param[in] key Entry Key
+ *
+ * @return Status of the API call
+ */
+bf_status_t bf_rt_table_entry_reset(const bf_rt_table_hdl *table_hdl,
+                                    const bf_rt_session_hdl *session,
+                                    const bf_rt_target_t *dev_tgt,
+                                    const uint64_t flags,
+                                    const bf_rt_table_key_hdl *key);
+
+/**
  * @brief Clear a table. Delete all entries. This API also resets default
  * entry if present and is not const default. If table has always present
  * entries like Counter table, then this table resets all the entries

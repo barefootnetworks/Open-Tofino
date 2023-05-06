@@ -733,4 +733,56 @@ p4_pd_status_t p4_pd_flow_lrn_get_intr_mode(p4_pd_sess_hdl_t sess_hdl,
                                             bf_dev_id_t dev,
                                             bool *en);
 
+/*
+ * Reprogram the GFM with the provided data patterns, the row parity will be
+ * set to good (even) parity unless the row is marked for bad parity by the
+ * caller.
+ * @param  sess_hdl         Session handle
+ * @param  dev_tgt          Target device and pipe(s)
+ * @param  pipe_api_flags   Flags for the API, e.g. sychronous
+ * @param  gress            Gress to be used when creating wide bubbles for
+ *                          atomic GFM updates
+ * @param  stage_id         Stage to update or 0xFF for all stages
+ * @param  num_patterns     Number of entries in the row_patterns array
+ * @param  row_patterns     Pointer to an array of data patterns to program.
+ *                          The patterns will be applied to each row of the GFM,
+ *                          the pattern used for any given row is given by
+ *                          row_patterns[ row_num MOD num_patterns ]
+ * @param  row_bad_parity   Pointer to an array of 16 u64s, any set bits
+ *                          indicate the corresponding row should have bad
+ *                          parity.
+ * @return                  Status of the API call
+ */
+p4_pd_status_t p4_pd_gfm_test_pattern_set(p4_pd_sess_hdl_t sess_hdl,
+                                          p4_pd_dev_target_t dev_tgt,
+                                          uint32_t pipe_api_flags,
+                                          bf_dev_direction_t gress,
+                                          dev_stage_t stage_id,
+                                          int num_patterns,
+                                          uint64_t *row_patterns,
+                                          uint64_t *row_bad_parity);
+
+/*
+ * Reprogram one GFM column (all 1024 rows) with the data provided.  This may
+ * be used to atomically flip between good and bad parity for all 1024 rows of
+ * GFM.
+ * @param  shdl             Session handle
+ * @param  dev_tgt          Target device and pipe(s)
+ * @param  pipe_api_flags   Flags for the API, e.g. sychronous
+ * @param  gress            Gress to be used when creating wide bubbles for
+ *                          atomic GFM updates
+ * @param  stage_id         Stage to update or 0xFF for all stages
+ * @param  column           The column to reprogram, 0..51
+ * @param  col_data         An array of 1024 bits given as 64 u16 values.  This
+ *                          carries the data to program in the specified column
+ *                          for all 1024 rows.
+ * @return                  Status of the API call
+ */
+pipe_status_t p4_pd_gfm_test_col_set(p4_pd_sess_hdl_t shdl,
+                                     p4_pd_dev_target_t dev_tgt,
+                                     uint32_t pipe_api_flags,
+                                     bf_dev_direction_t gress,
+                                     dev_stage_t stage_id,
+                                     int column,
+                                     uint16_t col_data[64]);
 #endif

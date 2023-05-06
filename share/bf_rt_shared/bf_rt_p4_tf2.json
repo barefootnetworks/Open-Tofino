@@ -3742,7 +3742,8 @@
                 "TBL_HIT",
                 "GW_TBL_MISS",
                 "GW_TBL_HIT",
-                "GW_TBL_INHIBIT"
+                "GW_TBL_INHIBIT",
+                "UNUSED"
               ],
               "default_value": "TBL_HIT"
             }
