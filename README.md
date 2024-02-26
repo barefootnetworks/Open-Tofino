@@ -51,5 +51,5 @@ FAQs
 </ul>
 
 **Q: How often is Open Tofino updated?** <br>
-*A: Next update of Open Tofino is expected to be a year from now along with next dot zero LTS SDE release* 
+*A: Next update of Open Tofino will be on a need basis* 
 
